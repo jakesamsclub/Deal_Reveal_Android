@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dealreveal">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DealReveal">
+        <activity android:name=".Activites.UserSavedDealsActivity"></activity>
+        <activity android:name=".Activites.DealRevealUserActivity" />
+        <activity android:name=".Activites.DealRevealfilterActivity" />
+        <activity android:name=".Activites.client.ClientsettingsActivity" />
+        <activity android:name=".Activites.DealCollectionViewActivity" />
+        <activity android:name=".Activites.RejectDealReasonActivity" />
+        <activity android:name=".Activites.PendingapprovalActivity" />
+        <activity android:name=".Activites.DealRevealActivity" />
+        <activity android:name=".Activites.PostNewDealInfoActivity" />
+        <activity android:name=".Activites.client.InitalpostnewdealActivity" />
+        <activity android:name=".Activites.ForgotpasswordActivity" />
+        <activity android:name=".Activites.client.BusinessSigninActivity" />
+        <activity android:name=".Activites.possibleclient3Activity" />
+        <activity android:name=".Activites.admins.possibleclient2Activity" />
+        <activity android:name=".Activites.admins.PossibleClient1Activity" />
+        <activity android:name=".Activites.admins.ApprovedealsActivity" />
+        <activity android:name=".Activites.AdminApproveClients" />
+        <activity
+            android:name=".Activites.TabbarActivity"
+            android:label="@string/title_activity_tabbar" />
+        <activity android:name=".Activites.admins.AdminhomeActivity" />
+        <activity android:name=".Activites.AdminHomeActivity" />
+        <activity android:name=".Activites.admins.AdminloginActivity" />
+        <activity android:name=".Activites.HodorActivity" />
+        <activity android:name=".Activites.FinalBusinessSignupActivity" />
+        <activity android:name=".Activites.client.BusinessSignup3Activity" />
+        <activity android:name=".Activites.client.BusinessSignup2Activity" />
+        <activity android:name=".Activites.client.BusinessSignup1Activity" />
+        <activity android:name=".Activites.SigninActivity" />
+        <activity android:name=".Activites.UsersignupsecondActivity" />
+        <activity android:name=".Activites.UserSignUpActivity" />
+        <activity android:name=".Activites.HelpOverviewActivity" />
+        <activity android:name=".Activites.Signup1Activity" />
+        <activity android:name=".Activites.HelpReminderActivity" />
+        <activity
+            android:name=".Activites.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Activites.Startscreen" />
+        <activity
+            android:name=".Activites.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+            <!-- android:theme="@style/AppTheme" -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            >
+        </activity>
+    </application>
+
+</manifest>

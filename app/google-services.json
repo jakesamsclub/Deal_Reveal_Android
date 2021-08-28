@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "465300085438",
+    "firebase_url": "https://deal-reveal-61707.firebaseio.com",
+    "project_id": "deal-reveal-61707",
+    "storage_bucket": "deal-reveal-61707.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465300085438:android:aaf380538f5b56addd5cef",
+        "android_client_info": {
+          "package_name": "com.example.dealreveal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465300085438-rv4vg57c7kf7pr9kt4g8v0ims823ujq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dealreveal",
+            "certificate_hash": "1de3ed58efd9f6c8ac2c29189662ec684b9fe9b8"
+          }
+        },
+        {
+          "client_id": "465300085438-dfbu75vsfjc3f1nri9j59cl5bk0v2tuu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC-lmosTAYtOgnSHLaC5kI7qjjrqweL3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465300085438-dfbu75vsfjc3f1nri9j59cl5bk0v2tuu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "465300085438-6eb9nrf4p80p3oo6scbsu3snjobhj575.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Puppeteer.Food-Swipe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

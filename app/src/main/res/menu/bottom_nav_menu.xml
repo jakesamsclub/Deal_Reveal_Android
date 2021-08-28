@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/client"
+        android:title="New Clients"
+        android:icon="@drawable/ic_baseline_add_business_24"
+        />
+    <item android:id="@+id/deal"
+        android:title="New Deals"
+        android:icon="@drawable/ic_baseline_add_alert_24"
+        />
+    <item android:id="@+id/liar"
+        android:title="Liars"
+        android:icon="@drawable/ic_baseline_add_alert_24"
+        />
+    <item android:id="@+id/update"
+        android:title="Update Info"
+        android:icon="@drawable/ic_baseline_update_24"
+        />
+</menu>
