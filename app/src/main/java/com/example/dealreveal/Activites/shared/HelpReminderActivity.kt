@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.shared
 
 
 import android.animation.ObjectAnimator
@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.client.BusinessSignup1Activity
+import com.example.dealreveal.Activites.users.UserSignUpActivity
 import com.example.dealreveal.R
 
 

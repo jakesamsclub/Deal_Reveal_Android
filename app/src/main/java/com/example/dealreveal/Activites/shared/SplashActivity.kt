@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.shared
 
 import android.content.Intent
 import android.os.Build
@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         @Suppress("DEPRECATION")
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                startActivity(Intent(this@SplashActivity, Startscreen::class.java))
+                startActivity(Intent(this@SplashActivity,Startscreen::class.java))
                 finish()
             },
             2500

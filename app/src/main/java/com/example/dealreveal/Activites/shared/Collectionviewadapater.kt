@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.R
 import com.google.android.material.imageview.ShapeableImageView
 import java.net.URL

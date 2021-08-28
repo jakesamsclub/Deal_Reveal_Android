@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.*
+import com.example.dealreveal.Activites.shared.DealRevealActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
+import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.R
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions

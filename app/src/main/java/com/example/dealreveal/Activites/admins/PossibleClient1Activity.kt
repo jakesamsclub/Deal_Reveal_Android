@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.dealreveal.Activites.HelpOverviewActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 
 class PossibleClient1Activity : AppCompatActivity() {

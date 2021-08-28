@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.client
 
 data class Client(
     var Beverage : Int = 0,

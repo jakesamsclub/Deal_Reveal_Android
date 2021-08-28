@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.client
 
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
+import com.example.dealreveal.Activites.shared.DealRevealActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_admin_approve_clients.*

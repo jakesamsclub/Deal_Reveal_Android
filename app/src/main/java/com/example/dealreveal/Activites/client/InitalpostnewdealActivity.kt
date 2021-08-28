@@ -10,8 +10,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dealreveal.Activites.*
+import com.example.dealreveal.Activites.DealCollectionViewActivity
+import com.example.dealreveal.Activites.PendingapprovalActivity
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_admin_approve_clients.*

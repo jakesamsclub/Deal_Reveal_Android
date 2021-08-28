@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
 import com.example.dealreveal.Activites.admins.PossibleClient1Activity
 import com.example.dealreveal.Activites.client.NewClients
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions

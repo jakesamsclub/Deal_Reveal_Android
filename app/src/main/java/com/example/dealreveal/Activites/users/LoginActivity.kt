@@ -1,10 +1,12 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.users
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
+import com.example.dealreveal.Activites.shared.Startscreen
 import com.example.dealreveal.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*

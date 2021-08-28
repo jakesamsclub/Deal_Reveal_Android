@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.client
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
+import com.example.dealreveal.Activites.shared.Startscreen
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.shared
 
 
 import android.Manifest
@@ -18,9 +18,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.dealreveal.Activites.admins.HodorActivity
 import com.example.dealreveal.Activites.client.BusinessSigninActivity
+import com.example.dealreveal.Activites.users.DealRevealfilterActivity
+import com.example.dealreveal.Activites.users.LoginActivity
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
+
 
 var userlong = ""
 var userlat = ""

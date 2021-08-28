@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.dealreveal.Activites.shared.Pendingapproval
+import com.example.dealreveal.Activites.users.DealRevealUserActivity
 import com.example.dealreveal.R
 import com.google.android.material.imageview.ShapeableImageView
 
-class CustomAdapter(private val mList: List<Pendingapproval>,private val lat: String,private val long: String) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val mList: List<Pendingapproval>, private val lat: String, private val long: String) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

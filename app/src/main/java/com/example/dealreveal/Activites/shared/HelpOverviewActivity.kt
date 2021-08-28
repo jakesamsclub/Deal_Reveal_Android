@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.shared
 
 import android.os.Bundle
 import android.widget.ImageView

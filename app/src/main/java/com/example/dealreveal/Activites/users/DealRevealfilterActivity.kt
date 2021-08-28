@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.users
 
 import android.Manifest
 import android.app.TimePickerDialog
@@ -17,8 +17,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dealreveal.Activites.CustomAdapter
+import com.example.dealreveal.Activites.shared.Pendingapproval
+import com.example.dealreveal.Activites.PendingapprovalActivity
+import com.example.dealreveal.Activites.UserSavedDealsActivity
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
 import com.example.dealreveal.Activites.client.ClientsettingsActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation

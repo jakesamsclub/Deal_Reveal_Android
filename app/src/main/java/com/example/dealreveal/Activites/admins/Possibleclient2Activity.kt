@@ -6,8 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dealreveal.Activites.HelpOverviewActivity
-import com.example.dealreveal.Activites.possibleclient3Activity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 
 class possibleclient2Activity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.shared
 
 data class Pendingapproval(
     var Address : String = "",

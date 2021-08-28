@@ -1,4 +1,4 @@
-package com.example.dealreveal.Activites
+package com.example.dealreveal.Activites.shared
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.example.dealreveal.Activites.client.Client
 import com.example.dealreveal.R
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
