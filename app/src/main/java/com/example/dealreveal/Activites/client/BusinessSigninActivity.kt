@@ -36,7 +36,7 @@ class BusinessSigninActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d("test", "signInWithEmail:success")
+                        Log.d("tes", "signInWithEmail:success")
                         val intent = Intent(this, InitalpostnewdealActivity::class.java)
                         startActivity(intent)
 
