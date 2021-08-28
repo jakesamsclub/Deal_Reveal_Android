@@ -18,12 +18,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealreveal.Activites.CustomAdapter
-import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.PendingapprovalActivity
 import com.example.dealreveal.Activites.UserSavedDealsActivity
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
 import com.example.dealreveal.Activites.client.ClientsettingsActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
+import com.example.dealreveal.Activites.shared.Pendingapproval
+import com.example.dealreveal.Activites.shared.userlat
+import com.example.dealreveal.Activites.shared.userlong
 import com.example.dealreveal.R
 import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
@@ -45,8 +47,6 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
     val daytype: ArrayList<String> = ArrayList()
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
-    var long = ""
-    var lat = ""
     var distance = "15"
     var day = ""
     var Category = "Deals1"
@@ -67,7 +67,16 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
         headerandbottom()
         spinnersetup()
+        getLocationsafetycheck()
 
+    }
+    fun getLocationsafetycheck(){
+        if (userlat == ""){
+            getLocation()
+        }
+        if (userlat != ""){
+            getrange()
+        }
     }
 
 
@@ -79,12 +88,10 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
     }
     override fun onLocationChanged(location: Location) {
-        long= location.longitude.toString()
-        lat = location.latitude.toString()
+        userlong= location.longitude.toString()
+        userlat = location.latitude.toString()
         setfiltervariables()
         //getUserdata()
-        Log.e("Object", long)
-        Log.e("Object", lat)
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == locationPermissionCode) {
@@ -240,12 +247,12 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             data.clear()
             keys.clear()
             daytype.clear()
-            newRecyclerView = findViewById(R.id.recyclerviewfilter)
-            newRecyclerView.layoutManager = LinearLayoutManager(this)
-            newRecyclerView.setHasFixedSize(true)
-            val adapter = CustomAdapter(data, lat, long)
-            newRecyclerView.adapter = adapter
-            getLocation()
+//           newRecyclerView = findViewById(R.id.recyclerviewfilter)
+//            newRecyclerView.layoutManager = LinearLayoutManager(this)
+//            newRecyclerView.setHasFixedSize(true)
+//            val adapter = CustomAdapter(data, userlat, userlong)
+//            newRecyclerView.adapter = adapter
+            setfiltervariables()
         }
     }
 
@@ -399,7 +406,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             FirebaseDatabase.getInstance().getReference(Category)
         val geoFire = GeoFire(ref)
 
-        val geoQuery = geoFire.queryAtLocation(GeoLocation(lat.toDouble(), long.toDouble()), distance.toDouble())
+        val geoQuery = geoFire.queryAtLocation(GeoLocation(userlat.toDouble(), userlong.toDouble()), distance.toDouble())
 
         geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
             override fun onKeyEntered(key: String, location: GeoLocation) {
@@ -466,7 +473,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                                         Log.e("Object", myObject?.Address.toString())
                                         data.add(myObject!!)
                                         Log.d("TAG", data.size.toString())
-                                        val adapter = CustomAdapter(data, lat, long)
+                                        val adapter = CustomAdapter(data, userlat, userlong)
                                         newRecyclerView.adapter = adapter
                                     }
                                 }
@@ -479,7 +486,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                             //check loop completion and update adapter screen
                             i++
                             if(i == (keys.size)){
-                                val adapter = CustomAdapter(data,lat,long)
+                                val adapter = CustomAdapter(data,userlat,userlong)
                                 newRecyclerView.adapter = adapter
                             }
 
@@ -519,7 +526,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
 
                         data.add(myObject!!)
                         Log.d("TAG", data.size.toString())
-                        val adapter = CustomAdapter(data, lat, long)
+                        val adapter = CustomAdapter(data, userlat, userlong)
                         newRecyclerView.adapter = adapter
                     }
                 }
@@ -533,7 +540,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             //check loop completion and update adapter screen
             i++
             if(i == (keys.size)){
-                val adapter = CustomAdapter(data,lat,long)
+                val adapter = CustomAdapter(data,userlat,userlong)
                 newRecyclerView.adapter = adapter
             }
 
@@ -571,7 +578,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
 
                             data.add(myObject!!)
                             Log.d("TAG", data.size.toString())
-                            val adapter = CustomAdapter(data, lat, long)
+                            val adapter = CustomAdapter(data, userlat, userlong)
                             newRecyclerView.adapter = adapter
                         }
                     }
@@ -585,7 +592,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             //check loop completion and update adapter screen
             i++
             if(i == (keys.size)){
-                val adapter = CustomAdapter(data,lat,long)
+                val adapter = CustomAdapter(data,userlat,userlong)
                 newRecyclerView.adapter = adapter
             }
 

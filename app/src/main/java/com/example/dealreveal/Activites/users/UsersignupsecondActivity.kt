@@ -124,13 +124,15 @@ class UsersignupsecondActivity : AppCompatActivity() {
 
                     )
 
-                    db.collection("user1").document(currentuser.toString())
+                    db.collection("users1").document(currentuser.toString())
                         .set(user)
-                        .addOnSuccessListener { Log.d("NumberGenerated", "DocumentSnapshot successfully written!") }
+                        .addOnSuccessListener { Log.d("NumberGenerated", "DocumentSnapshot successfully written!")
+
+                            startActivity(Intent(applicationContext, DealRevealfilterActivity::class.java))
+                            finish()
+                        }
                         .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
 
-                    startActivity(Intent(applicationContext, Startscreen::class.java))
-                    finish()
 
 // ...
                 } else {

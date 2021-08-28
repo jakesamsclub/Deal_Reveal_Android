@@ -52,7 +52,16 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
         setContentView(R.layout.activity_user_saved_deals)
         headerandbottom()
         overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
-        getUserdata()
+        getLocationsafetycheck()
+
+    }
+    fun getLocationsafetycheck(){
+        if (userlat == ""){
+            getLocation()
+        }
+        if (userlat != ""){
+            getUserdata()
+        }
     }
 
     fun getLocation() {
@@ -67,6 +76,7 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
         userlat = location.latitude.toString()
         Log.e("Object", userlong)
         Log.e("Object", userlat)
+        getUserdata()
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == locationPermissionCode) {

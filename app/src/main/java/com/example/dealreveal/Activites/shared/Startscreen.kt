@@ -20,10 +20,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.dealreveal.Activites.admins.HodorActivity
 import com.example.dealreveal.Activites.client.BusinessSigninActivity
+import com.example.dealreveal.Activites.client.InitalpostnewdealActivity
 import com.example.dealreveal.Activites.users.DealRevealfilterActivity
 import com.example.dealreveal.Activites.users.LoginActivity
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 var userlong = ""
@@ -34,15 +36,48 @@ class Startscreen : AppCompatActivity(), LocationListener {
     private lateinit var auth: FirebaseAuth
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
+    val db = FirebaseFirestore.getInstance()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_startscreen)
         buttonsetup()
-        getLocation()
+        getLocationsafetycheck()
 
         }
+
+    fun loggedinuser() {
+
+        val currentuser = FirebaseAuth.getInstance().currentUser!!
+            .uid
+
+        val docRef = db.collection("users1").document(currentuser)
+        docRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                Log.d("nullcheck", documentSnapshot.data.toString())
+
+                if (documentSnapshot.data.toString() != "null") {
+                    val intent = Intent(this, DealRevealfilterActivity::class.java)
+                    startActivity(intent)
+                }
+                if (documentSnapshot.data.toString() == "null") {
+                    Log.d("nullcheck1", documentSnapshot.data.toString())
+                    Log.d("nullcheck1", currentuser)
+
+                    val docRef1 = db.collection("ClientsAccounts1").document(currentuser)
+                    docRef1.get().addOnSuccessListener { documentSnapshot1 ->
+
+                        if (documentSnapshot1.data.toString() != "null") {
+                            val intent = Intent(this, InitalpostnewdealActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                    }
+                }
+            }
+    }
     fun buttonsetup(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -52,13 +87,7 @@ class Startscreen : AppCompatActivity(), LocationListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        auth=FirebaseAuth.getInstance()
 
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-            val intent = Intent(this, DealRevealfilterActivity::class.java)
-            startActivity(intent)
-        }
 
         val button = findViewById<Button>(R.id.button2)
         button.setOnClickListener{
@@ -121,6 +150,11 @@ class Startscreen : AppCompatActivity(), LocationListener {
             } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+    fun getLocationsafetycheck(){
+        if (userlat == ""){
+            getLocation()
         }
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
@@ -153,42 +154,69 @@ class DealRevealUserActivity : AppCompatActivity() {
         title.setText("Post a New Deal")
     }
     fun savedeal() {
-        val currentDate: String =
-            SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(Date())
 
         val currentuser = FirebaseAuth.getInstance().currentUser!!
             .uid
-        val deal = hashMapOf(
-            "Address" to Address,
-            "CompanyURL" to CompanyURL,
-            "DayofDeal" to Dayofdealtext,
-            "EndTime" to Dealendtimetext,
-            "EndTimeNumber" to EndTimeNumber,
-            "Facebook" to Facebook,
-            "MealImageUrl" to MealImageUrl,
-            "PhoneNumber" to Phonenumber,
-            "RestaurantName" to RestaurantName,
-            "StartTime" to Dealstarttimetext,
-            "StartTimeNumber" to StartTimeNumber,
-            "Title" to Title,
-            "Yelp" to Yelp,
-            "category" to Category,
-            "date" to currentDate,
-            "description" to Description,
-            "latitude" to latitude,
-            "longitude" to longitude,
-            "price" to Price,
-            "resid" to resid,
-            "uid" to uid,
 
-            )
-        db.collection("SavedDeals1").document(currentuser).collection("Deals").document(uid).set(deal)
-            .addOnSuccessListener {
-                Log.d(
-                    "NumberGenerated",
-                    "DocumentSnapshot successfully written1! good job"
-                )
+        val docRef = db.collection("SavedDeals1").document(currentuser).collection("Deals").document(uid)
+        docRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                Log.d("nullcheck", documentSnapshot.data.toString())
+
+                if (documentSnapshot.data.toString() == "null"){
+                    Log.d("logIN", "LogIN")
+                    val currentDate: String =
+                        SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(Date())
+
+                    val deal = hashMapOf(
+                        "Address" to Address,
+                        "CompanyURL" to CompanyURL,
+                        "DayofDeal" to Dayofdealtext,
+                        "EndTime" to Dealendtimetext,
+                        "EndTimeNumber" to EndTimeNumber,
+                        "Facebook" to Facebook,
+                        "MealImageUrl" to MealImageUrl,
+                        "PhoneNumber" to Phonenumber,
+                        "RestaurantName" to RestaurantName,
+                        "StartTime" to Dealstarttimetext,
+                        "StartTimeNumber" to StartTimeNumber,
+                        "Title" to Title,
+                        "Yelp" to Yelp,
+                        "category" to Category,
+                        "date" to currentDate,
+                        "description" to Description,
+                        "latitude" to latitude,
+                        "longitude" to longitude,
+                        "price" to Price,
+                        "resid" to resid,
+                        "uid" to uid,
+
+                        )
+                    db.collection("SavedDeals1").document(currentuser).collection("Deals").document(uid).set(deal)
+                        .addOnSuccessListener {
+                            Log.d(
+                                "NumberGenerated",
+                                "DocumentSnapshot successfully written1! good job"
+                            )
+                            Toast.makeText(applicationContext, "Deal saved", Toast.LENGTH_LONG)
+                                .show()
+                        }
+                        .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
+                }
+
+                if (documentSnapshot.data.toString() != "null") {
+                    db.collection("SavedDeals1").document(currentuser).collection("Deals")
+                        .document(uid).delete()
+                    Log.d("logout", "Logout")
+                    Toast.makeText(applicationContext, "Deal Unsaved", Toast.LENGTH_LONG)
+                        .show()
+                }
+
+
             }
-            .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
+            .addOnFailureListener { exception ->
+
+            }
+
     }
 }
