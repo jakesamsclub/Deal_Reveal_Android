@@ -35,6 +35,7 @@
         <item>15 Miles</item>
     </string-array>
     <string-array name="days">
+        <item>Any Day</item>
         <item>Today</item>
         <item>Monday</item>
         <item>Tuesday</item>
@@ -45,7 +46,6 @@
         <item>Sunday</item>
         <item>Weekday</item>
         <item>Weekend</item>
-        <item>Every Day</item>
     </string-array>
     <string-array name="Category">
         <item>All Deals</item>
@@ -58,4 +58,5 @@
         <item>Current Time</item>
         <item>Specific Time</item>
     </string-array>
+    <string name="title_activity_buisnessreveal">Map</string>
 </resources>

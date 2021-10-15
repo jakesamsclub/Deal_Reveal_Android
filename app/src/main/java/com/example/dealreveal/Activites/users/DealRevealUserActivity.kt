@@ -1,5 +1,7 @@
 package com.example.dealreveal.Activites.users
 
+import android.annotation.SuppressLint
+import android.app.*
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class DealRevealUserActivity : AppCompatActivity() {
 
@@ -40,9 +43,12 @@ class DealRevealUserActivity : AppCompatActivity() {
     var uid = ""
     var admincheck = ""
     var Reason = ""
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotified = false
 
     val db = FirebaseFirestore.getInstance()
     lateinit var auth1: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +56,10 @@ class DealRevealUserActivity : AppCompatActivity() {
         val intent = intent
         headerandbottom()
         newdeal()
+
+        if (!mNotified) {
+            NotificationUtils().setNotification(mNotificationTime, this)
+        }
     }
 
     fun newdeal() {
@@ -95,14 +105,15 @@ class DealRevealUserActivity : AppCompatActivity() {
         }
 
 
-    fun setupheaders(){
+    @SuppressLint("RemoteViewLayout")
+    fun setupheaders() {
 
 
         //info section
         val infoheadertitle = findViewById<TextView>(R.id.info)
         val DealTitle = findViewById<TextView>(R.id.textView52)
         DealTitle.setText(Title)
-        val Dealprice= findViewById<TextView>(R.id.textView53)
+        val Dealprice = findViewById<TextView>(R.id.textView53)
         Dealprice.setText(Price)
         val DealDescription = findViewById<TextView>(R.id.textView54)
         DealDescription.setText(Description)
@@ -119,7 +130,7 @@ class DealRevealUserActivity : AppCompatActivity() {
         val DealDayofdealtext = findViewById<TextView>(R.id.Avaliableon)
         DealDayofdealtext.setText(Dayofdealtext)
         val Dealtime = findViewById<TextView>(R.id.Livefrom)
-        Dealtime.setText(Dealstarttimetext + " "+ Dealendtimetext)
+        Dealtime.setText(Dealstarttimetext + " " + Dealendtimetext)
         val Dealpostedon = findViewById<TextView>(R.id.Dealpostedon)
         Dealpostedon.setText(currentDate)
 
@@ -136,7 +147,22 @@ class DealRevealUserActivity : AppCompatActivity() {
         submitnewdealtitle.setText("Submit New Deal")
         val Deletenewdealtitle = findViewById<TextView>(R.id.`Deletedealbutton`)
         Deletenewdealtitle.setText("Delete Deal")
+
+        val btnalarm = findViewById<ImageView>(R.id.alarm)
+
+
+        btnalarm.setOnClickListener {
+
+            Toast.makeText(
+                applicationContext,
+                "Reminder for when this deal is active has been set.",
+                Toast.LENGTH_LONG
+            ).show()
+
+
+        }
     }
+
 
     private fun headerandbottom() {
         val leftIcon = findViewById<ImageView>(R.id.left_icon)

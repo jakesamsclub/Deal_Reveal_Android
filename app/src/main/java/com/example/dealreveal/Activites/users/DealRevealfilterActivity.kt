@@ -18,10 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealreveal.Activites.CustomAdapter
-import com.example.dealreveal.Activites.PendingapprovalActivity
 import com.example.dealreveal.Activites.UserSavedDealsActivity
-import com.example.dealreveal.Activites.admins.ApprovedealsActivity
-import com.example.dealreveal.Activites.client.ClientsettingsActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.shared.userlat
@@ -48,7 +45,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
     var distance = "15"
-    var day = ""
+    var day = "Any Day"
     var Category = "Deals1"
     var time = ""
     var specifictime = "1200"
@@ -70,13 +67,16 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         getLocationsafetycheck()
 
     }
+
     fun getLocationsafetycheck(){
-        if (userlat == ""){
-            getLocation()
-        }
-        if (userlat != ""){
-            getrange()
-        }
+//        if (userlat == ""){
+//            getLocation()
+//        }
+//        if (userlat != ""){
+//            getLocation()
+//        }
+        //it does not seem to be going slow anymore getting the location
+        getLocation()
     }
 
 
@@ -178,6 +178,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             // Apply the adapter to the spinner
             daysspinner.adapter = adapter
         }
+        daysspinner.setSelection(0)
 
         val Categoryspinner: Spinner = findViewById(R.id.Categorydrop)
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -348,6 +349,16 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             daytype.add("SUN")
             daytype.add("MON,TUE,WED,THU,FRI,SAT,SUN")
         }
+        if (daysspinner.selectedItem.toString() == "Any Day") {
+            daytype.clear()
+            daytype.add("MON")
+            daytype.add("TUE")
+            daytype.add("WED")
+            daytype.add("THU")
+            daytype.add("FRI")
+            daytype.add("SAT")
+            daytype.add("SUN")
+        }
         if (daysspinner.selectedItem.toString() == "Today") {
             daytype.clear()
             var sCalendar = Calendar.getInstance();
@@ -366,7 +377,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                 daytype.add("MON,TUE,WED,THU,FRI")
                 daytype.add("MON,TUE,WED,THU,FRI,SAT,SUN")
             }
-            if (dayLongName == "Wedensday") {
+            if (dayLongName == "Wednesday") {
                 daytype.clear()
                 daytype.add("WED")
                 daytype.add("MON,TUE,WED,THU,FRI")
@@ -624,7 +635,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                     true
                 }
                 R.id.RandomDeals -> {
-                    val intent = Intent(this, PendingapprovalActivity::class.java)
+                    val intent = Intent(this, DealswipeActivity::class.java)
                     startActivity(intent);
 
                     true
@@ -635,12 +646,12 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                     true
                 }
                 R.id.BusinesssReveal -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, BusinessrevealwithmapActivity::class.java)
                     startActivity(intent);
                     true
                 }
                 R.id.Settings -> {
-                    val intent = Intent(this, ClientsettingsActivity::class.java)
+                    val intent = Intent(this, UsersettingActivity::class.java)
                     startActivity(intent);
 
                     true

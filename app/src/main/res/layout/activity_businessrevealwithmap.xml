@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activites.users.BusinessrevealwithmapActivity"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar" />
+
+    <include
+        android:id="@+id/include1"
+        layout="@layout/activity_buisnessreveal"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <TextView
+        android:id="@+id/buttonfilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="See Businesses with the following deal types:"
+        android:textColor="#050505"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include1" />
+
+    <include
+        android:id="@+id/filterlabelsfordealrevealfilter"
+        layout="@layout/businessmapfilterbutton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonfilters" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewfilter"
+        android:layout_marginTop="5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterlabelsfordealrevealfilter" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:elevation="2dp"
+        app:itemBackground="@android:color/white"
+        app:itemIconSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/user_nav_menu" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

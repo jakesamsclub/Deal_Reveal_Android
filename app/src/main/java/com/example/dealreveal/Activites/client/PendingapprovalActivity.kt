@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
+import com.example.dealreveal.Activites.client.ClientCollectionDealActivity
 import com.example.dealreveal.Activites.client.ClientsettingsActivity
 import com.example.dealreveal.Activites.client.InitalpostnewdealActivity
 import com.example.dealreveal.Activites.shared.DealRevealActivity
@@ -258,7 +259,7 @@ class PendingapprovalActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.YourDeals -> {
-                    val intent = Intent(this, DealCollectionViewActivity::class.java)
+                    val intent = Intent(this, ClientCollectionDealActivity::class.java)
                     startActivity(intent);
                     true
                 }

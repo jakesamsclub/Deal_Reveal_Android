@@ -77,12 +77,12 @@ class PostNewDealInfoActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.YourDeals -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, ClientCollectionDealActivity::class.java)
                     startActivity(intent);
                     true
                 }
                 R.id.UnderReview-> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, ClientCollectionDealActivity::class.java)
                     startActivity(intent);
 
                     true
@@ -98,7 +98,7 @@ class PostNewDealInfoActivity : AppCompatActivity() {
                     true
                 }
                 R.id.Settings -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this,ClientsettingsActivity::class.java)
                     startActivity(intent);
                     true
                 }

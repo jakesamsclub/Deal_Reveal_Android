@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dealreveal.Activites.DealCollectionViewActivity
 import com.example.dealreveal.Activites.PendingapprovalActivity
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
@@ -80,7 +79,7 @@ class InitalpostnewdealActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.YourDeals -> {
-                    val intent = Intent(this, DealCollectionViewActivity::class.java)
+                    val intent = Intent(this, ClientCollectionDealActivity::class.java)
                     startActivity(intent);
                     true
                 }
