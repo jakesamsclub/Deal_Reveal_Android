@@ -10,14 +10,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.dealreveal.Activites.admins.ApprovedealsActivity
-import com.example.dealreveal.Activites.client.ClientCollectionDealActivity
-import com.example.dealreveal.Activites.client.ClientsettingsActivity
-import com.example.dealreveal.Activites.client.InitalpostnewdealActivity
-import com.example.dealreveal.Activites.shared.DealRevealActivity
+import com.example.dealreveal.Activites.client.*
+import com.example.dealreveal.Activites.shared.ClientCollectionDealActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.shared.RejectedDealsTemplate
@@ -70,7 +68,7 @@ class PendingapprovalActivity : AppCompatActivity() {
         val currentuser = FirebaseAuth.getInstance().currentUser!!
             .uid
 
-        val query = db.collection("ReviewMeals1").document(currentuser).collection(currentuser)
+        val query = db.collection("ReviewMeals").document(currentuser).collection(currentuser)
         val options = FirestoreRecyclerOptions.Builder<Pendingapproval>().setQuery(query, Pendingapproval::class.java)
             .setLifecycleOwner(this).build()
         val adapter = object: FirestoreRecyclerAdapter<Pendingapproval, PendingapprovalViewHolder>(options) {
@@ -81,8 +79,10 @@ class PendingapprovalActivity : AppCompatActivity() {
 
             override fun onBindViewHolder(holder: PendingapprovalViewHolder, position: Int, model: Pendingapproval) {
                 val titleImage : ShapeableImageView = holder.itemView.findViewById(R.id.title_image)
-                val tvheading : TextView = holder.itemView.findViewById(R.id.tvheading)
-                tvheading.text = model.Title
+                val titledeal : TextView = holder.itemView.findViewById(R.id.date)
+                val date : TextView = holder.itemView.findViewById(R.id.distance)
+                titledeal.text = model.Title
+                date.text = model.date
                 Glide.with(this@PendingapprovalActivity)
                     .load(model.MealImageUrl.toString())
                     .into(titleImage)
@@ -160,7 +160,7 @@ class PendingapprovalActivity : AppCompatActivity() {
         val currentuser = FirebaseAuth.getInstance().currentUser!!
             .uid
 
-        val query = db.collection("RejectedDeals1").document(currentuser).collection(currentuser)
+        val query = db.collection("RejectedDeals").document(currentuser).collection(currentuser)
         val options = FirestoreRecyclerOptions.Builder<RejectedDealsTemplate>().setQuery(query, RejectedDealsTemplate::class.java)
             .setLifecycleOwner(this).build()
         val adapter = object: FirestoreRecyclerAdapter<RejectedDealsTemplate, RejectedViewHolder>(options) {
@@ -171,8 +171,10 @@ class PendingapprovalActivity : AppCompatActivity() {
 
             override fun onBindViewHolder(holder: RejectedViewHolder, position: Int, model: RejectedDealsTemplate) {
                 val titleImage : ShapeableImageView = holder.itemView.findViewById(R.id.title_image)
-                val tvheading : TextView = holder.itemView.findViewById(R.id.tvheading)
-                tvheading.text = model.Title
+                val titledeal : TextView = holder.itemView.findViewById(R.id.date)
+                val date : TextView = holder.itemView.findViewById(R.id.distance)
+                titledeal.text = model.Title
+                date.text = model.DateRejected
                 Glide.with(this@PendingapprovalActivity)
                     .load(model.MealImageUrl.toString())
                     .into(titleImage)
@@ -241,6 +243,7 @@ class PendingapprovalActivity : AppCompatActivity() {
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
+        leftIcon.isVisible = false
 
         leftIcon.setOnClickListener {
             finish()
@@ -276,7 +279,7 @@ class PendingapprovalActivity : AppCompatActivity() {
                     true
                 }
                 R.id.DealAnalytics -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, AnalyticsAllDealActivity::class.java)
                     startActivity(intent);
                     true
                 }

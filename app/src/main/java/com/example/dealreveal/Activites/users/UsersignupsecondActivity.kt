@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Startscreen
 import com.example.dealreveal.R
@@ -30,6 +31,12 @@ class UsersignupsecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usersignupsecond)
 
+        val Enterconfirmtext =findViewById<TextView>(R.id.textView9)
+        val otpGiven = findViewById<EditText>(R.id.editTextNumber)
+        val Verifypnumber = findViewById<Button>(R.id.button8)
+        Enterconfirmtext.isVisible = false
+        otpGiven.isVisible = false
+        Verifypnumber.isVisible = false
 
         auth1=FirebaseAuth.getInstance()
 
@@ -56,7 +63,6 @@ class UsersignupsecondActivity : AppCompatActivity() {
         }
         title.setText("")
 
-
         val intent = intent
         username = intent.getStringExtra("userName").toString()
         email = intent.getStringExtra("email").toString()
@@ -81,6 +87,9 @@ class UsersignupsecondActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                Enterconfirmtext.isVisible = true
+                otpGiven.isVisible = true
+                Verifypnumber.isVisible = true
 
                 Log.d("TAG","onCodeSent:$verificationId")
                 storedVerificationId1 = verificationId
@@ -88,8 +97,6 @@ class UsersignupsecondActivity : AppCompatActivity() {
 
             }
         }
-        val Verifypnumber = findViewById<Button>(R.id.button8)
-        val otpGiven = findViewById<EditText>(R.id.editTextNumber)
 
         lookupnumber.setOnClickListener{
             login()
@@ -165,5 +172,6 @@ class UsersignupsecondActivity : AppCompatActivity() {
             .setCallbacks(callbacks1) // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
+
     }
 }

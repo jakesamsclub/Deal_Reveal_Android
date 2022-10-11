@@ -19,47 +19,78 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        auth=FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         val currentUser = auth.currentUser
-        if(currentUser != null) {
+        if (currentUser != null) {
             currentuser = FirebaseAuth.getInstance().currentUser!!.uid
-
+            Log.d("nullcheck", "User seems to be logged in")
+            loggedinusercheck()
         }
-        loggedinuser()
+        if (currentUser == null) {
+            startActivity(Intent(this, Startscreen::class.java))
+            finish()
+        }
+
 
     }
 
-    fun loggedinuser() {
+    fun loggedinusercheck() {
 
 
         val docRef = db.collection("users1").document(currentuser)
         docRef.get()
             .addOnSuccessListener { documentSnapshot ->
-                Log.d("nullcheck", documentSnapshot.data.toString())
+                Log.d("nullcheck fart", documentSnapshot.data.toString())
 
                 if (documentSnapshot.data.toString() != "null") {
                     val intent = Intent(this, DealRevealfilterActivity::class.java)
                     startActivity(intent)
                 }
                 if (documentSnapshot.data.toString() == "null") {
-                    Log.d("nullcheck1", documentSnapshot.data.toString())
-                    Log.d("nullcheck1", currentuser)
+                    val intent = Intent(this, DealRevealfilterActivity::class.java)
+                    Log.d("nullcheck1", "shit aint found in user db")
+                    val docRef1 = db.collection("ClientsAccounts").document(currentuser)
+                    docRef1.get()
+                        .addOnSuccessListener { documentSnapshot1 ->
 
-                    val docRef1 = db.collection("ClientsAccounts1").document(currentuser)
-                    docRef1.get().addOnSuccessListener { documentSnapshot1 ->
+                            if (documentSnapshot1.data.toString() != "null") {
+                                val intent = Intent(this, InitalpostnewdealActivity::class.java)
+                                startActivity(intent)
+                            }
+                            if (documentSnapshot1.data.toString() == "null") {
+                                Log.d("nullcheck1", "shit aint found in client db")
+                                FirebaseAuth.getInstance().signOut()
+                                startActivity(Intent(this, Startscreen::class.java))
+                                finish()
+                            }
+                        }
+                        .addOnFailureListener {
+                            Log.d("nullcheck1", "shit aint found in client db")
+                            FirebaseAuth.getInstance().signOut()
+                            startActivity(Intent(this, Startscreen::class.java))
+                            finish()
+                        }
+                }
+            }
+            .addOnFailureListener {
+                it.printStackTrace()
+                Log.d("nullcheck1", "shit aint found in user db")
+                val docRef1 = db.collection("ClientsAccounts").document(currentuser)
+                docRef1.get()
+                    .addOnSuccessListener { documentSnapshot1 ->
 
                         if (documentSnapshot1.data.toString() != "null") {
                             val intent = Intent(this, InitalpostnewdealActivity::class.java)
                             startActivity(intent)
                         }
-                        if (documentSnapshot1.data.toString() == "null") {
-                            startActivity(Intent(this,Startscreen::class.java))
-                            finish()
-                        }
-
                     }
-                }
+                    .addOnFailureListener {
+                        Log.d("nullcheck1", "shit aint found in client db")
+                        FirebaseAuth.getInstance().signOut()
+                        startActivity(Intent(this, Startscreen::class.java))
+                        finish()
+                    }
             }
     }
 }

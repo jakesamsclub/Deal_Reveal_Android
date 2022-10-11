@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_edge"
+    android:background="@drawable/rounded_white_corner"
     android:layout_marginTop="15dp">
 
 
@@ -12,44 +12,46 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/left_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/dealmap"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_toStartOf="@+id/where"
+            android:layout_toLeftOf="@+id/where"
+            android:src="@drawable/map" />
 
         <TextView
             android:id="@+id/where"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="16dp"
+            android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="146dp"
-            android:layout_toStartOf="@+id/right_icon"
-            android:layout_toLeftOf="@+id/right_icon"
-            android:layout_toEndOf="@id/left_icon"
-            android:layout_toRightOf="@id/left_icon"
             android:gravity="center"
             android:text="Where"
+            android:textSize="35sp"
+            android:fontFamily="sans-serif-medium"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            />
 
         <ImageView
-            android:id="@+id/right_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/dealphone"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/help" />
+            android:layout_toEndOf="@+id/where"
+            android:layout_toRightOf="@+id/where"
+            android:src="@drawable/phone" />
 
         <Button
             android:id="@+id/company"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/where"
@@ -57,13 +59,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="23dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginRight="28dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#ffffff"
             android:gravity="center"
-            android:text="Company Name" />
+            android:text="Company Name"
+            android:textSize="20dp"
+            android:textColor="#2196F3"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/distance"
@@ -76,9 +80,12 @@
             android:layout_alignParentRight="true"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:gravity="center"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/black"
             android:text="Distance" />
 
         <TextView

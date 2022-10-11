@@ -31,21 +31,23 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                app:backgroundTint="#FFFFFF"
                 android:text="All Types"
                 android:textColor="@color/black"
                 android:textSize="11sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"/>
+                />
 
             <Button
                 android:id="@+id/Food"
+                android:text="Foods"
+                android:textSize="11sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Foods"
-                android:textColor="@color/black"
-                android:textSize="11sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"/>
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
+                />
 
 
             <Button
@@ -54,21 +56,22 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
                 android:text="Beverages"
-                android:textColor="@color/black"
                 android:textSize="11sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"/>
+                />
 
             <Button
                 android:id="@+id/Activitys"
+                android:text="Activitys"
+                android:textSize="11sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Activitys"
-                android:textColor="@color/black"
-                android:textSize="11sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor" />
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
@@ -21,6 +22,9 @@ class BusinessSignup3Activity : AppCompatActivity() {
     var Phonenumber = ""
     var Websiteurl = ""
     var Yelpurl = ""
+    var Instaurl = ""
+    var FBurl = ""
+    val emailPattern = """[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"""
     lateinit var filepath : Uri
 
 
@@ -35,6 +39,8 @@ class BusinessSignup3Activity : AppCompatActivity() {
         Phonenumber = intent.getStringExtra("Phonenumber").toString()
         Websiteurl = intent.getStringExtra("Websiteurl").toString()
         Yelpurl = intent.getStringExtra("Yelpurl").toString()
+        FBurl = intent.getStringExtra("FB").toString()
+        Instaurl = intent.getStringExtra("Insta").toString()
 
         Log.i("test", BusinessName)
         Log.i("test", Address)
@@ -42,6 +48,8 @@ class BusinessSignup3Activity : AppCompatActivity() {
         Log.i("test", Phonenumber)
         Log.i("test", Websiteurl)
         Log.i("test", Yelpurl)
+        Log.i("test", FBurl)
+        Log.i("test", Instaurl)
 
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
@@ -66,6 +74,27 @@ class BusinessSignup3Activity : AppCompatActivity() {
             var sendemail = email.text.toString()
             var sendpassword = password.text.toString()
 
+            if (sendemail.matches(emailPattern.toRegex())) {
+                println("email is okay")
+            } else {
+                Toast.makeText(applicationContext, "Invalid email address",
+                    Toast.LENGTH_SHORT).show()
+                println("email is wrong")
+                return@setOnClickListener
+            }
+
+            if (sendpassword.length <6) {
+                println("Password must be 6 characters")
+                Toast.makeText(applicationContext, "Password must be 6 characters.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
+
+            if (sendemail.isEmpty()) {
+                println("Email is empty.")
+                Toast.makeText(applicationContext, "Business email field is empty.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
+
+
+
             val intent = Intent(this, FinalBusinessSignupActivity::class.java)
             intent.putExtra("email", sendemail)
             intent.putExtra("password", sendpassword)
@@ -76,6 +105,9 @@ class BusinessSignup3Activity : AppCompatActivity() {
             intent.putExtra("Phonenumber",Phonenumber)
             intent.putExtra("Websiteurl",Websiteurl)
             intent.putExtra("avatar",filepath)
+            intent.putExtra("Insta",Instaurl)
+            intent.putExtra("FB",FBurl)
+
 
 
             startActivity(intent)

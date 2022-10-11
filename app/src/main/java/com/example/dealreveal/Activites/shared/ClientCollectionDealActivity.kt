@@ -1,6 +1,7 @@
-package com.example.dealreveal.Activites.client
+package com.example.dealreveal.Activites.shared
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,13 +9,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dealreveal.Activites.admins.ApprovedealsActivity
+import com.example.dealreveal.Activites.PendingapprovalActivity
+import com.example.dealreveal.Activites.client.AnalyticsAllDealActivity
+import com.example.dealreveal.Activites.client.ClientsettingsActivity
+import com.example.dealreveal.Activites.client.InitalpostnewdealActivity
+import com.example.dealreveal.Activites.client.clientreviewfeedbackActivity
 import com.example.dealreveal.Activites.collectionviewadapter
-import com.example.dealreveal.Activites.shared.HelpOverviewActivity
-import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -31,10 +35,15 @@ class ClientCollectionDealActivity : AppCompatActivity() {
     var AllDeals = "yes"
     var dealtype = ""
     var day = ""
+    var companyname = ""
+    var address = ""
+    var yelp = ""
+    var phone = ""
+    var website = ""
     val data = java.util.ArrayList<Pendingapproval>()
     val filtereddata = java.util.ArrayList<Pendingapproval>()
     var AllDays = "yes"
-    val admincode = ""
+    val companycode = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +61,14 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         headerandbottom()
         daybuttonsetup()
         Catsetup()
+        Feedbackondealsetup()
 
+    }
+    private fun Feedbackondealsetup(){
+        val dealreviews = findViewById<Button>(R.id.ALL)
+        dealreviews.setOnClickListener {
+            startActivity(Intent(applicationContext, clientreviewfeedbackActivity::class.java))
+        }
     }
 
     private fun Catsetup() {
@@ -61,8 +77,14 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         val bev = findViewById<Button>(R.id.Beverages)
         val act = findViewById<Button>(R.id.Activitys)
         Allcategory.isSelected = !Allcategory.isSelected
+        Allcategory.setBackgroundColor(Color.WHITE)
+        Allcategory.setTextColor(Color.BLACK)
 
         Allcategory.setOnClickListener {
+            buttoncatcolorset()
+            Allcategory.setBackgroundColor(Color.WHITE)
+            Allcategory.setTextColor(Color.BLACK)
+
             if (dealtype == ""){
 
             }
@@ -77,6 +99,10 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
         }
         food.setOnClickListener {
+            buttoncatcolorset()
+            food.setBackgroundColor(Color.WHITE)
+            food.setTextColor(Color.BLACK)
+
             if (dealtype == "Food"){
 
             }
@@ -92,6 +118,10 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         }
 
         bev.setOnClickListener {
+            buttoncatcolorset()
+            bev.setBackgroundColor(Color.WHITE)
+            bev.setTextColor(Color.BLACK)
+
             if (dealtype == "Beverage"){
 
             }
@@ -107,6 +137,9 @@ class ClientCollectionDealActivity : AppCompatActivity() {
             }
         }
         act.setOnClickListener {
+            buttoncatcolorset()
+            act.setBackgroundColor(Color.WHITE)
+            act.setTextColor(Color.BLACK)
             if (dealtype == "Entertainment"){
 
             }
@@ -132,8 +165,13 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         val SAT = findViewById<Button>(R.id.SAT)
         val SUN = findViewById<Button>(R.id.SUN)
         Allday.isSelected = !Allday.isSelected
+        Allday.setBackgroundColor(Color.WHITE)
+        Allday.setTextColor(Color.BLACK)
 
         Allday.setOnClickListener {
+            buttoncolorset()
+            Allday.setBackgroundColor(Color.WHITE)
+            Allday.setTextColor(Color.BLACK)
             if (day == ""){
 
             }
@@ -152,6 +190,9 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
         }
         MON.setOnClickListener {
+            buttoncolorset()
+            MON.setBackgroundColor(Color.WHITE)
+            MON.setTextColor(Color.BLACK)
             if (day == "MON"){
 
             }
@@ -171,6 +212,9 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         }
 
         TUE.setOnClickListener {
+            buttoncolorset()
+            TUE.setBackgroundColor(Color.WHITE)
+            TUE.setTextColor(Color.BLACK)
             if (day == "TUE"){
 
             }
@@ -189,6 +233,10 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
         }
         WED.setOnClickListener {
+            buttoncolorset()
+            WED.setBackgroundColor(Color.WHITE)
+            WED.setTextColor(Color.BLACK)
+
             if (day == "WED"){
 
             }
@@ -207,6 +255,9 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
         }
         THU.setOnClickListener {
+            buttoncolorset()
+            THU.setBackgroundColor(Color.WHITE)
+            THU.setTextColor(Color.BLACK)
             if (day == "THU"){
 
             }
@@ -225,6 +276,10 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
         }
         FRI.setOnClickListener {
+            buttoncolorset()
+            FRI.setBackgroundColor(Color.WHITE)
+            FRI.setTextColor(Color.BLACK)
+
             if (day == "FRI"){
 
             }
@@ -243,6 +298,9 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
         }
         SAT.setOnClickListener {
+            buttoncolorset()
+            SAT.setBackgroundColor(Color.WHITE)
+            SAT.setTextColor(Color.BLACK)
             if (day == "SAT"){
 
             }
@@ -261,6 +319,10 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
         }
         SUN.setOnClickListener {
+            buttoncolorset()
+            SUN.setBackgroundColor(Color.WHITE)
+            SUN.setTextColor(Color.BLACK)
+
             if (day == "SUN"){
 
             }
@@ -280,6 +342,51 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         }
 
     }
+    fun buttoncolorset(){
+        val Allday = findViewById<Button>(R.id.ALLDAY)
+        val MON = findViewById<Button>(R.id.MON)
+        val TUE = findViewById<Button>(R.id.TUE)
+        val WED = findViewById<Button>(R.id.WED)
+        val THU = findViewById<Button>(R.id.THU)
+        val FRI = findViewById<Button>(R.id.FRI)
+        val SAT = findViewById<Button>(R.id.SAT)
+        val SUN = findViewById<Button>(R.id.SUN)
+
+        Allday.setBackgroundColor(Color.BLACK)
+        Allday.setTextColor(Color.WHITE)
+        MON.setBackgroundColor(Color.BLACK)
+        MON.setTextColor(Color.WHITE)
+        TUE.setBackgroundColor(Color.BLACK)
+        TUE.setTextColor(Color.WHITE)
+        WED.setBackgroundColor(Color.BLACK)
+        WED.setTextColor(Color.WHITE)
+        THU.setBackgroundColor(Color.BLACK)
+        THU.setTextColor(Color.WHITE)
+        FRI.setBackgroundColor(Color.BLACK)
+        FRI.setTextColor(Color.WHITE)
+        SAT.setBackgroundColor(Color.BLACK)
+        SAT.setTextColor(Color.WHITE)
+        SUN.setBackgroundColor(Color.BLACK)
+        SUN.setTextColor(Color.WHITE)
+
+    }
+    fun buttoncatcolorset(){
+        val Allcategory = findViewById<Button>(R.id.ALLcat)
+        val food = findViewById<Button>(R.id.Food)
+        val bev = findViewById<Button>(R.id.Beverages)
+        val act = findViewById<Button>(R.id.Activitys)
+
+        Allcategory.setBackgroundColor(Color.BLACK)
+        Allcategory.setTextColor(Color.WHITE)
+        food.setBackgroundColor(Color.BLACK)
+        food.setTextColor(Color.WHITE)
+        bev.setBackgroundColor(Color.BLACK)
+        bev.setTextColor(Color.WHITE)
+        act.setBackgroundColor(Color.BLACK)
+        act.setTextColor(Color.WHITE)
+
+
+    }
 
 
 
@@ -289,7 +396,7 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         val currentuser = FirebaseAuth.getInstance().currentUser!!
             .uid
 
-        val docRef = db.collection("ClientDeals1").document(currentuser).collection(currentuser)
+        val docRef = db.collection("Deals").whereEqualTo("resid",currentuser)
         docRef.get()
             .addOnSuccessListener { documents ->
 
@@ -302,10 +409,16 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 //                        val adapter = CustomAdapter(data, userlat, userlong)
 //                        newRecyclerView.adapter = adapter
                     Log.i("uidkey", myObject.uid)
+                    companyname =  myObject.RestaurantName
+                    address = myObject.Address
+                    yelp = myObject.Yelp
+                    phone = myObject.PhoneNumber
+                    website = myObject.CompanyURL
 
                     val adapter = collectionviewadapter(data)
                     newRecyclerView.adapter = adapter
                 }
+                headerandbottom()
             }
 
             .addOnFailureListener { exception ->
@@ -352,16 +465,32 @@ class ClientCollectionDealActivity : AppCompatActivity() {
 
 
     private fun headerandbottom() {
+
+        val companytitle = findViewById<TextView>(R.id.companytitle)
+        companytitle.setText(companyname)
+
+        val Companyphone = findViewById<ImageView>(R.id.phone)
+
+
+        val Companymap = findViewById<ImageView>(R.id.map)
+
+
+        val Companyyelp = findViewById<ImageView>(R.id.Yelp)
+
+
+        val Companywebsite = findViewById<ImageView>(R.id.website)
+
+
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
+        leftIcon.isVisible = false
 
-//        leftIcon.setVisibility(View.INVISIBLE)
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
             startActivity(intent)
         }
-        title.setText("Your Deals")
+        title.setText("")
 
         val bottomNavigationView: BottomNavigationView
         bottomNavigationView = findViewById<View>(R.id.bottomNav) as BottomNavigationView
@@ -370,12 +499,10 @@ class ClientCollectionDealActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.YourDeals -> {
-                    val intent = Intent(this, ClientCollectionDealActivity::class.java)
-//                    startActivity(intent);
                     true
                 }
                 R.id.UnderReview-> {
-                    val intent = Intent(this, ClientCollectionDealActivity::class.java)
+                    val intent = Intent(this, PendingapprovalActivity::class.java)
                     startActivity(intent);
 
                     true
@@ -387,7 +514,7 @@ class ClientCollectionDealActivity : AppCompatActivity() {
                     true
                 }
                 R.id.DealAnalytics -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, AnalyticsAllDealActivity::class.java)
                     startActivity(intent);
                     true
                 }

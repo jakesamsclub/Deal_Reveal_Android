@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activites.client.Businessupdate2Activity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="81dp" />
+
+    <EditText
+        android:id="@+id/editFacebookLink"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FacebookLink" />
+
+    <EditText
+        android:id="@+id/editwebsite"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Website" />
+
+    <EditText
+        android:id="@+id/editphonenumber"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phonenumber" />
+
+    <EditText
+        android:id="@+id/editYelp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Yelp" />
+
+    <EditText
+        android:id="@+id/editInsta"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/edit_text_border"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/Continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Insta"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/Yelp"
+        android:text="Yelp Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:autoSizeMinTextSize="12sp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editFacebookLink" />
+
+    <TextView
+        android:id="@+id/Insta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="15dp"
+        android:text="Instagram Link"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#000000"
+        android:autoSizeMinTextSize="12sp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editYelp" />
+
+    <TextView
+        android:id="@+id/phonenumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:autoSizeMinTextSize="12sp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Phone number"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+         />
+
+    <TextView
+        android:id="@+id/Website"
+        android:text="Company Website Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:autoSizeMinTextSize="12sp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editphonenumber" />
+
+    <TextView
+        android:id="@+id/FacebookLink"
+        android:text="Facebook Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:autoSizeMinTextSize="12sp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editwebsite" />
+
+    <Button
+        android:id="@+id/Continue"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
+        android:text="Submit Changes Request"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

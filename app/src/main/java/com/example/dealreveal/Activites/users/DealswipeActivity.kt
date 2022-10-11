@@ -108,9 +108,15 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
 
             override fun onGeoQueryReady() {
                 Log.i("TAG", "onGeoQueryReady")
-                Toast.makeText(applicationContext,"My lord, I found "+keys.count().toString()+ " deals for you within in "+distance.toString()+" Miles",Toast.LENGTH_LONG).show()
-                keys.shuffle()
-                getdealinfo()
+                if (keys.size != 0) {
+                    Toast.makeText(applicationContext,
+                        "My lord, I found " + keys.count()
+                            .toString() + " deals for you within in " + distance.toString() + " Miles",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    keys.shuffle()
+                    getdealinfo()
+                }
 
             }
 
@@ -318,6 +324,8 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
         startActivity(intent)
     }
     title.setText("Deal Reveal")
+
+            leftIcon.setImageDrawable(getResources().getDrawable(R.drawable.range))
 
             leftIcon.setOnClickListener {
                 val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

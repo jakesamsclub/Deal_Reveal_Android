@@ -10,6 +10,7 @@ data class Client(
     var Date : String = "",
     var Entertainment : Int = 0,
     var Facebook : String = "",
+    var Insta : String = "",
     var Food : Int = 0,
     var Password : String = "",
     var Restlat : String = "",

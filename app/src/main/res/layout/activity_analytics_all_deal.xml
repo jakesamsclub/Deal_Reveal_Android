@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activites.client.AnalyticsAllDealActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar" />
+
+    <include
+        android:id="@+id/analyticsalldealfilters"
+        layout="@layout/analyticsalldealfilters"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <Button
+        android:id="@+id/filteranal"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="75dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
+        android:text="Update Analytics Date"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/analyticsalldealfilters" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/AllDealrecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filteranal" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:elevation="2dp"
+        app:itemBackground="@android:color/white"
+        app:itemIconSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/business_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

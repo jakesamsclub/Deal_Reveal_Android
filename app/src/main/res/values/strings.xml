@@ -16,6 +16,8 @@
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_text">This is an <u>underline</u>.</string>
+
 
     <string-array name="distances">
         <item>1 Mile</item>
@@ -47,16 +49,58 @@
         <item>Weekday</item>
         <item>Weekend</item>
     </string-array>
+    <string-array name="Postdays">
+        <item>Live on Monday</item>
+        <item>Live on Tuesday</item>
+        <item>Live on Wedensday</item>
+        <item>Live on Thursday</item>
+        <item>Live on Friday</item>
+        <item>Live on Saturday</item>
+        <item>Live on Sunday</item>
+        <item>Live on Weekdays(M-F)</item>
+        <item>Live on Weekend(S-S)</item>
+        <item>Live on All Days(M-S)</item>
+    </string-array>
     <string-array name="Category">
         <item>All Deals</item>
         <item>Food Deals</item>
         <item>Beverage Deals</item>
         <item>Activity Deals</item>
     </string-array>
+
+    <string-array name="PostCategory">
+        <item>This is a Food Deal</item>
+        <item>This is a Beverage Deal</item>
+        <item>This is a Activity Deal</item>
+    </string-array>
+
     <string-array name="Time">
         <item>All Day</item>
         <item>Current Time</item>
         <item>Specific Time</item>
     </string-array>
+    <string-array name="Year">
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+
+    </string-array>
+    <string-array name="Month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+
+    </string-array>
     <string name="title_activity_buisnessreveal">Map</string>
+
 </resources>

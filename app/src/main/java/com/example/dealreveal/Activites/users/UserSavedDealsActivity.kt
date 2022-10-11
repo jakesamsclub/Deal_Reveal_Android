@@ -18,21 +18,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.dealreveal.Activites.admins.ApprovedealsActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.shared.userlat
 import com.example.dealreveal.Activites.shared.userlong
-import com.example.dealreveal.Activites.users.DealRevealUserActivity
-import com.example.dealreveal.Activites.users.DealRevealfilterActivity
-import com.example.dealreveal.Activites.users.DealswipeActivity
-import com.example.dealreveal.Activites.users.UsersettingActivity
+import com.example.dealreveal.Activites.users.*
 import com.example.dealreveal.R
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter
+import com.firebase.ui.firestore.paging.FirestorePagingOptions
+import com.firebase.ui.firestore.paging.LoadingState
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
@@ -40,20 +39,28 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_user_saved_deals.*
 
 
-class SavedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+class SavedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-lateinit var auth: FirebaseAuth
-private lateinit var newRecyclerView: RecyclerView
-private lateinit var locationManager: LocationManager
-private val locationPermissionCode = 2
+}
+
+
 
 class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
+
+    lateinit var auth: FirebaseAuth
+    lateinit var newRecyclerView: RecyclerView
+    private lateinit var locationManager: LocationManager
+    private val locationPermissionCode = 2
+    val currentuser = FirebaseAuth.getInstance().currentUser!!
+        .uid
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_saved_deals)
         headerandbottom()
         overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
         getLocationsafetycheck()
+
 
     }
     fun getLocationsafetycheck(){
@@ -89,36 +96,56 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
         }
     }
 
+//    private fun scrolled(){
+//        newRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                if(!recyclerView.canScrollVertically(1)) {
+//                    Log.d("load more", "onScrolled: ")
+//
+//                    val query = db.collection("SavedDeals1").document(currentuser).collection("Deals").limit(5)
+//                    getUserdata()
+//                }
+//            }
+//        })
+//    }
+
 
 
     private fun getUserdata() {
-        lateinit var newArrayList: ArrayList<Pendingapproval>
         newRecyclerView = findViewById(R.id.recyclerviewsaved)
         newRecyclerView.layoutManager = LinearLayoutManager(this)
         newRecyclerView.setHasFixedSize(true)
-        newArrayList = arrayListOf()
+
 
         val db = FirebaseFirestore.getInstance()
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
+        val query = db.collection("SavedDeals").document(currentuser).collection("Deals")
 
-        val query = db.collection("SavedDeals1").document(currentuser).collection("Deals")
-        val options = FirestoreRecyclerOptions.Builder<Pendingapproval>().setQuery(query, Pendingapproval::class.java)
+        val config = PagedList.Config.Builder().setEnablePlaceholders(false)
+            .setPrefetchDistance(1)
+            .setPageSize(1)
+            .build()
+
+        val options = FirestorePagingOptions.Builder<Pendingapproval>().setQuery(query,config, Pendingapproval::class.java)
             .setLifecycleOwner(this).build()
-        val adapter = object: FirestoreRecyclerAdapter<Pendingapproval, SavedViewHolder>(options) {
+        val adapter = object: FirestorePagingAdapter<Pendingapproval, SavedViewHolder>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedViewHolder {
                 val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_client,parent,false)
                 return SavedViewHolder(itemView)
             }
 
+
+
+
             override fun onBindViewHolder(holder: SavedViewHolder, position: Int, model: Pendingapproval) {
+
                 val titleImage : ShapeableImageView = holder.itemView.findViewById(R.id.title_image)
                 val tvheading : TextView = holder.itemView.findViewById(R.id.tvheading)
                 val distance : TextView = holder.itemView.findViewById(R.id.distance)
                 val date : TextView = holder.itemView.findViewById(R.id.date)
 
                 tvheading.text = model.Title
-                date.text = model.price
+                date.text = "$" + model.price
                 Glide.with(this@UserSavedDealsActivity)
                     .load(model.MealImageUrl.toString())
                     .into(titleImage)
@@ -127,6 +154,7 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
                 val loc1 = Location("")
                 loc1.latitude = model.latitude.toDouble()
                 loc1.longitude = model.longitude.toDouble()
+                Log.d("TAG","DEAL Loaded" )
 
                 val loc2 = Location("")
                 loc2.latitude = userlat.toDouble()
@@ -136,7 +164,7 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
                 val distanceInMeters = loc1.distanceTo(loc2)
                 val distanceInMiles = distanceInMeters/1609.34
                 val rounded = String.format("%.3f", distanceInMiles)
-                distance.text = rounded + " Mi away"
+                distance.text = rounded + " Mi Away"
 
                 //holder setup
 
@@ -197,10 +225,40 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
 
             }
 
+            override fun onLoadingStateChanged(state: LoadingState) {
+                when (state) {
+                    LoadingState.LOADING_INITIAL -> {
+                        Log.d("TAG","LOADING_INITIAL" )
+
+                    }
+
+                    LoadingState.LOADING_MORE -> {
+                        Log.d("TAG","LOADING_MORE" )
+                    }
+
+                    LoadingState.LOADED -> {
+                        Log.d("TAG","LOADED a total of " +newRecyclerView.adapter!!.itemCount.toString() )
+                    }
+
+                    LoadingState.ERROR -> {
+                        Toast.makeText(
+                            applicationContext,
+                            "Error Occurred!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+
+                    LoadingState.FINISHED -> {
+                        Log.d("TAG","FINISHED" )
+                    }
+                }
+            }
 
         }
         newRecyclerView.adapter = adapter
         newRecyclerView.layoutManager = LinearLayoutManager(this)
+
 
     }
 
@@ -215,6 +273,11 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
             startActivity(intent)
         }
         title.setText("Saved Deals")
+        title.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+
+        leftIcon.isVisible = false
+
 
         val bottomNavigationView: BottomNavigationView
         bottomNavigationView = findViewById<View>(R.id.bottomNav) as BottomNavigationView
@@ -240,7 +303,7 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
                     true
                 }
                 R.id.BusinesssReveal -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, BusinessrevealwithmapActivity::class.java)
                     startActivity(intent);
                     true
                 }

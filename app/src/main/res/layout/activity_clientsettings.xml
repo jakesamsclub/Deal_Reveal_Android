@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Activites.client.ClientsettingsActivity">
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginEnd="141dp"
+        android:src="@drawable/dealreveallogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
     <include
         android:id="@+id/include"
         layout="@layout/toolbar" />
@@ -21,75 +33,126 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/business_nav_menu" />
 
-    <TextView
-        android:id="@+id/textView57"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:gravity="center"
-        android:text="Settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
-
     <Button
         android:id="@+id/recommendfriend"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Recommend To A Friend"
-        app:layout_constraintBottom_toTopOf="@+id/Updatecard"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UpdateInfo" />
 
     <Button
-        android:id="@+id/Updatecard"
+        android:id="@+id/updatecard"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Update Card Info"
-        app:layout_constraintBottom_toTopOf="@+id/logout"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommendfriend" />
 
     <Button
         android:id="@+id/logout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Logout"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updatecard"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/UpdateInfo"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Update Your Business Info"
-        app:layout_constraintBottom_toTopOf="@+id/recommendfriend"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button12" />
+
+    <Button
+        android:id="@+id/deleteaccount"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
+        android:text="Delete Account"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+
+    <ImageView
+        android:id="@+id/button12"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/checkpoint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteaccount" />
+
+    <Button
+        android:id="@+id/Locationservices"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
+        android:text="Location Services"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button12"
+        app:layout_constraintTop_toBottomOf="@+id/deleteaccount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

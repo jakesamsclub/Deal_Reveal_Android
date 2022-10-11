@@ -8,17 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.*
-import com.example.dealreveal.Activites.shared.DealRevealActivity
+import com.example.dealreveal.Activites.client.DealRevealActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.R
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter
+import com.firebase.ui.firestore.paging.FirestorePagingOptions
+import com.firebase.ui.firestore.paging.LoadingState
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
@@ -55,9 +58,14 @@ class ApprovedealsActivity : AppCompatActivity() {
 
 
         val query = db.collection("ReviewMeals1").document("Deals").collection("Deals")
-        val options = FirestoreRecyclerOptions.Builder<Pendingapproval>().setQuery(query, Pendingapproval::class.java)
+        val config = PagedList.Config.Builder().setEnablePlaceholders(false)
+            .setPrefetchDistance(1)
+            .setPageSize(1)
+            .build()
+
+        val options = FirestorePagingOptions.Builder<Pendingapproval>().setQuery(query,config, Pendingapproval::class.java)
             .setLifecycleOwner(this).build()
-        val adapter = object: FirestoreRecyclerAdapter<Pendingapproval, PendingapprovalViewHolder>(options) {
+        val adapter = object: FirestorePagingAdapter<Pendingapproval, PendingapprovalViewHolder>(options) {
             override fun onCreateViewHolder(
                 parent: ViewGroup,
                 viewType: Int
@@ -131,9 +139,38 @@ class ApprovedealsActivity : AppCompatActivity() {
                     startActivity(intent)
                     
                 }
-
-
             }
+
+            override fun onLoadingStateChanged(state: LoadingState) {
+                when (state) {
+                    LoadingState.LOADING_INITIAL -> {
+                        Log.d("TAG","LOADING_INITIAL" )
+
+                    }
+
+                    LoadingState.LOADING_MORE -> {
+                        Log.d("TAG","LOADING_MORE" )
+                    }
+
+                    LoadingState.LOADED -> {
+                        Log.d("TAG","LOADED a total of " +newRecyclerView.adapter!!.itemCount.toString() )
+                    }
+
+                    LoadingState.ERROR -> {
+                        Toast.makeText(
+                            applicationContext,
+                            "Error Occurred!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+
+                    LoadingState.FINISHED -> {
+                        Log.d("TAG","FINISHED" )
+                    }
+                }
+            }
+
         }
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(this)
@@ -161,35 +198,24 @@ class ApprovedealsActivity : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
 
-                R.id.client-> {
-                    val intent1 = Intent(this, AdminApproveClients::class.java)
-                    startActivity(intent1)
-                    Log.d(
-                        "NumberGenerated",
-                        "DocumentSnapshot successfully written!"
-                    )
+                R.id.client -> {
+                    val intent = Intent(this, AdminApproveClients::class.java)
+                    startActivity(intent);
                     true
                 }
+                R.id.deal-> {
 
-                R.id.deal -> {
-
-                    Log.d(
-                        "NumberGenerated",
-                        "DocumentSnapshot successfully written!"
-
-                    )
                     true
 
                 }
-
                 R.id.liar -> {
-                    Log.d(
-                        "NumberGenerated",
-                        "DocumentSnapshot successfully written!"
-                    )
+                    val intent = Intent(this, LiarreportActivity::class.java)
+                    startActivity(intent);
                     true
                 }
                 R.id.update -> {
+                    val intent = Intent(this, AdminbusinesschangeActivity::class.java)
+                    startActivity(intent);
                     true
                 }
                 else -> false

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.HelpReminderActivity
@@ -42,9 +43,25 @@ class BusinessSignup1Activity : AppCompatActivity() {
 
         val nextbutton = findViewById<Button>(R.id.button14)
         nextbutton.setOnClickListener{
+
             var sendBusinessName = BusinessName.text.toString()
             var sendAddress = Address.text.toString()
             var sendPointofcontact = Pointofcontact.text.toString()
+
+            if (sendBusinessName.isEmpty()) {
+                println("Name is empty.")
+                Toast.makeText(applicationContext, "Business name field is empty.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
+
+            if (sendAddress.isEmpty()) {
+                println("Email is empty.")
+                Toast.makeText(applicationContext, "Address field is empty.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
+
+            if (sendPointofcontact.isEmpty()) {
+                println("Point of contact field is empty.")
+                Toast.makeText(applicationContext, "Email is empty.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
 
             val intent = Intent(this, BusinessSignup2Activity::class.java)
             intent.putExtra("BusinessName",sendBusinessName)

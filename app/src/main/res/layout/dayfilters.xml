@@ -25,12 +25,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
                 android:gravity="center"
                 android:text="All"
+                app:backgroundTint="#FFFFFF"
                 android:textColor="@color/black"
                 android:textSize="8sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"/>
+                />
 
             <Button
                 android:id="@+id/MON"
@@ -39,9 +39,10 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="MON"
-                android:textColor="@color/black"
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
                 android:textSize="7sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"/>
+                />
 
             <Button
                 android:id="@+id/TUE"
@@ -50,9 +51,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="TUE"
-                android:textColor="@color/black"
-                android:textSize="8sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
+                android:textSize="7sp"
                 />
 
             <Button
@@ -60,12 +61,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
                 android:gravity="center"
                 android:text="WED"
-                android:textColor="@color/black"
-                android:textSize="8sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"/>
+                android:textSize="7sp"
+               />
 
             <Button
                 android:id="@+id/THU"
@@ -74,9 +75,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="THU"
-                android:textColor="@color/black"
                 android:textSize="8dp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
                 />
 
             <Button
@@ -86,9 +87,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="FRI"
-                android:textColor="@color/black"
                 android:textSize="8sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"/>
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"/>
 
             <Button
                 android:id="@+id/SAT"
@@ -97,9 +98,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="SAT"
-                android:textColor="@color/black"
                 android:textSize="8sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
                 />
 
             <Button
@@ -109,9 +110,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="SUN"
-                android:textColor="@color/black"
                 android:textSize="8sp"
-                android:backgroundTint="@drawable/buttonbackgroundcolor"
+                app:backgroundTint="#050505"
+                android:textColor="@color/white"
                 />
         </LinearLayout>
 

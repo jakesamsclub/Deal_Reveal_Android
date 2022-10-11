@@ -20,7 +20,10 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="50dp"
-        android:text="You can find the help button located in the top right of your screen at all times. The help button will explain the features that can be found on every page. If you ever have questions regarding features found on a individual page, tap the help button."
+        android:textColor="#000000"
+        android:fontFamily="@font/asapsemibold"
+
+        android:text="You can find the help button located in the top right on every page in the app. \n \n The help button will explain the features that can be found on every page \n \n If you ever have questions regarding features found on a individual page, tap the help button."
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +40,8 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="50dp"
         android:text="Continue Signing Up"
+        android:background="@drawable/rounded_edge"
+        android:textSize="18sp"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,13 +51,17 @@
         android:id="@+id/textView5"
         android:layout_width="250dp"
         android:layout_height="50dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
-        android:text="Friendly Tip"
+        android:text="Help Reminder"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="100sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.559"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
 
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <ImageView

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.dealreveal.Activites.shared.DealRevealActivity
+import com.example.dealreveal.Activites.client.DealRevealActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.R
 import com.google.android.material.imageview.ShapeableImageView
@@ -20,7 +20,7 @@ class collectionviewadapter(private val mList: List<Pendingapproval>) : Recycler
         // inflates the card_view_design view
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_client, parent, false)
+            .inflate(R.layout.dealcellformat, parent, false)
 
         return ViewHolder(view)
     }
@@ -38,12 +38,13 @@ class collectionviewadapter(private val mList: List<Pendingapproval>) : Recycler
             .into(titleImage)
 
         // sets the Title to the textview from our itemHolder class
-        holder.Title.text = ""
 
-        holder.distance.text = "$" + ItemsViewModel.price
+
+        holder.distance.text = ItemsViewModel.Title
 
         //priceset
-        holder.Price.text = ItemsViewModel.Title
+
+        holder.Price.text = ""
 
         holder.itemView.setOnClickListener {
             Log.i("test", "im a god")
@@ -70,6 +71,7 @@ class collectionviewadapter(private val mList: List<Pendingapproval>) : Recycler
             var price = ItemsViewModel.price
             var resid = ItemsViewModel.resid
             var uid = ItemsViewModel.uid
+            var Insta = ItemsViewModel.Insta
 
 
             val intent = Intent(holder.itemView.context, DealRevealActivity::class.java)
@@ -94,7 +96,8 @@ class collectionviewadapter(private val mList: List<Pendingapproval>) : Recycler
             intent.putExtra("price", price)
             intent.putExtra("resid", resid)
             intent.putExtra("uid", uid)
-            intent.putExtra("admincheck", "pendingdeal")
+            intent.putExtra("Insta", Insta)
+            intent.putExtra("admincheck", "Review")
 
 
             holder.itemView.getContext().startActivity(intent)

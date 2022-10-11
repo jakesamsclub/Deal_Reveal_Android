@@ -2,9 +2,11 @@ package com.example.dealreveal.Activites.users
 
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Startscreen
 import com.example.dealreveal.R
@@ -26,9 +28,18 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login2)
 
+        val Enterconfirmtext =findViewById<TextView>(R.id.textView46)
+        val Verifypnumber = findViewById<Button>(R.id.button11)
+        val otpGiven = findViewById<EditText>(R.id.editTextPhone3)
+        Enterconfirmtext.isVisible = false
+        otpGiven.isVisible = false
+        Verifypnumber.isVisible = false
+
+        Verifypnumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+
         auth=FirebaseAuth.getInstance()
 
-        val lookupnumber = findViewById<Button>(R.id.button13)
+        val lookupnumber = findViewById<Button>(R.id.button10)
         lookupnumber.setOnClickListener {
             login()
         }
@@ -45,6 +56,13 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         title.setText("")
+
+        val signup = findViewById<Button>(R.id.buttonsignup)
+        signup.setOnClickListener {
+            val intent = Intent(this, UserSignUpActivity::class.java)
+
+            startActivity(intent)
+        }
 
 
 
@@ -66,6 +84,9 @@ class LoginActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                Enterconfirmtext.isVisible = true
+                otpGiven.isVisible = true
+                Verifypnumber.isVisible = true
 
                 Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
@@ -73,9 +94,6 @@ class LoginActivity : AppCompatActivity() {
 
             }
         }
-        val Verifypnumber = findViewById<Button>(R.id.button12)
-        val otpGiven = findViewById<EditText>(R.id.editTextNumber2)
-
 
 
 
@@ -115,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        val mobileNumber=findViewById<EditText>(R.id.editTextPhone4)
+        val mobileNumber=findViewById<EditText>(R.id.editTextPhone2)
         var number=mobileNumber.text.toString().trim()
 
         if(!number.isEmpty()){

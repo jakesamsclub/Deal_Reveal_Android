@@ -9,9 +9,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.dealreveal.Activites.PendingapprovalActivity
-import com.example.dealreveal.Activites.admins.ApprovedealsActivity
+import com.example.dealreveal.Activites.shared.ClientCollectionDealActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,11 +36,19 @@ class InitalpostnewdealActivity : AppCompatActivity() {
         val nextbutton = findViewById<Button>(R.id.button32)
         nextbutton.setOnClickListener {
 
-            val intent = Intent(this, PostNewDealInfoActivity::class.java)
+            if (!::filepath.isInitialized) {
+                println("You must select a photo for this deal")
+                Toast.makeText(applicationContext, "You must select a photo for this deal", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            else {
 
-            intent.putExtra("avatar",filepath)
+                val intent = Intent(this, PostNewDealInfoActivity::class.java)
 
-            startActivity(intent)
+                intent.putExtra("avatar", filepath)
+
+                startActivity(intent)
+            }
         }
 
 
@@ -64,8 +74,8 @@ class InitalpostnewdealActivity : AppCompatActivity() {
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
+        leftIcon.isVisible = false
 
-//        leftIcon.setVisibility(View.INVISIBLE)
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
             startActivity(intent)
@@ -96,7 +106,7 @@ class InitalpostnewdealActivity : AppCompatActivity() {
                     true
                 }
                 R.id.DealAnalytics -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, AnalyticsAllDealActivity::class.java)
                     startActivity(intent);
                     true
                 }

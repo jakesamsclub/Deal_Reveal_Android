@@ -12,46 +12,73 @@
 
     <TextView
         android:id="@+id/textView44"
-        android:layout_width="239dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/include"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="50dp"
-        android:text="1. Add a Photo that best represents your deal.   2. Add the proper information of your deal. 3. Review your deal and make sure all the information is correct. 4. Your deal will be sent to a DeavlReveal admin, it will be approved or rejected within 24 hours"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="1. Add a photo that best represents your deal.\n\n2. Add the proper information of your deal. \n\n3. Review your deal and make sure all the information is correct. \n\n 4. Your deal will be sent to a DeavlReveal admin, it will be approved or rejected within 24 hours"
+        android:textColor="#000000"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
-    <ImageView
-        android:id="@+id/imageView6"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_below="@+id/textView44"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_baseline_add_alert_24"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="61dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toTopOf="@+id/button32"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView44" />
+        app:layout_constraintTop_toBottomOf="@+id/textView44">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/textView44"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/cache"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView44"
+            app:shapeAppearanceOverlay="@style/RoundedCorner" />
+        />
+    </androidx.cardview.widget.CardView>
+
 
     <Button
         android:id="@+id/button32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_above="@+id/bottomNav"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Next Step"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

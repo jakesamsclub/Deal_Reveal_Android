@@ -1,6 +1,7 @@
 package com.example.dealreveal.Activites
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -32,6 +33,11 @@ class DealCollectionViewActivity : AppCompatActivity() {
     val filtereddata = java.util.ArrayList<Pendingapproval>()
     var AllDays = "yes"
     val admincode = ""
+    var companyname = ""
+    var address = ""
+    var yelp = ""
+    var phone = ""
+    var website = ""
     var resid = ""
     var Name = ""
 
@@ -61,6 +67,7 @@ class DealCollectionViewActivity : AppCompatActivity() {
         Log.d("resid",  resid)
         Log.d("Name",  Name)
 
+
         getUserdata()
     }
 
@@ -70,8 +77,14 @@ class DealCollectionViewActivity : AppCompatActivity() {
         val bev = findViewById<Button>(R.id.Beverages)
         val act = findViewById<Button>(R.id.Activitys)
         Allcategory.isSelected = !Allcategory.isSelected
+        Allcategory.setBackgroundColor(Color.WHITE)
+        Allcategory.setTextColor(Color.BLACK)
 
         Allcategory.setOnClickListener {
+            buttoncatcolorset()
+            Allcategory.setBackgroundColor(Color.WHITE)
+            Allcategory.setTextColor(Color.BLACK)
+
             if (dealtype == ""){
 
             }
@@ -84,8 +97,12 @@ class DealCollectionViewActivity : AppCompatActivity() {
                 updaterecycler()
             }
 
-            }
+        }
         food.setOnClickListener {
+            buttoncatcolorset()
+            food.setBackgroundColor(Color.WHITE)
+            food.setTextColor(Color.BLACK)
+
             if (dealtype == "Food"){
 
             }
@@ -101,6 +118,10 @@ class DealCollectionViewActivity : AppCompatActivity() {
         }
 
         bev.setOnClickListener {
+            buttoncatcolorset()
+            bev.setBackgroundColor(Color.WHITE)
+            bev.setTextColor(Color.BLACK)
+
             if (dealtype == "Beverage"){
 
             }
@@ -116,6 +137,9 @@ class DealCollectionViewActivity : AppCompatActivity() {
             }
         }
         act.setOnClickListener {
+            buttoncatcolorset()
+            act.setBackgroundColor(Color.WHITE)
+            act.setTextColor(Color.BLACK)
             if (dealtype == "Entertainment"){
 
             }
@@ -141,8 +165,13 @@ class DealCollectionViewActivity : AppCompatActivity() {
         val SAT = findViewById<Button>(R.id.SAT)
         val SUN = findViewById<Button>(R.id.SUN)
         Allday.isSelected = !Allday.isSelected
+        Allday.setBackgroundColor(Color.WHITE)
+        Allday.setTextColor(Color.BLACK)
 
         Allday.setOnClickListener {
+            buttoncolorset()
+            Allday.setBackgroundColor(Color.WHITE)
+            Allday.setTextColor(Color.BLACK)
             if (day == ""){
 
             }
@@ -161,6 +190,9 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
         }
         MON.setOnClickListener {
+            buttoncolorset()
+            MON.setBackgroundColor(Color.WHITE)
+            MON.setTextColor(Color.BLACK)
             if (day == "MON"){
 
             }
@@ -180,6 +212,9 @@ class DealCollectionViewActivity : AppCompatActivity() {
         }
 
         TUE.setOnClickListener {
+            buttoncolorset()
+            TUE.setBackgroundColor(Color.WHITE)
+            TUE.setTextColor(Color.BLACK)
             if (day == "TUE"){
 
             }
@@ -198,6 +233,10 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
         }
         WED.setOnClickListener {
+            buttoncolorset()
+            WED.setBackgroundColor(Color.WHITE)
+            WED.setTextColor(Color.BLACK)
+
             if (day == "WED"){
 
             }
@@ -216,6 +255,9 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
         }
         THU.setOnClickListener {
+            buttoncolorset()
+            THU.setBackgroundColor(Color.WHITE)
+            THU.setTextColor(Color.BLACK)
             if (day == "THU"){
 
             }
@@ -234,6 +276,10 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
         }
         FRI.setOnClickListener {
+            buttoncolorset()
+            FRI.setBackgroundColor(Color.WHITE)
+            FRI.setTextColor(Color.BLACK)
+
             if (day == "FRI"){
 
             }
@@ -252,6 +298,9 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
         }
         SAT.setOnClickListener {
+            buttoncolorset()
+            SAT.setBackgroundColor(Color.WHITE)
+            SAT.setTextColor(Color.BLACK)
             if (day == "SAT"){
 
             }
@@ -270,6 +319,10 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
         }
         SUN.setOnClickListener {
+            buttoncolorset()
+            SUN.setBackgroundColor(Color.WHITE)
+            SUN.setTextColor(Color.BLACK)
+
             if (day == "SUN"){
 
             }
@@ -288,8 +341,52 @@ class DealCollectionViewActivity : AppCompatActivity() {
             }
         }
 
-        }
+    }
+    fun buttoncolorset(){
+        val Allday = findViewById<Button>(R.id.ALLDAY)
+        val MON = findViewById<Button>(R.id.MON)
+        val TUE = findViewById<Button>(R.id.TUE)
+        val WED = findViewById<Button>(R.id.WED)
+        val THU = findViewById<Button>(R.id.THU)
+        val FRI = findViewById<Button>(R.id.FRI)
+        val SAT = findViewById<Button>(R.id.SAT)
+        val SUN = findViewById<Button>(R.id.SUN)
 
+        Allday.setBackgroundColor(Color.BLACK)
+        Allday.setTextColor(Color.WHITE)
+        MON.setBackgroundColor(Color.BLACK)
+        MON.setTextColor(Color.WHITE)
+        TUE.setBackgroundColor(Color.BLACK)
+        TUE.setTextColor(Color.WHITE)
+        WED.setBackgroundColor(Color.BLACK)
+        WED.setTextColor(Color.WHITE)
+        THU.setBackgroundColor(Color.BLACK)
+        THU.setTextColor(Color.WHITE)
+        FRI.setBackgroundColor(Color.BLACK)
+        FRI.setTextColor(Color.WHITE)
+        SAT.setBackgroundColor(Color.BLACK)
+        SAT.setTextColor(Color.WHITE)
+        SUN.setBackgroundColor(Color.BLACK)
+        SUN.setTextColor(Color.WHITE)
+
+    }
+    fun buttoncatcolorset(){
+        val Allcategory = findViewById<Button>(R.id.ALLcat)
+        val food = findViewById<Button>(R.id.Food)
+        val bev = findViewById<Button>(R.id.Beverages)
+        val act = findViewById<Button>(R.id.Activitys)
+
+        Allcategory.setBackgroundColor(Color.BLACK)
+        Allcategory.setTextColor(Color.WHITE)
+        food.setBackgroundColor(Color.BLACK)
+        food.setTextColor(Color.WHITE)
+        bev.setBackgroundColor(Color.BLACK)
+        bev.setTextColor(Color.WHITE)
+        act.setBackgroundColor(Color.BLACK)
+        act.setTextColor(Color.WHITE)
+
+
+    }
 
 
     private fun getUserdata() {
@@ -298,7 +395,7 @@ class DealCollectionViewActivity : AppCompatActivity() {
         val currentuser = FirebaseAuth.getInstance().currentUser!!
             .uid
 
-        val docRef = db.collection("ClientDeals1").document(resid).collection(resid)
+        val docRef = db.collection("Deals").whereEqualTo("resid",resid)
         docRef.get()
             .addOnSuccessListener { documents ->
 
@@ -311,10 +408,17 @@ class DealCollectionViewActivity : AppCompatActivity() {
 //                        val adapter = CustomAdapter(data, userlat, userlong)
 //                        newRecyclerView.adapter = adapter
                     Log.i("uidkey", myObject.uid)
+                    companyname =  myObject.RestaurantName
+                    address = myObject.Address
+                    yelp = myObject.Yelp
+                    phone = myObject.PhoneNumber
+                    website = myObject.CompanyURL
+
 
                     val adapter = collectionviewadapter(data)
                     newRecyclerView.adapter = adapter
                 }
+                headerandbottom()
             }
 
             .addOnFailureListener { exception ->
@@ -361,6 +465,21 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
 
     private fun headerandbottom() {
+
+        val companytitle = findViewById<TextView>(R.id.companytitle)
+        companytitle.setText(companyname)
+
+        val Companyphone = findViewById<ImageView>(R.id.phone)
+
+
+        val Companymap = findViewById<ImageView>(R.id.map)
+
+
+        val Companyyelp = findViewById<ImageView>(R.id.Yelp)
+
+
+        val Companywebsite = findViewById<ImageView>(R.id.website)
+
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)

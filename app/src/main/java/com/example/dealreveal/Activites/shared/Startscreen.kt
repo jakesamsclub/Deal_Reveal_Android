@@ -8,20 +8,19 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.Toast
+import android.view.animation.AnimationUtils
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.dealreveal.Activites.admins.HodorActivity
 import com.example.dealreveal.Activites.client.BusinessSigninActivity
-import com.example.dealreveal.Activites.client.InitalpostnewdealActivity
-import com.example.dealreveal.Activites.users.DealRevealfilterActivity
 import com.example.dealreveal.Activites.users.LoginActivity
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
@@ -38,6 +37,10 @@ class Startscreen : AppCompatActivity(), LocationListener {
     private val locationPermissionCode = 2
     val db = FirebaseFirestore.getInstance()
 
+    var simpleVideoView: VideoView? = null
+
+    var mediaControls: MediaController? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,39 +48,66 @@ class Startscreen : AppCompatActivity(), LocationListener {
         setContentView(R.layout.activity_startscreen)
         buttonsetup()
         getLocationsafetycheck()
-
+        video()
+        
         }
 
-    fun loggedinuser() {
+    fun video() {
 
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
 
-        val docRef = db.collection("users1").document(currentuser)
-        docRef.get()
-            .addOnSuccessListener { documentSnapshot ->
-                Log.d("nullcheck", documentSnapshot.data.toString())
+        val buttonTxt = findViewById<TextView>(R.id.textView18)
 
-                if (documentSnapshot.data.toString() != "null") {
-                    val intent = Intent(this, DealRevealfilterActivity::class.java)
-                    startActivity(intent)
-                }
-                if (documentSnapshot.data.toString() == "null") {
-                    Log.d("nullcheck1", documentSnapshot.data.toString())
-                    Log.d("nullcheck1", currentuser)
 
-                    val docRef1 = db.collection("ClientsAccounts1").document(currentuser)
-                    docRef1.get().addOnSuccessListener { documentSnapshot1 ->
+        simpleVideoView = findViewById<View>(R.id.videoView) as VideoView
+        val animation = AnimationUtils.loadAnimation(this, R.anim.fadein)
+        //starting the animation
+        simpleVideoView!!.startAnimation(animation)
+        buttonTxt.startAnimation(animation)
 
-                        if (documentSnapshot1.data.toString() != "null") {
-                            val intent = Intent(this, InitalpostnewdealActivity::class.java)
-                            startActivity(intent)
-                        }
+        if (mediaControls == null) {
+            // creating an object of media controller class
+            mediaControls = MediaController(this)
 
-                    }
-                }
-            }
+            // set the anchor view for the video view
+            mediaControls!!.setAnchorView(this.simpleVideoView)
+        }
+
+        // set the media controller for video view
+        simpleVideoView!!.setMediaController(mediaControls)
+
+        // set the absolute path of the video file which is going to be played
+        simpleVideoView!!.setVideoURI(
+            Uri.parse(
+                "android.resource://"
+                        + packageName + "/" +  R.raw.magichat
+            )
+        )
+
+        simpleVideoView!!.requestFocus()
+        simpleVideoView!!.setMediaController(null)
+
+        // starting the video
+        simpleVideoView!!.start()
+
+        // display a toast message
+        // after the video is completed
+        simpleVideoView!!.setOnCompletionListener {
+            simpleVideoView!!.start()
+            Toast.makeText(
+                applicationContext, "Video completed",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
+    override fun onResume() {
+        super.onResume()
+        simpleVideoView = findViewById<View>(R.id.videoView) as VideoView
+        if (simpleVideoView  != null) {
+            simpleVideoView!!.start()
+        }
+    }
+
+
     fun buttonsetup(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -96,10 +126,10 @@ class Startscreen : AppCompatActivity(), LocationListener {
             intent.putExtra("HELPID",helpid)
             startActivity(intent)
         }
-        val button1 = findViewById<Button>(R.id.button9)
-        button1.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-        }
+//        val button1 = findViewById<Button>(R.id.button9)
+//        button1.setOnClickListener{
+//            FirebaseAuth.getInstance().signOut()
+//        }
         val buttonTxt = findViewById<Button>(R.id.button0)
         buttonTxt.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
@@ -119,15 +149,15 @@ class Startscreen : AppCompatActivity(), LocationListener {
         }
 
 
-        val hodor = findViewById<Button>(R.id.Hodor)
-        hodor.setOnClickListener {
-            clickCount++
-            if (clickCount == 5) {
-                val intent = Intent(this, HodorActivity::class.java)
-                startActivity(intent)
-
-            }
-        }
+//        val hodor = findViewById<Button>(R.id.Hodor)
+//        hodor.setOnClickListener {
+//            clickCount++
+//            if (clickCount == 5) {
+//                val intent = Intent(this, HodorActivity::class.java)
+//                startActivity(intent)
+//
+//            }
+//        }
     }
 
      fun getLocation() {

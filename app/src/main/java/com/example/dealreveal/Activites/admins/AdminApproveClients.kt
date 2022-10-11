@@ -8,17 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.dealreveal.Activites.admins.AdminbusinesschangeActivity
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
+import com.example.dealreveal.Activites.admins.LiarreportActivity
 import com.example.dealreveal.Activites.admins.PossibleClient1Activity
 import com.example.dealreveal.Activites.client.NewClients
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter
+import com.firebase.ui.firestore.paging.FirestorePagingOptions
+import com.firebase.ui.firestore.paging.LoadingState
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -36,7 +41,6 @@ class AdminApproveClients : AppCompatActivity() {
     private lateinit var newArrayList: ArrayList<NewClients>
     lateinit var imageID : Array<Int>
     lateinit var heading : Array<String>
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,9 +63,14 @@ class AdminApproveClients : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
 
         val query = db.collection("Possibleclient1")
-        val options = FirestoreRecyclerOptions.Builder<NewClients>().setQuery(query, NewClients::class.java)
+        val config = PagedList.Config.Builder().setEnablePlaceholders(false)
+            .setPrefetchDistance(1)
+            .setPageSize(1)
+            .build()
+
+        val options = FirestorePagingOptions.Builder<NewClients>().setQuery(query,config, NewClients::class.java)
             .setLifecycleOwner(this).build()
-        val adapter = object: FirestoreRecyclerAdapter<NewClients, NewClientsViewHolder>(options) {
+        val adapter = object: FirestorePagingAdapter<NewClients, NewClientsViewHolder>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewClientsViewHolder {
                 val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_client,parent,false)
                 return NewClientsViewHolder(itemView)
@@ -111,7 +120,35 @@ class AdminApproveClients : AppCompatActivity() {
                 }
 
             }
+            override fun onLoadingStateChanged(state: LoadingState) {
+                when (state) {
+                    LoadingState.LOADING_INITIAL -> {
+                        Log.d("TAG","LOADING_INITIAL" )
 
+                    }
+
+                    LoadingState.LOADING_MORE -> {
+                        Log.d("TAG","LOADING_MORE" )
+                    }
+
+                    LoadingState.LOADED -> {
+                        Log.d("TAG","LOADED a total of " +newRecyclerView.adapter!!.itemCount.toString() )
+                    }
+
+                    LoadingState.ERROR -> {
+                        Toast.makeText(
+                            applicationContext,
+                            "Error Occurred!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+
+                    LoadingState.FINISHED -> {
+                        Log.d("TAG","FINISHED" )
+                    }
+                }
+            }
 
         }
         recyclerview.adapter = adapter
@@ -140,8 +177,7 @@ class AdminApproveClients : AppCompatActivity() {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.client -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
-                    startActivity(intent);
+
                     true
                 }
                 R.id.deal-> {
@@ -152,12 +188,12 @@ class AdminApproveClients : AppCompatActivity() {
 
                 }
                 R.id.liar -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, LiarreportActivity::class.java)
                     startActivity(intent);
                     true
                 }
                 R.id.update -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, AdminbusinesschangeActivity::class.java)
                     startActivity(intent);
                     true
                 }

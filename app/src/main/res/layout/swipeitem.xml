@@ -32,15 +32,14 @@
 
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:alpha=".5"
+        android:alpha=".6"
+        android:background="@drawable/roundedjustbottom"
         android:color="@color/black"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/roundedjustbottom"
-         />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/distanceswipe"

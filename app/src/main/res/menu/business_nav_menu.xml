@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/YourDeals"
         android:title="Your Deals"
-        android:icon="@drawable/ic_baseline_add_business_24"
+        android:icon="@drawable/filledheart"
         />
     <item android:id="@+id/UnderReview"
         android:title="Under Review"
-        android:icon="@drawable/ic_baseline_add_alert_24"
+        android:icon="@drawable/survey"
         />
     <item android:id="@+id/NewDeal"
         android:title="New Deal"
-        android:icon="@drawable/ic_baseline_add_alert_24"
+        android:icon="@drawable/create"
         />
     <item android:id="@+id/DealAnalytics"
         android:title="Deal Analytics"
-        android:icon="@drawable/ic_baseline_update_24"
+        android:icon="@drawable/analytics"
         />
     <item android:id="@+id/Settings"
         android:title="Settings"
-        android:icon="@drawable/ic_baseline_update_24"
+        android:icon="@drawable/settings"
         />
 </menu>

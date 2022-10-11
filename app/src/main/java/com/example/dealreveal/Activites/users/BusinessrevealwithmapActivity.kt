@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealreveal.Activites.DealCollectionViewActivity
-import com.example.dealreveal.Activites.PendingapprovalActivity
 import com.example.dealreveal.Activites.UserSavedDealsActivity
 import com.example.dealreveal.Activites.client.Client
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
@@ -75,6 +74,21 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 //        getLocation()
         getrange()
     }
+        fun buttoncolorset(){
+            val Allcategory = findViewById<Button>(R.id.ALLcat)
+            val food = findViewById<Button>(R.id.Food)
+            val bev = findViewById<Button>(R.id.Beverages)
+            val act = findViewById<Button>(R.id.Activitys)
+
+            Allcategory.setBackgroundColor(Color.BLACK)
+            Allcategory.setTextColor(Color.WHITE)
+            food.setBackgroundColor(Color.BLACK)
+            food.setTextColor(Color.WHITE)
+            bev.setBackgroundColor(Color.BLACK)
+            bev.setTextColor(Color.WHITE)
+            act.setBackgroundColor(Color.BLACK)
+            act.setTextColor(Color.WHITE)
+        }
      fun filterbuttonsetup(){
          val Allcategory = findViewById<Button>(R.id.ALLcat)
          val food = findViewById<Button>(R.id.Food)
@@ -82,6 +96,9 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
          val act = findViewById<Button>(R.id.Activitys)
 
          Allcategory.setOnClickListener {
+             buttoncolorset()
+             Allcategory.setBackgroundColor(Color.WHITE)
+             Allcategory.setTextColor(Color.BLACK)
              dealtype = ""
              Allcategory.isSelected = !Allcategory.isSelected
              food.isSelected = false
@@ -91,7 +108,9 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 
          }
          food.setOnClickListener {
-
+             buttoncolorset()
+             food.setBackgroundColor(Color.WHITE)
+             food.setTextColor(Color.BLACK)
              dealtype = "Food"
              food.isSelected = !food.isSelected
              Allcategory.isSelected = false
@@ -101,7 +120,9 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
          }
 
          bev.setOnClickListener {
-
+             buttoncolorset()
+             bev.setBackgroundColor(Color.WHITE)
+             bev.setTextColor(Color.BLACK)
              dealtype = "Beverage"
              bev.isSelected = !bev.isSelected
              Allcategory.isSelected = false
@@ -110,7 +131,9 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
              filtersClients()
          }
          act.setOnClickListener {
-
+             buttoncolorset()
+             act.setBackgroundColor(Color.WHITE)
+             act.setTextColor(Color.BLACK)
              dealtype = "Entertainment"
              act.isSelected = !act.isSelected
              Allcategory.isSelected = false
@@ -148,9 +171,9 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
+//        val sydney = LatLng(-34.0, 151.0)
         val user = LatLng(userlat.toDouble(), userlong.toDouble())
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.addMarker(MarkerOptions().position(user).title("Search Center").snippet("You can move this icon and update search").draggable(true).icon(
             BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(user))
@@ -185,6 +208,8 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
             }
             if (marker.title == "Search Center"){
                 hashMap.clear()
+                movedlat = marker.position.latitude
+                movedlong = marker.position.longitude
                 getrangeformoveduser(movedlat,movedlong)
                 mMap.clear()
 
@@ -343,7 +368,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         for (key in sorted) {
             Log.i("uidkeymap", key.component2().toString())// or your logic to catch the "B"
 
-            val docRef = db.collection("ClientsAccounts1").whereEqualTo("resid",key.component2().toString())
+            val docRef = db.collection("ClientsAccounts").whereEqualTo("resid",key.component2().toString())
             docRef.get()
                 .addOnSuccessListener { documents ->
 
@@ -421,7 +446,8 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
 
-//        leftIcon.setVisibility(View.INVISIBLE)
+        leftIcon.setVisibility(View.INVISIBLE)
+
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
             startActivity(intent)
@@ -440,7 +466,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
                     true
                 }
                 R.id.RandomDeals -> {
-                    val intent = Intent(this, PendingapprovalActivity::class.java)
+                    val intent = Intent(this, DealswipeActivity::class.java)
                     startActivity(intent);
 
                     true

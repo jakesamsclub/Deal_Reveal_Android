@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_edge"
+    android:background="@drawable/rounded_white_corner"
     android:layout_marginTop="15dp">
 
     <RelativeLayout
@@ -27,6 +27,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
+            android:textSize="35sp"
+            android:fontFamily="sans-serif-medium"
             android:layout_marginRight="146dp"
             android:layout_toStartOf="@+id/right_icon"
             android:layout_toLeftOf="@+id/right_icon"
@@ -35,7 +37,7 @@
             android:gravity="center"
             android:text="When"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            />
 
         <ImageView
             android:id="@+id/right_icon"
@@ -53,15 +55,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/when"
             android:layout_alignParentStart="true"
+            android:textSize="20dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/black"
             android:text="Avaliable on" />
 
         <TextView
@@ -75,9 +80,12 @@
             android:layout_alignParentRight="true"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:gravity="center"
+            android:textColor="@android:color/black"
             android:text="Live from " />
 
         <TextView
@@ -91,10 +99,13 @@
             android:layout_alignParentRight="true"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@android:color/black"
             android:text="Deal posted on" />
 
         <TextView

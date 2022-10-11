@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_edge"
+    android:layout_marginTop="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+
+        <TextView
+            android:id="@+id/Totalview"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Totalviewlabel"
+            android:layout_toLeftOf="@+id/Totalviewlabel"
+            android:text="Total Views- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Totalviewlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+
+        <TextView
+            android:id="@+id/viewunder3label"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Totalview"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Totalviewlabel"
+            android:layout_toLeftOf="@+id/Totalviewlabel"
+            android:text="Views under 3 Miles- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/viewunder3"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Totalviewlabel"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+
+        <TextView
+            android:id="@+id/view3to20label"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/viewunder3label"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/viewunder3"
+            android:layout_toLeftOf="@+id/viewunder3"
+            android:text="Views 3 to 20 Miles- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/view3to20"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/viewunder3"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+
+        <TextView
+            android:id="@+id/viewover20label"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/view3to20label"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/viewover20"
+            android:layout_toLeftOf="@+id/viewover20"
+            android:text="Views over 20 Miles- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/viewover20"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/view3to20"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+
+        <TextView
+            android:id="@+id/websitelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/viewover20label"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/website"
+            android:layout_toLeftOf="@+id/website"
+            android:text="Website Clicked- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/website"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/viewover20"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+        <TextView
+            android:id="@+id/Phonelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/websitelabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Phone"
+            android:layout_toLeftOf="@+id/Phone"
+            android:text="Phone Clicked - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Phone"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/website"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+        <TextView
+            android:id="@+id/Yelplabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Phonelabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Phone"
+            android:layout_toLeftOf="@+id/Phone"
+            android:text="Yelp Clicked - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Yelp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Phone"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+
+        <TextView
+            android:id="@+id/Screenshotlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Yelplabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Phone"
+            android:layout_toLeftOf="@+id/Phone"
+            android:text="Screenshots Taken - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Screenshot"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Yelp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+        <TextView
+            android:id="@+id/Savedlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Screenshotlabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Saved"
+            android:layout_toLeftOf="@+id/Saved"
+            android:text="Deal Saved - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Saved"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Screenshot"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+        <TextView
+            android:id="@+id/Reminderlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Savedlabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Reminder"
+            android:layout_toLeftOf="@+id/Reminder"
+            android:text="Reminders Set - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Saved"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+        <TextView
+            android:id="@+id/Addresslabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Reminderlabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Address"
+            android:layout_toLeftOf="@+id/Address"
+            android:text="Address Clicked - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Address"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Reminder"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+        <TextView
+            android:id="@+id/Feedbacklabel"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Addresslabel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Feedback"
+            android:layout_toLeftOf="@+id/Feedback"
+            android:text="Feedback Clicked - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - " />
+
+        <TextView
+            android:id="@+id/Feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_below="@+id/Address"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="12" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

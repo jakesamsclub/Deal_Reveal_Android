@@ -21,87 +21,120 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/user_nav_menu" />
 
-    <TextView
-        android:id="@+id/textView57"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:gravity="center"
-        android:text="Settings"
+    <ImageView
+        android:id="@+id/imageviewlogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginEnd="141dp"
+        android:src="@drawable/dealreveallogo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <Button
         android:id="@+id/recommendfriend"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Recommend To A Friend"
-        app:layout_constraintBottom_toTopOf="@+id/Removealldealreminder"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <Button
-        android:id="@+id/Removealldealreminder"
+        android:id="@+id/RecommendBuz"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
-        android:text="Remove All Deal Reminders"
-        app:layout_constraintBottom_toTopOf="@+id/logout"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
+        android:text="Recommend A Business "
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recommendfriend" />
 
     <Button
         android:id="@+id/logout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Logout"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RecommendBuz"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/location"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/checkpoint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteaccount" />
+
+    <Button
+        android:id="@+id/deleteaccount"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
+        android:text="Delete Account"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageviewlogo" />
 
     <Button
         android:id="@+id/Locationservices"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_edge"
+        android:fontFamily="@font/asapsemibold"
+        android:gravity="center"
         android:text="Location Services"
-        app:layout_constraintBottom_toTopOf="@+id/recommendfriend"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView8" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="85dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginBottom="25dp"
-        android:src="@drawable/ic_baseline_add_alert_24"
-        app:layout_constraintBottom_toTopOf="@+id/recommendfriend"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/deleteaccount" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import com.example.dealreveal.R
 import java.util.*
 
@@ -15,6 +16,7 @@ import java.util.*
 class NotificationService : IntentService("NotificationService") {
     private lateinit var mNotification: Notification
     private val mNotificationId: Int = 1000
+    val text = "MONDAY"
 
     @SuppressLint("NewApi")
     private fun createChannel() {
@@ -60,26 +62,65 @@ class NotificationService : IntentService("NotificationService") {
         }
 
 
-
-
-        if (timestamp > 0) {
-
-
             val context = this.applicationContext
             var notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val notifyIntent = Intent(this, ResultActivity::class.java)
+            val notifyIntent = Intent(this, DealRevealUserActivity::class.java)
 
-            val title = "Sample Notification"
-            val message = "You have received a sample notification. This notification will take you to the details page."
+//            val title = "Sample Notification"
+            val title = intent!!.getStringExtra("title")
+            val message = intent!!.getStringExtra("desc")
 
             notifyIntent.putExtra("title", title)
             notifyIntent.putExtra("message", message)
             notifyIntent.putExtra("notification", true)
+            val StartTime = intent!!.getStringExtra("Starttimenumber")
+            val Day = intent!!.getStringExtra("Day")
+            val ID = intent!!.getStringExtra("ID")
+
 
             notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            var cal = Calendar.getInstance(Locale.getDefault())
 
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = timestamp
+            var startmin = StartTime.toString()
+            var startminSTR = startmin.takeLast(2)
+            var starthour = StartTime.toString()
+            var starthourSTR = starthour.dropLast(2)
+
+            Log.d("start minute ", startminSTR)
+            Log.d("start hours ", starthourSTR)
+            Log.d("uid", ID!!)
+            Log.d("day", Day!!)
+
+            val MON = Day.contains("MON")
+            val TUE = Day.contains("TUE")
+            val WED = Day.contains("WED")
+            val THU = Day.contains("THU")
+            val FRI = Day.contains("FRI")
+            val SAT = Day.contains("SAT")
+            val SUN = Day.contains("SUN")
+
+            if (MON) {
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+            } else if (TUE) {
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
+            } else if (WED) {
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
+            } else if (THU) {
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
+            } else if (FRI) {
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+            } else if (SAT) {
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+            } else if (SUN) {
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+                Log.d("Sunday", Day)
+            }
+
+            cal.setTimeInMillis(System.currentTimeMillis())
+            cal.set(Calendar.HOUR_OF_DAY, 14);
+            cal.set(Calendar.MINUTE,36);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
 
 
             val pendingIntent = PendingIntent.getActivity(context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -92,10 +133,10 @@ class NotificationService : IntentService("NotificationService") {
                 mNotification = Notification.Builder(this, CHANNEL_ID)
                     // Set the intent that will fire when the user taps the notification
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.ic_checked_checkbox)
+                    .setSmallIcon(R.drawable.question)
                     .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                     .setAutoCancel(true)
-                    .setContentTitle(title)
+                    .setContentTitle(title.toString())
                     .setStyle(Notification.BigTextStyle()
                         .bigText(message))
                     .setContentText(message).build()
@@ -104,11 +145,11 @@ class NotificationService : IntentService("NotificationService") {
                 mNotification = Notification.Builder(this)
                     // Set the intent that will fire when the user taps the notification
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.ic_checked_checkbox)
+                    .setSmallIcon(R.drawable.question)
                     .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                     .setAutoCancel(true)
                     .setPriority(Notification.PRIORITY_MAX)
-                    .setContentTitle(title)
+                    .setContentTitle(title.toString())
                     .setStyle(Notification.BigTextStyle()
                         .bigText(message))
                     .setSound(uri)
@@ -124,5 +165,4 @@ class NotificationService : IntentService("NotificationService") {
         }
 
 
-    }
 }

@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.DealCollectionViewActivity
 import com.example.dealreveal.Activites.PendingapprovalActivity
-import com.example.dealreveal.Activites.admins.ApprovedealsActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Startscreen
 import com.example.dealreveal.R
@@ -22,15 +21,17 @@ class ClientsettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_clientsettings)
         overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
+
         val updateBusinfo = findViewById<Button>(R.id.UpdateInfo)
         updateBusinfo.setOnClickListener {
-
+            startActivity(Intent(applicationContext, UpdateBusinessInfoActivity::class.java))
+            finish()
         }
         val recommend = findViewById<Button>(R.id.recommendfriend)
         recommend.setOnClickListener {
 
         }
-        val card = findViewById<Button>(R.id.Updatecard)
+        val card = findViewById<Button>(R.id.updatecard)
         card.setOnClickListener {
 
         }
@@ -38,6 +39,11 @@ class ClientsettingsActivity : AppCompatActivity() {
         logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(applicationContext, Startscreen::class.java))
+            finish()
+        }
+        val Delete = findViewById<Button>(R.id.deleteaccount)
+        updateBusinfo.setOnClickListener {
+            startActivity(Intent(applicationContext, UpdateBusinessInfoActivity::class.java))
             finish()
         }
         headerandbottom()
@@ -79,7 +85,7 @@ class ClientsettingsActivity : AppCompatActivity() {
                     true
                 }
                 R.id.DealAnalytics -> {
-                    val intent = Intent(this, ApprovedealsActivity::class.java)
+                    val intent = Intent(this, AnalyticsAllDealActivity::class.java)
                     startActivity(intent);
                     true
                 }

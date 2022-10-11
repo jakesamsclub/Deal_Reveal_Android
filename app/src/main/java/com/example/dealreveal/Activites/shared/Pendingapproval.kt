@@ -14,6 +14,7 @@ data class Pendingapproval(
     var StartTimeNumber : Int = 0,
     var Title : String = "",
     var Yelp : String = "",
+    var Insta : String = "",
     var category : String = "",
     var date : String = "",
     var description : String = "",
