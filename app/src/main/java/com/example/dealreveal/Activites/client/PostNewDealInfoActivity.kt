@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.admins.ApprovedealsActivity
-import com.example.dealreveal.Activites.shared.ClientCollectionDealActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -267,22 +266,45 @@ class PostNewDealInfoActivity : AppCompatActivity() {
         val Dealstarttimetext = findViewById<TextView>(R.id.dealstarttime)
         val Dealendtimetext = findViewById<TextView>(R.id.dealendtime)
 
+        var safety = ""
 
+        if (Titletext.text .isEmpty()) {
+            Toast.makeText(applicationContext, "Please add a title for this deal", Toast.LENGTH_LONG).show()
+            return@intent
+        }
+        if (Pricetext.text .isEmpty()) {
+            Toast.makeText(applicationContext, "Please add a price for this deal", Toast.LENGTH_LONG).show()
+            return@intent
+        }
+        if (Dealstarttimetext.text .isEmpty()) {
+            println("# is empty.")
+            Toast.makeText(applicationContext, "Please add a start time for this deal", Toast.LENGTH_LONG).show()
+            return@intent
+        }
+        if (Dealendtimetext.text .isEmpty()) {
+            println("# is empty.")
+            Toast.makeText(applicationContext, "Please add a end time for this deal", Toast.LENGTH_LONG).show()
+            return@intent
+        }
+        if (Descriptiontext.text .isEmpty()) {
+            Toast.makeText(applicationContext, "Please add a description for this deal", Toast.LENGTH_LONG).show()
+            return@intent
+        }
 
-        val intent = Intent(this, DealRevealActivity::class.java)
-        intent.putExtra("Title", Titletext.text.toString())
-        intent.putExtra("Price", Pricetext.text.toString())
-        intent.putExtra("Category", categorycat)
-        intent.putExtra("Dayofdealtext", daycat)
-        intent.putExtra("Dealstarttimetext", Dealstarttimetext.text.toString())
-        intent.putExtra("Dealendtimetext", Dealendtimetext.text.toString())
-        intent.putExtra("Description",Descriptiontext.text.toString())
-        intent.putExtra("admincheck","")
-        intent.putExtra("startspecifictime",startspecifictime)
-        intent.putExtra("endspecifictime",endspecifictime)
-        intent.putExtra("avatar",filepath)
+            val intent = Intent(this, DealRevealActivity::class.java)
+            intent.putExtra("Title", Titletext.text.toString())
+            intent.putExtra("Price", Pricetext.text.toString())
+            intent.putExtra("Category", categorycat)
+            intent.putExtra("Dayofdealtext", daycat)
+            intent.putExtra("Dealstarttimetext", Dealstarttimetext.text.toString())
+            intent.putExtra("Dealendtimetext", Dealendtimetext.text.toString())
+            intent.putExtra("Description", Descriptiontext.text.toString())
+            intent.putExtra("admincheck", "")
+            intent.putExtra("startspecifictime", startspecifictime)
+            intent.putExtra("endspecifictime", endspecifictime)
+            intent.putExtra("avatar", filepath)
 
-        startActivity(intent)
+            startActivity(intent)
 
     }
 
@@ -297,6 +319,8 @@ class PostNewDealInfoActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Deal")
+            intent.putExtra("desc","* Here you can add the needed information for your new deal. Make sure each field is filled out. ")
             startActivity(intent)
         }
         title.setText("Post a New Deal")

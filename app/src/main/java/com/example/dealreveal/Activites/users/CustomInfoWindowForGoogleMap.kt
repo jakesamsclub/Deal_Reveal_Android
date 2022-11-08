@@ -21,10 +21,10 @@ class CustomInfoWindowForGoogleMap(context: Context) : GoogleMap.InfoWindowAdapt
 
         tvTitle.text = marker.title
         if (marker.snippet == "You can move this icon and update search") {
-            tvSnippet.text = "You can move this icon around.\nTap the button to update results."
+            tvSnippet.text = "Hold down the blue pin to move the search center location \nTap the info button to update results."
         }
         if (marker.snippet != "You can move this icon and update search") {
-            tvSnippet.text = "Click here for more info"
+            tvSnippet.text = "Click the grey info button to see this companys deals"
         }
 
         tvTitle.setOnClickListener{

@@ -37,6 +37,8 @@ class HelpReminderActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener{
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Introduction")
+            intent.putExtra("desc","* Here in the Deal Reveal User Guide, you can read information that easily explains what can be done on ever page found in Deal Reveal. \n\n * If you are ever unsure of what too do or how to use something on the given page, just click the help icon to bring you to the user guide. \n\n * If the user guide does not answer your current question, feel free to reach out to support by using the email found at the bottom of this page. :)")
             startActivity(intent)
         }
         title.setText("")

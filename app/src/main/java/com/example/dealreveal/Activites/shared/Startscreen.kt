@@ -5,22 +5,25 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.example.dealreveal.Activites.client.BusinessSigninActivity
+import com.example.dealreveal.Activites.usernotsignedin
 import com.example.dealreveal.Activites.users.LoginActivity
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
@@ -36,6 +39,7 @@ class Startscreen : AppCompatActivity(), LocationListener {
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
     val db = FirebaseFirestore.getInstance()
+    var locationcheck = true
 
     var simpleVideoView: VideoView? = null
 
@@ -47,8 +51,12 @@ class Startscreen : AppCompatActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_startscreen)
         buttonsetup()
-        getLocationsafetycheck()
         video()
+        window.decorView.post {
+            getLocationsafetycheck()
+        }
+        //dont delete this is for resetting not signed in users
+        usernotsignedin = false
         
         }
 
@@ -93,10 +101,6 @@ class Startscreen : AppCompatActivity(), LocationListener {
         // after the video is completed
         simpleVideoView!!.setOnCompletionListener {
             simpleVideoView!!.start()
-            Toast.makeText(
-                applicationContext, "Video completed",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
     override fun onResume() {
@@ -121,10 +125,16 @@ class Startscreen : AppCompatActivity(), LocationListener {
 
         val button = findViewById<Button>(R.id.button2)
         button.setOnClickListener{
-            val helpid = "user"
-            val intent = Intent(this, HelpReminderActivity::class.java)
-            intent.putExtra("HELPID",helpid)
-            startActivity(intent)
+
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                val helpid = "user"
+                val intent = Intent(this, HelpReminderActivity::class.java)
+                intent.putExtra("HELPID",helpid)
+                startActivity(intent)
+            } else {
+                checklocation()
+            }
         }
 //        val button1 = findViewById<Button>(R.id.button9)
 //        button1.setOnClickListener{
@@ -132,20 +142,39 @@ class Startscreen : AppCompatActivity(), LocationListener {
 //        }
         val buttonTxt = findViewById<Button>(R.id.button0)
         buttonTxt.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                checklocation()
+            }
         }
         val businesssignupbutton = findViewById<Button>(R.id.button4)
         businesssignupbutton.setOnClickListener{
-            val helpid = "Business"
-            val intent = Intent(this, HelpReminderActivity::class.java)
-            intent.putExtra("HELPID",helpid)
-            startActivity(intent)
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                val helpid = "Business"
+                val intent = Intent(this, HelpReminderActivity::class.java)
+                intent.putExtra("HELPID",helpid)
+                startActivity(intent)
+            } else {
+                checklocation()
+            }
+
+
         }
         val businesssignin = findViewById<Button>(R.id.button3)
         businesssignin.setOnClickListener{
-            val intent = Intent(this, BusinessSigninActivity::class.java)
-            startActivity(intent)
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                val intent = Intent(this, BusinessSigninActivity::class.java)
+                startActivity(intent)
+            } else {
+                checklocation()
+            }
+
         }
 
 
@@ -164,8 +193,85 @@ class Startscreen : AppCompatActivity(), LocationListener {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+         }
+        else{
+            val inflater: LayoutInflater =
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.changerangepopup, null)
+
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+            )
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+
+            // If API level 23 or higher then execute the code
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.RIGHT
+                popupWindow.exitTransition = slideOut
+
+            }
+            // Get the widgets reference from custom view
+            val tv = view.findViewById<TextView>(R.id.textView58)
+            val buttonPopup = view.findViewById<Button>(R.id.button_popup)
+            val seek = view.findViewById<SeekBar>(R.id.seekBar)
+            val close = view.findViewById<TextView>(R.id.text_view)
+
+
+            tv.text = "This app requires location services to be enabled. We find deals based on your location. IF YOU HIT DENY, go to your phone settings, find the app Deal Reveal and make sure location settings is enabled. Reload the app once completed. If you accepted location services ignore this message. "
+            close.text = ""
+            seek.isVisible = false
+
+
+            // Set click listener for popup window's text view
+            tv.setOnClickListener {
+                // Change the text color of popup window's text view
+                tv.setTextColor(Color.BLACK)
+            }
+
+            // Set a click listener for popup's button widget
+            buttonPopup.setOnClickListener {
+                // Dismiss the popup window
+                popupWindow.dismiss()
+
+            }
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+
+            }
+
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(view as ViewGroup?)
+            popupWindow.showAtLocation(
+                view as ViewGroup?, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+
+        }
+
     }
     override fun onLocationChanged(location: Location) {
         userlong= location.longitude.toString()
@@ -187,7 +293,82 @@ class Startscreen : AppCompatActivity(), LocationListener {
             getLocation()
         }
     }
+    fun checklocation(){
+
+            val inflater: LayoutInflater =
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            // Inflate a custom view using layout inflater
+            val view = inflater.inflate(R.layout.changerangepopup, null)
+
+            // Initialize a new instance of popup window
+            val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+            )
+
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
 
 
+            // If API level 23 or higher then execute the code
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Create a new slide animation for popup window enter transition
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+
+                // Slide animation for popup window exit transition
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.RIGHT
+                popupWindow.exitTransition = slideOut
+
+            }
+            // Get the widgets reference from custom view
+            val tv = view.findViewById<TextView>(R.id.textView58)
+            val buttonPopup = view.findViewById<Button>(R.id.button_popup)
+            val seek = view.findViewById<SeekBar>(R.id.seekBar)
+            val close = view.findViewById<TextView>(R.id.text_view)
+
+
+            tv.text = "Deal Reveal requires location services to be enabled. Go into your phone settings, find Deal Reveal and make sure you have granted location permissions. After this you will be able to utilize the app. "
+            close.text = ""
+            seek.isVisible = false
+
+
+            // Set click listener for popup window's text view
+            tv.setOnClickListener {
+                // Change the text color of popup window's text view
+                tv.setTextColor(Color.BLACK)
+            }
+
+            // Set a click listener for popup's button widget
+            buttonPopup.setOnClickListener {
+                // Dismiss the popup window
+                popupWindow.dismiss()
+
+            }
+
+            // Set a dismiss listener for popup window
+            popupWindow.setOnDismissListener {
+
+            }
+
+
+            // Finally, show the popup window on app
+            TransitionManager.beginDelayedTransition(view as ViewGroup?)
+            popupWindow.showAtLocation(
+                view as ViewGroup?, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+            )
+        }
 
     }
+
+
+
+

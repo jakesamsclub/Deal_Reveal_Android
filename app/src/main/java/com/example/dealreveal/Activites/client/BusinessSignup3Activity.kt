@@ -62,6 +62,8 @@ class BusinessSignup3Activity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Business Sign Up")
+            intent.putExtra("desc","* You must enter the following fields to finish creating a new business account...\n\n    1) A image to represent your business 'company logo'. \n\n    2) A company email that will be used to login to the account. \n\n    3) A password for the account. \n\n * Once you have entered all the fields you can press Next")
             startActivity(intent)
         }
         title.setText("")

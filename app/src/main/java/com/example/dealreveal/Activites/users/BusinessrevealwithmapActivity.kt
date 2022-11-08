@@ -33,12 +33,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_deal_revealfilter.*
-import java.util.*
 
 
 class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
@@ -158,7 +156,8 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 //        getrange()
 //    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == locationPermissionCode) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    if (requestCode == locationPermissionCode) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
             } else {
@@ -182,7 +181,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 
         mMap.addCircle(
             CircleOptions()
-            .center( LatLng(userlat.toDouble(), userlong.toDouble())).radius(10000.0).strokeColor(Color.RED)
+            .center( LatLng(userlat.toDouble(), userlong.toDouble())).radius(13000.0).strokeColor(Color.RED)
                 .fillColor(0x220000FF)
                 .strokeWidth(5F)
         )
@@ -196,12 +195,12 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
             if (marker.title != "Search Center"){
                 var Name = marker.title
                 var resid= marker.snippet
-                var residtrimmed = marker.snippet.substring(resid.indexOf(":")+1)
+                var residtrimmed = marker.snippet!!.substring(resid!!.indexOf(":")+1)
                 residtrimmed.trim()
 
                 val intent = Intent(this, DealCollectionViewActivity ::class.java)
                 intent.putExtra("Name", Name)
-                intent.putExtra("residtrimmed", residtrimmed.trim())
+                intent.putExtra("resid", residtrimmed.trim())
 
                 startActivity(intent)
 
@@ -215,7 +214,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 
                 mMap.addCircle(
                     CircleOptions()
-                        .center( LatLng(movedlat, movedlong)).radius(10000.0).strokeColor(Color.RED)
+                        .center( LatLng(movedlat, movedlong)).radius(13000.0).strokeColor(Color.RED)
                         .fillColor(0x220000FF)
                         .strokeWidth(5F)
                 )
@@ -260,7 +259,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 
         val geoQuery = geoFire.queryAtLocation(
             GeoLocation(Lat, Long),
-            10.0
+            16.0
         )
 
         geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
@@ -311,7 +310,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 
         val geoQuery = geoFire.queryAtLocation(
             GeoLocation(userlat.toDouble(), userlong.toDouble()),
-            100.0
+            16.0
         )
 
         geoQuery.addGeoQueryEventListener(object : GeoQueryEventListener {
@@ -326,7 +325,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
                 loc2.longitude = userlong.toDouble()
 
                 val distanceInMeters = loc1.distanceTo(loc2)
-                val distanceInMiles = distanceInMeters/1609.34
+                val distanceInMiles = distanceInMeters/1675.34
                 hashMap.put(distanceInMiles , key)
             }
 
@@ -359,8 +358,6 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         newRecyclerView.setHasFixedSize(true)
 
         val db = FirebaseFirestore.getInstance()
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
 
         var i = 0
         val sorted = hashMap.toSortedMap()
@@ -448,8 +445,11 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 
         leftIcon.setVisibility(View.INVISIBLE)
 
+
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Swipe Deals")
+            intent.putExtra("desc","*The Business Reveal page allows you to see business within 10 miles of your location \n\n * You are able to move your icon around the map to search for businesses in specfic locations. \n\n * You can use the filter in the middle of the screen to find businesses with only certain deals types. \n\n * After the businesses near your location load, you can filter the results and search for a specific buisness by using the seachbar at the top of the screen. \n\n * If you click a business flag on the map you can then click the more info button to see all of that businesses deals.")
             startActivity(intent)
         }
         title.setText("Business Reveal")

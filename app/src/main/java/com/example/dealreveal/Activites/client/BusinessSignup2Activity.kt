@@ -35,14 +35,17 @@ class BusinessSignup2Activity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener{
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Business Sign Up")
+            intent.putExtra("desc","* You must enter the following fields to continue creating a new business account...\n\n    1) Business's Phone Number \n\n    2) The Business Website URL, if there is no business website just put none \n\n    3) The Business Yelp URL, if there is no business Yelp website just put none. \n\n    4) The Business Facebook URL, if there is no business Facebook website just put none. \n\n    4) The Business Insta URL, if there is no business Insta website just put none.\n\n * Once you have entered all the fields you can press Next")
             startActivity(intent)
+
         }
         title.setText("")
 
         val Phonenumber = findViewById<TextView>(R.id.editTextPhone5)
         val Websiteurl = findViewById<TextView>(R.id.editTextTextEmailAddress2)
-        val Yelpurl = findViewById<TextView>(R.id.editTextTextEmailAddress9)
-        val FBurl = findViewById<TextView>(R.id.editTextTextEmailAddress10)
+        val Yelpurl = findViewById<TextView>(R.id.editTextTextEmailAddress3)
+        val FBurl = findViewById<TextView>(R.id.editTextTextEmailAddress7)
         val Instaurl = findViewById<TextView>(R.id.editTextTextEmailAddress6)
 
        Phonenumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
@@ -83,7 +86,7 @@ class BusinessSignup2Activity : AppCompatActivity() {
         }
 
         val TestFBURL = findViewById<Button>(R.id.button38)
-        TestYelpURL.setOnClickListener{
+        TestFBURL.setOnClickListener{
             var sendFBurl = FBurl.text.toString()
             if (sendFBurl.startsWith("https://") || sendFBurl.startsWith("http://")) {
                 val uri = Uri.parse(sendFBurl)
@@ -96,14 +99,14 @@ class BusinessSignup2Activity : AppCompatActivity() {
 
         }
         val TestInstaURL = findViewById<Button>(R.id.button39)
-        TestYelpURL.setOnClickListener{
-            var sendYelpurl = Yelpurl.text.toString()
-            if (sendYelpurl.startsWith("https://") || sendYelpurl.startsWith("http://")) {
-                val uri = Uri.parse(sendYelpurl)
+        TestInstaURL.setOnClickListener{
+            var sendInstaurl = Instaurl.text.toString()
+            if (sendInstaurl.startsWith("https://") || sendInstaurl.startsWith("http://")) {
+                val uri = Uri.parse(sendInstaurl)
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)
             } else {
-                println("invalid url"+sendYelpurl)
+                println("invalid url"+sendInstaurl)
                 Toast.makeText(applicationContext, "Invalid Url", Toast.LENGTH_SHORT).show()
             }
 

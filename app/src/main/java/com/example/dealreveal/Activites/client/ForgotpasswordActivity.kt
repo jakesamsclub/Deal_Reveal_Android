@@ -61,7 +61,10 @@ class ForgotpasswordActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Business Sign Up")
+            intent.putExtra("desc","* Here you can enter the email you used to create your account. \n\n That email will recieve a password reset link that can be used to reset your password. \n\n * If you dont know the email you used to create your account you must contact support. :(")
             startActivity(intent)
+
         }
         title.setText("")
     }

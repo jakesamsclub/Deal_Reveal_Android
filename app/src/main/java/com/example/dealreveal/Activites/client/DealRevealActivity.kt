@@ -3,6 +3,7 @@ package com.example.dealreveal.Activites.client
 import android.Manifest
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -12,6 +13,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,7 +25,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
-import com.example.dealreveal.Activites.shared.*
+import com.example.dealreveal.Activites.PendingapprovalActivity
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
+import com.example.dealreveal.Activites.shared.RejectDealReasonActivity
+import com.example.dealreveal.Activites.shared.userlat
+import com.example.dealreveal.Activites.shared.userlong
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -76,9 +84,11 @@ class DealRevealActivity : AppCompatActivity(), LocationListener {
     }
 
     fun deal() {
+        //this is for newdeals posted by client
         if (admincheck == "") {
             lateinit var filepath : Uri
-
+            val deletebutton = findViewById<Button>(R.id.Deletedealbutton)
+            deletebutton.isVisible = false
 
         filepath = intent.getParcelableExtra<Uri>("avatar")!!
         Price = intent.getStringExtra("Price").toString()
@@ -111,6 +121,7 @@ class DealRevealActivity : AppCompatActivity(), LocationListener {
                     Address = ClientInfo?.Clientaddy.toString()
                     CompanyURL = ClientInfo?.Clienturl.toString()
                     Facebook = ClientInfo?.Facebook.toString()
+                    Insta = ClientInfo?.Insta.toString()
                     Phonenumber = ClientInfo?.ClientPhone.toString()
                     RestaurantName = ClientInfo?.Clientname.toString()
                     Yelp = ClientInfo?.Yelp.toString()
@@ -202,13 +213,40 @@ class DealRevealActivity : AppCompatActivity(), LocationListener {
             val nextbutton = findViewById<Button>(R.id.submitnewdealtitle)
             nextbutton.setText("Delete Deal")
             nextbutton.setOnClickListener {
-                db.collection("Deals").document(uid).delete().addOnSuccessListener {
-                    Log.d(
-                        "NumberGenerated",
-                        "DocumentSnapshot successfully Deleted!"
+                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
 
-                    )
-                }
+                builder.setTitle("Confirm")
+                builder.setMessage("Are you sure you want to delete this live deal?")
+
+                builder.setPositiveButton(
+                    "YES",
+                    DialogInterface.OnClickListener { dialog, which -> // Do nothing but close the dialog
+                        dialog.dismiss()
+
+                        Toast.makeText(
+                            applicationContext,
+                            "Pending deal deleted!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        db.collection("Deals").document(uid).delete().addOnSuccessListener {
+                            Log.d(
+                                "NumberGenerated",
+                                "DocumentSnapshot successfully Deleted!"
+
+                            )
+                        }
+                    })
+
+                builder.setNegativeButton(
+                    "NO",
+                    DialogInterface.OnClickListener { dialog, which -> // Do nothing
+                        dialog.dismiss()
+                    })
+
+                val alert: android.app.AlertDialog? = builder.create()
+                alert!!.show()
+
             }
             val deletebutton = findViewById<Button>(R.id.Deletedealbutton)
             deletebutton.isVisible = false
@@ -249,9 +287,30 @@ class DealRevealActivity : AppCompatActivity(), LocationListener {
                 .into(Photo1)
 
             val nextbutton = findViewById<Button>(R.id.submitnewdealtitle)
-            nextbutton.setText("Delete Deal")
+            nextbutton.setText("Delete Pending Deal")
             nextbutton.setOnClickListener {
-                Deletependingdeal()
+                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+
+                builder.setTitle("Confirm")
+                builder.setMessage("Are you sure you want to delete this pending deal?")
+
+                builder.setPositiveButton(
+                    "YES",
+                    DialogInterface.OnClickListener { dialog, which -> // Do nothing but close the dialog
+                        dialog.dismiss()
+
+                        Deletependingdeal()
+                    })
+
+                builder.setNegativeButton(
+                    "NO",
+                    DialogInterface.OnClickListener { dialog, which -> // Do nothing
+                        dialog.dismiss()
+                    })
+
+                val alert: android.app.AlertDialog? = builder.create()
+                alert!!.show()
+
             }
             val deletebutton = findViewById<Button>(R.id.Deletedealbutton)
             deletebutton.isVisible = false
@@ -327,191 +386,27 @@ class DealRevealActivity : AppCompatActivity(), LocationListener {
             deletebutton.isVisible = false
         }
     }
-//    private fun rejectdeal(){
-//        val intent = Intent(this, RejectDealReasonActivity::class.java)
-//        intent.putExtra("Address", Address)
-//        intent.putExtra("CompanyURL", CompanyURL)
-//        intent.putExtra("DayofDeal", Dayofdealtext)
-//        intent.putExtra("EndTime", Dealendtimetext)
-//        intent.putExtra("EndTimeNumber", EndTimeNumber)
-//        intent.putExtra("Facebook", Facebook)
-//        intent.putExtra("MealImageUrl", MealImageUrl)
-//        intent.putExtra("PhoneNumber", Phonenumber)
-//        intent.putExtra("RestaurantName", RestaurantName)
-//        intent.putExtra("StartTime", Dealstarttimetext )
-//        intent.putExtra("StartTimeNumber", StartTimeNumber)
-//        intent.putExtra("Title", Title)
-//        intent.putExtra("Yelp", Yelp)
-//        intent.putExtra("category", Category)
-//        intent.putExtra("date", date)
-//        intent.putExtra("description", Description)
-//        intent.putExtra("latitude", latitude)
-//        intent.putExtra("longitude", longitude)
-//        intent.putExtra("price", Price)
-//        intent.putExtra("resid", resid)
-//        intent.putExtra("uid", uid)
-//
-//        startActivity(intent)
-//    }
-//    private fun Submitnewdeal() {
-//
-//        val currentDate: String =
-//            SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(Date())
-//
-//        val possible = hashMapOf(
-//            "Address" to Address,
-//            "CompanyURL" to CompanyURL,
-//            "DayofDeal" to Dayofdealtext,
-//            "EndTime" to Dealendtimetext ,
-//            "EndTimeNumber" to EndTimeNumber,
-//            "Facebook" to Facebook,
-//            "MealImageUrl" to MealImageUrl,
-//            "PhoneNumber" to Phonenumber,
-//            "RestaurantName" to RestaurantName,
-//            "StartTime" to Dealstarttimetext,
-//            "StartTimeNumber" to StartTimeNumber,
-//            "Title" to Title,
-//            "Yelp" to Yelp,
-//            "category" to Category,
-//            "date" to currentDate,
-//            "description" to Description,
-//            "latitude" to latitude,
-//            "longitude" to longitude,
-//            "price" to Price,
-//            "resid" to resid,
-//            "uid" to uid ,
-//
-//            )
-//        db.collection("Deals").document(uid).set(possible)
-//            .addOnSuccessListener {
-//                Log.d(
-//                    "NumberGenerated",
-//                    "DocumentSnapshot successfully written1!"
-//                )
-//                db.collection("ClientDeals1").document(resid).collection(resid).document(uid).set(possible)
-//                    .addOnSuccessListener {
-//                        Log.d(
-//                            "NumberGenerated",
-//                            "DocumentSnapshot successfully written!"
-//                        )
-//
-//                        Deletependingdeal()
-//                        addgeolocations()
-//                        adddealanalytics()
-//                    }
-//                    .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
-//            }
-//            .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
-//
-//    }
-//    private fun adddealanalytics(){
-//        val c = Calendar.getInstance()
-//
-//        val year = c.get(Calendar.YEAR)
-//        val month = c.get(Calendar.MONTH).toInt()+1
-//        val day = c.get(Calendar.DAY_OF_MONTH)
-//        val monthyear = (month.toString()+"-"+year.toString())
-//
-//        val analyticsmap = hashMapOf(
-//            "Address" to 0,
-//            "Alarm" to 0,
-//            "Avatar" to MealImageUrl,
-//            "Facebook" to 0,
-//            "Feedback" to 0,
-//            "Phone_Number" to 0,
-//            "Save_Count" to 0,
-//            "Screenshot" to 0,
-//            "Title" to Title,
-//            "UID" to uid,
-//            "View_Count_3_To_20_Miles" to 0,
-//            "View_Count_Less_Than_3_Miles" to 0,
-//            "View_Count_More_Than_20_Miles" to 0,
-//            "Website" to 0,
-//            "Yelp" to 0,
-//
-//            )
-//        db.collection("Dealanalytics1").document(resid).collection(monthyear).document(uid).set(analyticsmap)
-//            .addOnSuccessListener {
-//                Log.d(
-//                    "NumberGenerated",
-//                    "DocumentSnapshot successfully written!"
-//
-//                )
-//
-//            }
-//
-//    }
-//    private fun addgeolocations(){
-//        val ref =
-//            FirebaseDatabase.getInstance().getReference("Deals1")
-//        val geoFire = GeoFire(ref)
-//
-//        geoFire.setLocation(
-//            uid,
-//            GeoLocation(latitude.toDouble(), longitude.toDouble()),
-//            object : GeoFire.CompletionListener {
-//                fun onComplete(key: String?, error: FirebaseError?) {
-//                    if (error != null) {
-//                        System.err.println("There was an error saving the location to GeoFire: $error")
-//                    } else {
-//                        println("Location saved on server successfully!")
-//
-//                    }
-//                }
-//
-//                override fun onComplete(
-//                    key: String?,
-//                    error: DatabaseError?
-//
-//                ){
-//
-//                }
-//            })
-//
-//        val ref1 =
-//            FirebaseDatabase.getInstance().getReference(Category+"1")
-//        val geoFire1 = GeoFire(ref1)
-//
-//        geoFire1.setLocation(
-//            uid,
-//            GeoLocation(latitude.toDouble(), longitude.toDouble()),
-//            object : GeoFire.CompletionListener {
-//                fun onComplete(key: String?, error: FirebaseError?) {
-//                    if (error != null) {
-//                        System.err.println("There was an error saving the location to GeoFire: $error")
-//                    } else {
-//                        println("Location saved on server successfully!")
-//
-//                    }
-//                }
-//
-//                override fun onComplete(
-//                    key: String?,
-//                    error: DatabaseError?
-//
-//                ){
-//
-//                }
-//            })
 
-//    }
     private fun Deletependingdeal(){
-        db.collection("ReviewMeals").document("Deals").collection("Deals").document(uid).delete().addOnSuccessListener {
+        Toast.makeText(
+            applicationContext,
+            "Pending deal deleted!",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        db.collection("ReviewMeals").document(uid).delete().addOnSuccessListener {
             Log.d(
                 "NumberGenerated",
                 "DocumentSnapshot successfully Deleted!"
 
             )
         }
-        db.collection("ReviewMeals").document(resid).collection(resid).document(uid).delete()
-            .addOnSuccessListener {
-                Log.d(
-                    "NumberGenerated",
-                    "DocumentSnapshot successfully written!"
 
-                )
-            }
+        val intent = Intent(this, PendingapprovalActivity::class.java)
+        startActivity(intent);
+
     }
+
 
 
 private fun sumbitpossibledeal(url: String) {
@@ -548,27 +443,18 @@ private fun sumbitpossibledeal(url: String) {
 
 
         )
-    db.collection("ReviewMeals").document("Deals").collection("Deals").document(id).set(possible)
+    db.collection("ReviewMeals").document(id).set(possible)
         .addOnSuccessListener {
             Log.d(
                 "NumberGenerated",
                 "DocumentSnapshot successfully written!"
 
             )
+            Toast.makeText(this, "New deal submitted for review.", Toast.LENGTH_SHORT).show()
 
         }
-        .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
-    db.collection("ReviewMeals").document(resid).collection(resid).document(id).set(possible)
-        .addOnSuccessListener {
-            Log.d(
-                "NumberGenerated",
-                "DocumentSnapshot successfully written!"
-
-            )
-            startActivity(Intent(applicationContext, Startscreen::class.java))
-            finish()
-        }
-        .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
+    val intent = Intent(this, InitalpostnewdealActivity::class.java)
+    startActivity(intent);
 }
 
     private fun getLocation() {
@@ -602,7 +488,7 @@ private fun sumbitpossibledeal(url: String) {
 
         val distanceInMeters = loc1.distanceTo(loc2)
         val distanceInMiles = distanceInMeters/1609.34
-        val rounded = String.format("%.3f", distanceInMiles)
+        val rounded = String.format("%.2f", distanceInMiles)
         distancetitle.text = rounded + " Mi away"
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -617,6 +503,90 @@ private fun sumbitpossibledeal(url: String) {
 
 
     fun setupheaders(){
+        val rotate = RotateAnimation(
+            0F,
+            360F,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f
+        )
+        rotate.duration = 2000
+        rotate.interpolator = LinearInterpolator()
+
+        val saveIcon = findViewById<ImageView>(R.id.save)
+        saveIcon.startAnimation(rotate)
+        saveIcon.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will save the deal to the users profile so they can easily find it later.",
+                Toast.LENGTH_LONG
+            ).show()
+
+        }
+        val alarm = findViewById<ImageView>(R.id.dealalarm)
+        alarm.startAnimation(rotate)
+        alarm.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will set a alarm on a users phone, next time the deal is live they will be reminded.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        val yelp = findViewById<ImageView>(R.id.dealyelp)
+        yelp.startAnimation(rotate)
+        yelp.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will open to your yelp page if you have provided it, if you need to update the link go to the settings page.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        val Insta = findViewById<ImageView>(R.id.Insta)
+        Insta.startAnimation(rotate)
+        Insta.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will open to your Insta page if you have provided it, if you need to update the link go to the settings page.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        val FB = findViewById<ImageView>(R.id.Facebook)
+        FB.startAnimation(rotate)
+        FB.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will open to your Facebook page if you have provided it, if you need to update the link go to the settings page.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        val website = findViewById<ImageView>(R.id.dealwebsite)
+        website.startAnimation(rotate)
+        website.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will open to your website page if you have provided it, if you need to update the link go to the settings page.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        val map = findViewById<ImageView>(R.id.dealmap)
+        map.startAnimation(rotate)
+        map.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will open google maps and provide directions to your business. If you need to update the link go to the settings page.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        val phone = findViewById<ImageView>(R.id.dealphone)
+        phone.startAnimation(rotate)
+        phone.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will prompt your phone numbers to call your business. If you need to update the link go to the settings page.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
 
 
         //info section
@@ -644,6 +614,13 @@ private fun sumbitpossibledeal(url: String) {
         whereheadertitle.setText("Where")
         val Companybutton = findViewById<TextView>(R.id.`company`)
         Companybutton.setText(RestaurantName)
+        Companybutton.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "This button will direct the user to your company page to see all of your active deals.",
+                Toast.LENGTH_LONG
+            ).show()
+        }
 
 
         //Extra Info
@@ -655,9 +632,19 @@ private fun sumbitpossibledeal(url: String) {
     }
 
     private fun headerandbottom() {
+
+
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
+
+        rightIcon.setOnClickListener {
+            val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Deal Review Page")
+            intent.putExtra("desc","* Here you can see what a new or existing looks like for the normal users. \n\n * If this deal posting needs to be updated, just delete this deal and create a new one.")
+            startActivity(intent)
+
+        }
 
 //        leftIcon.setVisibility(View.INVISIBLE)
         leftIcon.setOnClickListener {
@@ -669,4 +656,5 @@ private fun sumbitpossibledeal(url: String) {
         }
         title.setText("")
     }
+
 }

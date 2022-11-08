@@ -25,6 +25,8 @@ class BusinessSignup1Activity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener{
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Business Sign Up")
+            intent.putExtra("desc","* You must enter the following fields to start creating a new business account...\n\n    1) Your business name \n\n    2) Your business Address \n\n    3) The main name of the contact at the business who will be running the Deal Reveal account. \n\n * Once you have entered all the fields you can press Next")
             startActivity(intent)
         }
         title.setText("")

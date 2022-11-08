@@ -77,6 +77,8 @@ class UserSignUpActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener{
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Sign Up New User")
+            intent.putExtra("desc","* You must enter the following fields to create your account...\n\n    1) Your name \n\n    2) Your Email\n\n    3) A password \n\n    4) your date of Birth. \n\n * Once you have entered all the fields you can press 'Sign Up' \n\n * If you already have a account you can tap sign in.")
             startActivity(intent)
         }
         title.setText("")

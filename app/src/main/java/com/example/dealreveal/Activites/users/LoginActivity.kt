@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Startscreen
+import com.example.dealreveal.Activites.usernotsignedin
 import com.example.dealreveal.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
@@ -34,14 +35,35 @@ class LoginActivity : AppCompatActivity() {
         Enterconfirmtext.isVisible = false
         otpGiven.isVisible = false
         Verifypnumber.isVisible = false
+        val mobileNumber=findViewById<EditText>(R.id.editTextPhone2)
 
-        Verifypnumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+        mobileNumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         auth=FirebaseAuth.getInstance()
 
         val lookupnumber = findViewById<Button>(R.id.button10)
         lookupnumber.setOnClickListener {
-            login()
+            val mobileNumber=findViewById<EditText>(R.id.editTextPhone2)
+            var number=mobileNumber.text.toString().trim()
+            Log.d("TA3G", number)
+            val regex = Regex("[^A-Za-z0-9]")
+            var cleanedupnumber =regex.replace(number, "")
+            val docRef = db.collection("users").whereEqualTo("Phone",cleanedupnumber).get()
+                .addOnSuccessListener { documents ->
+                    if (documents.documents.size == 0){
+                        Toast.makeText(applicationContext, "No account is associate with this number, please create a new account.", Toast.LENGTH_LONG)
+                            .show()
+                    }else{
+                        login()
+                    }
+                }
+        }
+
+        val nophone = findViewById<Button>(R.id.button37)
+        nophone.setOnClickListener {
+            usernotsignedin = true
+            startActivity(Intent(applicationContext, DealRevealfilterActivity::class.java))
+            finish()
         }
 
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
@@ -53,6 +75,8 @@ class LoginActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","User Login")
+            intent.putExtra("desc","* Provided your cell number\n\n *Enter the one time code texted to your phone \n\n *If you do not have a account you can create one or you can see deals without signing in. The second option will limit the functionality in the app")
             startActivity(intent)
         }
         title.setText("")

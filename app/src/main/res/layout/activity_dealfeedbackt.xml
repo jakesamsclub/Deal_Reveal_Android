@@ -88,8 +88,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toBottomOf="@+id/Businessname"
-            tools:srcCompat="@tools:sample/avatars" />
-            />
+            tools:srcCompat="@tools:sample/avatars"/>
+
     </androidx.cardview.widget.CardView>
 
 

@@ -53,7 +53,7 @@ class CustomAdapter(private val mList: List<Pendingapproval>, private val lat: S
 
         val distanceInMeters = loc1.distanceTo(loc2)
         val distanceInMiles = distanceInMeters/1609.34
-        val rounded = String.format("%.3f", distanceInMiles)
+        val rounded = String.format("%.2f", distanceInMiles)
         holder.distance.text = rounded + " Mi away"
 
 
@@ -68,6 +68,7 @@ class CustomAdapter(private val mList: List<Pendingapproval>, private val lat: S
             var EndTime = ItemsViewModel.EndTime
             var EndTimeNumber = ItemsViewModel.EndTimeNumber
             var Facebook = ItemsViewModel.Facebook
+            var Insta = ItemsViewModel.Insta
             var MealImageUrl = ItemsViewModel.MealImageUrl
             var PhoneNumber = ItemsViewModel.PhoneNumber
             var RestaurantName = ItemsViewModel.RestaurantName
@@ -92,6 +93,7 @@ class CustomAdapter(private val mList: List<Pendingapproval>, private val lat: S
             intent.putExtra("EndTime", EndTime)
             intent.putExtra("EndTimeNumber", EndTimeNumber)
             intent.putExtra("Facebook", Facebook)
+            intent.putExtra("Insta",Insta)
             intent.putExtra("MealImageUrl", MealImageUrl)
             intent.putExtra("PhoneNumber", PhoneNumber)
             intent.putExtra("RestaurantName", RestaurantName)

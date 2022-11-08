@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.client.*
-import com.example.dealreveal.Activites.shared.ClientCollectionDealActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.shared.RejectedDealsTemplate
@@ -68,7 +67,8 @@ class PendingapprovalActivity : AppCompatActivity() {
         val currentuser = FirebaseAuth.getInstance().currentUser!!
             .uid
 
-        val query = db.collection("ReviewMeals").document(currentuser).collection(currentuser)
+
+        val query = db.collection("ReviewMeals").whereEqualTo("resid",currentuser)
         val options = FirestoreRecyclerOptions.Builder<Pendingapproval>().setQuery(query, Pendingapproval::class.java)
             .setLifecycleOwner(this).build()
         val adapter = object: FirestoreRecyclerAdapter<Pendingapproval, PendingapprovalViewHolder>(options) {
@@ -250,6 +250,8 @@ class PendingapprovalActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Under Review")
+            intent.putExtra("desc","* Here you can see all Deals your business has recently sumbited for review. \n\n * The DealReveal team will either approve or reject your newly submitted deal within 24 hours. \n\n * If you press the Rejected tab at the top of the screen, you will see all rejected deals. \n\n * You can click a reject deal found in the list to see why the deal was rejected. \n\n * You can also click a Deal found in the Pending Review table and delete that pending deal if you no longer want to post that deal. ")
             startActivity(intent)
         }
         title.setText("New Deal Status")

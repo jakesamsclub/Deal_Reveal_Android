@@ -23,43 +23,37 @@
             <ImageView
                 android:id="@+id/phone"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
 
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
                 android:src="@drawable/phone" />
 
             <ImageView
                 android:id="@+id/website"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
+
                 android:src="@drawable/web" />
 
             <ImageView
                 android:id="@+id/map"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-
-                android:layout_marginTop="10dp"
                 android:src="@drawable/map" />
 
             <ImageView
                 android:id="@+id/Yelp"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
                 android:src="@drawable/yelp" />
 
 

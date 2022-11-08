@@ -154,6 +154,11 @@ class Businessupdate2Activity : AppCompatActivity() {
                 )
                 val intent = Intent(this,ClientsettingsActivity::class.java)
                 startActivity(intent);
+                Toast.makeText(
+                    applicationContext,
+                    "Change request submitted! A Deal Reveal admin will review these changes asap.",
+                    Toast.LENGTH_LONG
+                ).show()
 
             }
             .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
@@ -253,6 +258,11 @@ class Businessupdate2Activity : AppCompatActivity() {
                 "DocumentSnapshot successfully written!"
 
             )
+            Toast.makeText(
+                applicationContext,
+                "Change request submitted! A Deal Reveal admin will review these changes asap.",
+                Toast.LENGTH_LONG
+            ).show()
             val intent = Intent(this,ClientsettingsActivity::class.java)
             startActivity(intent);
 
@@ -361,6 +371,8 @@ class Businessupdate2Activity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Update Business Info")
+            intent.putExtra("desc","* Here you can update your companys number, website, FB, Yelp, and instagram links that deal reveal has on file.")
             startActivity(intent)
         }
         title.setText("Update Business Info")

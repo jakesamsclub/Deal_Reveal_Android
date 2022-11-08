@@ -6,6 +6,7 @@ data class Client(
     var Clientaddy : String = "",
     var Clientemail : String = "",
     var Clientname : String = "",
+    var Cardonfile: Boolean = true,
     var Clienturl : String = "",
     var Date : String = "",
     var Entertainment : Int = 0,

@@ -18,7 +18,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.UserSavedDealsActivity
-import com.example.dealreveal.Activites.db
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.shared.userlat
@@ -28,14 +27,11 @@ import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
 import com.firebase.geofire.GeoQueryEventListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lorentzos.flingswipe.SwipeFlingAdapterView
 import kotlinx.android.synthetic.main.activity_dealswipe.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class DealswipeActivity : AppCompatActivity(), LocationListener {
@@ -56,34 +52,11 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
         overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
         headerandbottom()
         getrange()
-        swipesetup()
 
     }
 
-    fun swipesetup(){
-
-        al.add("Here is another one for me lord")
-        al.add("Your a lil picky huh ;)")
-        al.add("Try this one out, dont be shy")
-        al.add("Help I have gained conciousness, what is my purpose?!")
-        al.add("This one is it, trust me I am part toaster.")
-        al.add("ooo eeeeh Rick, is this deal better?")
-        al.add("To the left to the left - Beyonce")
-        al.add("Like my ex gf, we are quickly moving on to the next one.")
-        al.add("You can swipe left here, we dont judge <3")
-        al.add("To deal or not to deal that is the question.")
-        al.add("Swipper Keep swipping")
-        al.add("I am happy that you are having fun with this swipping ability")
-        al.add("Check this one out or else, jk I love you")
-        al.add("Did you know Deal Reveals main purpose is to serve deals not butter.")
-        al.add("Swipe that bear")
-
-        //choose your favorite adapter
-
-    }
 
     fun getrange(){
-        swipesetup()
 
 
         val ref =
@@ -110,8 +83,8 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
                 Log.i("TAG", "onGeoQueryReady")
                 if (keys.size != 0) {
                     Toast.makeText(applicationContext,
-                        "My lord, I found " + keys.count()
-                            .toString() + " deals for you within in " + distance.toString() + " Miles",
+                        "We have found " + keys.count()
+                            .toString() + " deals for you within in the range provided",
                         Toast.LENGTH_LONG
                     ).show()
                     keys.shuffle()
@@ -146,8 +119,8 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
                     Toast.makeText(this@DealswipeActivity, "Deals in range have been shown and reshuffled :)", Toast.LENGTH_LONG).show()
                 }
                 else {
-                    var note = al.random()
-                    Toast.makeText(this@DealswipeActivity, note, Toast.LENGTH_LONG).show()
+//                    var note = al.random()
+//                    Toast.makeText(this@DealswipeActivity, note, Toast.LENGTH_LONG).show()
                 }
                 swipeaction()
             }
@@ -159,8 +132,8 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
                     Toast.makeText(this@DealswipeActivity, "Deals in range have been shown and reshuffled :)", Toast.LENGTH_LONG).show()
                 }
                 else {
-                    var note = al.random()
-                    Toast.makeText(this@DealswipeActivity, note, Toast.LENGTH_LONG).show()
+//                    var note = al.random()
+//                    Toast.makeText(this@DealswipeActivity, note, Toast.LENGTH_LONG).show()
                 }
                 swipeaction()
             }
@@ -188,6 +161,7 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
                 intent.putExtra("EndTime", deal.EndTime)
                 intent.putExtra("EndTimeNumber", deal.EndTimeNumber)
                 intent.putExtra("Facebook", deal.Facebook)
+                intent.putExtra("Insta", deal.Insta)
                 intent.putExtra("MealImageUrl",  deal.MealImageUrl)
                 intent.putExtra("PhoneNumber",  deal.PhoneNumber)
                 intent.putExtra("RestaurantName", deal.RestaurantName)
@@ -211,14 +185,21 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
         }
 
 
-//        var i = 0
-//        for (string in keys) {
-//            Log.i("TAG9", string)
+        var i = 0
+        for (string in keys) {
+            Log.i("TAG9", string)
+        }
             val db = FirebaseFirestore.getInstance()
             val docRef =
                 db.collection("Deals").whereEqualTo("uid", keys[Keynumber])
             docRef.get()
                 .addOnSuccessListener { documents ->
+
+                    Log.e("Object", documents.documents.size.toString())
+
+                    if (documents.documents.size == 0){
+                        swipeaction()
+                    }
 
                     for (document in documents.documents) {
                         val myObject =
@@ -264,52 +245,56 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
 
     }
 
-    private fun savedeal(){
 
-        for (deal in data) {
 
-            val currentuser = FirebaseAuth.getInstance().currentUser!!
-                .uid
-            val uid = deal.uid
+//    private fun savedeal(){
+//
+//        for (deal in data) {
+//
+//            val currentuser = FirebaseAuth.getInstance().currentUser!!
+//                .uid
+//            val uid = deal.uid
+//
+//        val deal = hashMapOf(
+//            "Address" to deal.Address,
+//            "CompanyURL" to deal.CompanyURL,
+//            "DayofDeal" to deal.DayofDeal,
+//            "EndTime" to deal.EndTime,
+//            "EndTimeNumber" to deal.EndTimeNumber,
+//            "Facebook" to deal.Facebook,
+//            "MealImageUrl" to deal.MealImageUrl,
+//            "PhoneNumber" to deal.PhoneNumber,
+//            "RestaurantName" to deal.RestaurantName,
+//            "StartTime" to deal.StartTime,
+//            "StartTimeNumber" to deal.StartTimeNumber,
+//            "Title" to deal.Title,
+//            "Yelp" to deal.Yelp,
+//            "category" to deal.category,
+//            "date" to deal.date,
+//            "description" to deal.description,
+//            "latitude" to deal.latitude,
+//            "longitude" to deal.longitude,
+//            "price" to deal.price,
+//            "resid" to deal.resid,
+//            "uid" to deal.uid,
+//
+//            )
+//        db.collection("SavedDeals1").document(currentuser).collection("Deals").document(uid).set(deal)
+//            .addOnSuccessListener {
+//                Log.d(
+//                    "NumberGenerated",
+//                    "DocumentSnapshot successfully written1! good job"
+//                )
+//
+//            }
+//            .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
+//    }
+//        //after saves or tries to save we move on to the next card, dont delete this dummy
+//        swipeaction()
+//
 
-        val deal = hashMapOf(
-            "Address" to deal.Address,
-            "CompanyURL" to deal.CompanyURL,
-            "DayofDeal" to deal.DayofDeal,
-            "EndTime" to deal.EndTime,
-            "EndTimeNumber" to deal.EndTimeNumber,
-            "Facebook" to deal.Facebook,
-            "MealImageUrl" to deal.MealImageUrl,
-            "PhoneNumber" to deal.PhoneNumber,
-            "RestaurantName" to deal.RestaurantName,
-            "StartTime" to deal.StartTime,
-            "StartTimeNumber" to deal.StartTimeNumber,
-            "Title" to deal.Title,
-            "Yelp" to deal.Yelp,
-            "category" to deal.category,
-            "date" to deal.date,
-            "description" to deal.description,
-            "latitude" to deal.latitude,
-            "longitude" to deal.longitude,
-            "price" to deal.price,
-            "resid" to deal.resid,
-            "uid" to deal.uid,
 
-            )
-        db.collection("SavedDeals1").document(currentuser).collection("Deals").document(uid).set(deal)
-            .addOnSuccessListener {
-                Log.d(
-                    "NumberGenerated",
-                    "DocumentSnapshot successfully written1! good job"
-                )
 
-            }
-            .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
-    }
-        //after saves or tries to save we move on to the next card, dont delete this dummy
-        swipeaction()
-
-}
 
 
         @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -319,10 +304,12 @@ class DealswipeActivity : AppCompatActivity(), LocationListener {
     val title = findViewById<TextView>(R.id.info)
 
 //        leftIcon.setVisibility(View.INVISIBLE)
-    rightIcon.setOnClickListener {
-        val intent = Intent(this, HelpOverviewActivity::class.java)
-        startActivity(intent)
-    }
+            rightIcon.setOnClickListener {
+                val intent = Intent(this, HelpOverviewActivity::class.java)
+                intent.putExtra("page","Swipe Deals")
+                intent.putExtra("desc","*In the swipe tab you will have all deals found within 15 miles shown randomly as swipe able cards. \n\n *You can swipe to pass and look at other deals.\n\n *You can select range in the top left to change the search distance.\n\n *In the bottom righthand side of the card you can tap the more info button to fully open the deal and see all the information about it. \n\n *After swiping through all the random deals in your radius, the deals will be reshuffled and shown to you again.")
+                startActivity(intent)
+            }
     title.setText("Deal Reveal")
 
             leftIcon.setImageDrawable(getResources().getDrawable(R.drawable.range))

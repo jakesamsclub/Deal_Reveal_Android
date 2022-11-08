@@ -28,6 +28,7 @@
         android:text="See Businesses with the following deal types:"
         android:textColor="#050505"
         android:textSize="18dp"
+        app:shapeAppearanceOverlay="@style/RoundedCorner"
         android:fontFamily="sans-serif-medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

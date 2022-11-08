@@ -102,5 +102,6 @@
 
     </string-array>
     <string name="title_activity_buisnessreveal">Map</string>
+    <string name="pay" />
 
 </resources>

@@ -13,10 +13,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.dealreveal.Activites.PendingapprovalActivity
-import com.example.dealreveal.Activites.shared.ClientCollectionDealActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_admin_approve_clients.*
 
 
@@ -38,22 +39,59 @@ class InitalpostnewdealActivity : AppCompatActivity() {
 
             if (!::filepath.isInitialized) {
                 println("You must select a photo for this deal")
-                Toast.makeText(applicationContext, "You must select a photo for this deal", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "You must select a photo for this deal",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
-            }
-            else {
+            } else {
+                val db = FirebaseFirestore.getInstance()
+                val currentuser = FirebaseAuth.getInstance().currentUser!!
+                    .uid
+                db.collection("Promotion").document("Promotion").get()
+                    .addOnSuccessListener { documentSnapshot ->
 
-                val intent = Intent(this, PostNewDealInfoActivity::class.java)
+                        val ClientInfo = documentSnapshot.toObject(Promotion::class.java)
 
-                intent.putExtra("avatar", filepath)
+                        var Promotion = ClientInfo?.Free
 
-                startActivity(intent)
+                        if (Promotion == false) {
+                            db.collection("ClientsAccounts").document(currentuser).get()
+                                .addOnSuccessListener { documentSnapshot ->
+
+                                    val ClientInfo = documentSnapshot.toObject(Client::class.java)
+
+
+                                    var pass = ClientInfo?.Cardonfile
+                                    if (pass == false) {
+                                        Toast.makeText(
+                                            applicationContext,
+                                          "Unable to add a new deal because there was a problem with your card. Please go to settings and update card info. After you add a new card, you will be able to post again.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                    else{
+                                        val intent = Intent(this, PostNewDealInfoActivity::class.java)
+
+                                        intent.putExtra("avatar", filepath)
+
+                                        startActivity(intent)
+                                    }
+                                }
+                        }
+                        if (Promotion == true) {
+                            val intent = Intent(this, PostNewDealInfoActivity::class.java)
+
+                            intent.putExtra("avatar", filepath)
+
+                            startActivity(intent)
+                        }
+                    }
             }
         }
-
-
-
     }
+
     private fun startFileChooder() {
         var i = Intent()
         i.setType("image/*")
@@ -78,6 +116,8 @@ class InitalpostnewdealActivity : AppCompatActivity() {
 
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Deal")
+            intent.putExtra("desc","* Here you can select a photo for your new deal posting. ")
             startActivity(intent)
         }
         title.setText("Post a New Deal")

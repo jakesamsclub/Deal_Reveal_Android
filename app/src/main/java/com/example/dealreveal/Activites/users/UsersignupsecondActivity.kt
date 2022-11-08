@@ -2,6 +2,7 @@ package com.example.dealreveal.Activites.users
 
 import android.content.Intent
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,8 @@ class UsersignupsecondActivity : AppCompatActivity() {
         Enterconfirmtext.isVisible = false
         otpGiven.isVisible = false
         Verifypnumber.isVisible = false
+        val mobileNumber=findViewById<EditText>(R.id.editTextPhone)
+        mobileNumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         auth1=FirebaseAuth.getInstance()
 
@@ -58,7 +61,12 @@ class UsersignupsecondActivity : AppCompatActivity() {
             finish()
         }
         rightIcon.setOnClickListener{
+
             val intent = Intent(this, HelpOverviewActivity::class.java)
+
+            intent.putExtra("page","Sign Up New User")
+            intent.putExtra("desc","* Provided your cell number\n\n Enter the one time code texted to your phone \n\n Validate the number by entering the one time password and your account will be created.")
+
             startActivity(intent)
         }
         title.setText("")
@@ -119,19 +127,21 @@ class UsersignupsecondActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val mobileNumber=findViewById<EditText>(R.id.editTextPhone)
                     var usernumber=mobileNumber.text.toString().trim()
+                    val regex = Regex("[^A-Za-z0-9]")
+                    var cleanedupnumber =regex.replace(usernumber, "")
 
                     val currentuser = FirebaseAuth.getInstance().currentUser!!
                         .uid
                     val user = hashMapOf(
                         "BDAY" to BDAY,
-                        "Phone" to usernumber,
+                        "Phone" to cleanedupnumber,
                         "email" to email,
                         "uid" to currentuser.toString(),
                         "username" to username
 
                     )
 
-                    db.collection("users1").document(currentuser.toString())
+                    db.collection("users").document(currentuser.toString())
                         .set(user)
                         .addOnSuccessListener { Log.d("NumberGenerated", "DocumentSnapshot successfully written!")
 
@@ -154,6 +164,7 @@ class UsersignupsecondActivity : AppCompatActivity() {
 
     private fun login() {
         val mobileNumber=findViewById<EditText>(R.id.editTextPhone)
+        mobileNumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
         var number=mobileNumber.text.toString().trim()
 
         if(!number.isEmpty()){

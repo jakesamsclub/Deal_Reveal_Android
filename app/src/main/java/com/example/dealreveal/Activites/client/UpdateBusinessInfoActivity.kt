@@ -28,6 +28,8 @@ class UpdateBusinessInfoActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Update Business Info")
+            intent.putExtra("desc","* Here you can update the links, numbers, and more of what deal reveal has on file")
             startActivity(intent)
         }
         title.setText("")

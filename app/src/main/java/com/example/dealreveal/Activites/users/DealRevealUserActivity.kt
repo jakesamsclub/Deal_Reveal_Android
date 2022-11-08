@@ -1,11 +1,12 @@
 package com.example.dealreveal.Activites.users
 
 import android.Manifest
+import android.Manifest.permission.CALL_PHONE
 import android.annotation.SuppressLint
-import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.Paint
 import android.location.Location
 import android.location.LocationListener
@@ -13,17 +14,22 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.akexorcist.screenshotdetection.ScreenshotDetectionDelegate
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.shared.DealfeedbacktActivity
@@ -31,6 +37,7 @@ import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.service.AlarmService
 import com.example.dealreveal.Activites.shared.userlat
 import com.example.dealreveal.Activites.shared.userlong
+import com.example.dealreveal.Activites.usernotsignedin
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -66,6 +73,7 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
     var uid = ""
     var admincheck = ""
     var Reason = ""
+    var currentuser = ""
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
     private val screenshotDetectionDelegate = ScreenshotDetectionDelegate(this, this)
@@ -97,11 +105,30 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         val intent = intent
         headerandbottom()
         newdeal()
-        viewanalytics()
+        signedincheck()
         checkReadExternalStoragePermission()
         spin()
         getLocation()
 
+
+
+    }
+    fun signedincheck(){
+        if (usernotsignedin == false)
+        {
+            currentuser = FirebaseAuth.getInstance().currentUser!!
+                .uid
+            viewanalytics()
+        }
+        if (usernotsignedin == true) {
+            Log.d("ff", "YEs")
+            currentuser =  Settings.Secure.getString(
+                this.contentResolver,
+                Settings.Secure.ANDROID_ID
+            )
+            Log.d("UUID",currentuser)
+            viewanalytics()
+        }
 
     }
 
@@ -136,8 +163,85 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
 
         val distanceInMeters = loc1.distanceTo(loc2)
         val distanceInMiles = distanceInMeters/1609.34
-        val rounded = String.format("%.3f", distanceInMiles)
-        distancetitle.text = rounded + " Mi away"
+        val rounded = String.format("%.2f", distanceInMiles)
+        distancetitle.text = rounded + " Miles Away"
+    }
+
+    private fun popup(){
+        val inflater: LayoutInflater =
+            getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        // Inflate a custom view using layout inflater
+        val view = inflater.inflate(R.layout.changerangepopup, null)
+
+        // Initialize a new instance of popup window
+        val popupWindow = PopupWindow(
+            view, // Custom view to show in popup window
+            LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+            LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+        )
+
+        // Set an elevation for the popup window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.elevation = 10.0F
+        }
+
+
+        // If API level 23 or higher then execute the code
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Create a new slide animation for popup window enter transition
+            val slideIn = Slide()
+            slideIn.slideEdge = Gravity.TOP
+            popupWindow.enterTransition = slideIn
+
+            // Slide animation for popup window exit transition
+            val slideOut = Slide()
+            slideOut.slideEdge = Gravity.RIGHT
+            popupWindow.exitTransition = slideOut
+
+        }
+
+        // Get the widgets reference from custom view
+        val tv = view.findViewById<TextView>(R.id.textView58)
+        val buttonPopup = view.findViewById<Button>(R.id.button_popup)
+        val seek = view.findViewById<SeekBar>(R.id.seekBar)
+        val close = view.findViewById<TextView>(R.id.text_view)
+
+
+        tv.text = "This function can only be used if you create a account."
+        close.text = ""
+        seek.isVisible = false
+
+
+        // Set click listener for popup window's text view
+        tv.setOnClickListener {
+            // Change the text color of popup window's text view
+            tv.setTextColor(Color.BLACK)
+        }
+
+        // Set a click listener for popup's button widget
+        buttonPopup.setOnClickListener {
+            // Dismiss the popup window
+            popupWindow.dismiss()
+            val tv = view.findViewById<TextView>(R.id.textView58)
+            tv.text = "This function can only be used if you create a account."
+
+        }
+
+        // Set a dismiss listener for popup window
+        popupWindow.setOnDismissListener {
+
+        }
+
+
+        // Finally, show the popup window on app
+        TransitionManager.beginDelayedTransition(view as ViewGroup?)
+        popupWindow.showAtLocation(
+            view as ViewGroup?, // Location to display popup window
+            Gravity.CENTER, // Exact position of layout to display popup
+            0, // X offset
+            0 // Y offset
+        )
+
     }
 
    fun spin(){
@@ -182,7 +286,7 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
             Price = intent.getStringExtra("price").toString()
             resid = intent.getStringExtra("resid").toString()
             uid = intent.getStringExtra("uid").toString()
-
+            Log.d("Insta",Instagram)
             //    avatar
             val Photo1 = findViewById<ImageView>(R.id.photo)
             Glide.with(this@DealRevealUserActivity)
@@ -214,14 +318,20 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         val DealTitle = findViewById<TextView>(R.id.textView52)
         DealTitle.setText(Title)
         val Dealprice = findViewById<TextView>(R.id.textView53)
-        Dealprice.setText(Price)
+        Dealprice.setText("$: " + Price)
         val DealDescription = findViewById<TextView>(R.id.textView54)
         DealDescription.setText(Description)
 
         val saveIcon = findViewById<ImageView>(R.id.save)
         saveIcon.startAnimation(rotate)
         saveIcon.setOnClickListener {
-            savedeal()
+            if (usernotsignedin == false)
+            {
+                savedeal()
+            }
+            if (usernotsignedin == true) {
+                popup()
+            }
             Log.d("tAG", "save")
 
         }
@@ -338,10 +448,21 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
                             .document(uid).update("Yelp", FieldValue.increment(1))
                     }
                 }
+            var result = Yelp.contains(".")
+            if (result){
 
-            intent = Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse(Yelp))
-            startActivity(intent)
+                intent = Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse(Yelp))
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "We do not have a Yelp link on file for this company.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         }
         val Insta = findViewById<ImageView>(R.id.Insta)
         Insta.startAnimation(rotate)
@@ -370,11 +491,24 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
                     }
                 }
 
-                    intent = Intent(
-                        android.content.Intent.ACTION_VIEW,
-                        Uri.parse(Instagram)
-                    )
-                    startActivity(intent)
+            var result = Instagram.contains(".")
+            if (result){
+
+                intent = Intent(
+                    android.content.Intent.ACTION_VIEW,
+                    Uri.parse(Instagram)
+                )
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "We do not have a Insta link on file for this company.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
 
         }
         val FB = findViewById<ImageView>(R.id.Facebook)
@@ -404,11 +538,22 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
                     }
                 }
 
+            var result = Facebook.contains(".")
+            if (result){
+
                     intent = Intent(
                         android.content.Intent.ACTION_VIEW,
                         Uri.parse(Facebook)
                     )
                     startActivity(intent)
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "We do not have a FB link on file for this company.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         val website = findViewById<ImageView>(R.id.dealwebsite)
         website.startAnimation(rotate)
@@ -436,10 +581,21 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
                     }
                 }
 
+            var result = CompanyURL.contains(".")
+            if (result){
 
-            intent = Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse(CompanyURL))
-            startActivity(intent)
+                intent = Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse(CompanyURL))
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "We do not have a website link on file for this company.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         }
         val map = findViewById<ImageView>(R.id.dealmap)
         map.startAnimation(rotate)
@@ -480,34 +636,42 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         phone.startAnimation(rotate)
         phone.setOnClickListener {
 
-            db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
-                .update("Phone_Number", FieldValue.increment(1))
-                .addOnSuccessListener { documentReference ->
-                    Log.d("TAG", "DocumentSnapshot written ")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("TAG", "Error adding document", e)
 
-                    if (e != null) {
-                        print("we should make a document")
+            val intent = Intent(Intent.ACTION_CALL);
+            intent.data = Uri.parse("tel:$"+Phonenumber)
+//            startActivity(intent)
 
-                        val dictfix = hashMapOf(
-                            "UID" to uid,
-                            "Avatar" to MealImageUrl,
-                            "Title" to Title,
-                        )
-                        db.collection("Dealanalytics").document(resid).collection(monthyear)
-                            .document(uid).set(dictfix)
-                        db.collection("Dealanalytics").document(resid).collection(monthyear)
-                            .document(uid).update("Phone_Number", FieldValue.increment(1))
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                startActivity(intent)
+                db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
+                    .update("Phone_Number", FieldValue.increment(1))
+                    .addOnSuccessListener { documentReference ->
+                        Log.d("TAG", "DocumentSnapshot written ")
                     }
-                }
+                    .addOnFailureListener { e ->
+                        Log.w("TAG", "Error adding document", e)
 
-                    intent = Intent(
-                        Intent.ACTION_CALL,
-                        Uri.parse(Phonenumber)
-                    );
-            startActivity(intent)
+                        if (e != null) {
+                            print("we should make a document")
+
+                            val dictfix = hashMapOf(
+                                "UID" to uid,
+                                "Avatar" to MealImageUrl,
+                                "Title" to Title,
+                            )
+                            db.collection("Dealanalytics").document(resid).collection(monthyear)
+                                .document(uid).set(dictfix)
+                            db.collection("Dealanalytics").document(resid).collection(monthyear)
+                                .document(uid).update("Phone_Number", FieldValue.increment(1))
+                        }
+                    }
+            } else {
+            Toast.makeText(
+                applicationContext,
+                "Enable call permissons first. Go into your phones setting select Deal Reveal and enable call permissons and reload the app.",
+                Toast.LENGTH_SHORT
+            ).show()
+            }
         }
 
             //when section
@@ -516,11 +680,11 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
             val WhenHeaderTitle = findViewById<TextView>(R.id.`when`)
             WhenHeaderTitle.setPaintFlags(WhenHeaderTitle.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
             val DealDayofdealtext = findViewById<TextView>(R.id.Avaliableon)
-            DealDayofdealtext.setText(Dayofdealtext)
+            DealDayofdealtext.setText("Avaliable on " +Dayofdealtext)
             val Dealtime = findViewById<TextView>(R.id.Livefrom)
-            Dealtime.setText(Dealstarttimetext + " " + Dealendtimetext)
+            Dealtime.setText("Live from "+Dealstarttimetext + " to " + Dealendtimetext)
             val Dealpostedon = findViewById<TextView>(R.id.Dealpostedon)
-            Dealpostedon.setText(currentDate)
+            Dealpostedon.setText("Deal posted on " +currentDate)
 
             //where section
             val whereheadertitle = findViewById<TextView>(R.id.where)
@@ -536,30 +700,46 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
             val ratebutton = findViewById<TextView>(R.id.`submitnewdealtitle`)
             ratebutton.setText("Rate Deal")
             ratebutton.setOnClickListener() {
-                val intent = Intent(this, DealfeedbacktActivity::class.java)
-                intent.putExtra("dealtitletext", Title)
-                intent.putExtra("Businessnametext", RestaurantName)
-                intent.putExtra("Avatartext", MealImageUrl)
-                intent.putExtra("dealpricetext", Price)
-                intent.putExtra("resid", resid)
-                intent.putExtra("uid", uid)
-                intent.putExtra("reportkey", "reviewdeal")
 
-                startActivity(intent)
+                if (usernotsignedin == false)
+                {
+                    val intent = Intent(this, DealfeedbacktActivity::class.java)
+                    intent.putExtra("dealtitletext", Title)
+                    intent.putExtra("Businessnametext", RestaurantName)
+                    intent.putExtra("Avatartext", MealImageUrl)
+                    intent.putExtra("dealpricetext", Price)
+                    intent.putExtra("resid", resid)
+                    intent.putExtra("uid", uid)
+                    intent.putExtra("reportkey", "reviewdeal")
+
+                    startActivity(intent)
+                }
+                if (usernotsignedin == true) {
+                    popup()
+                }
+
             }
             val falsedealbutton = findViewById<TextView>(R.id.`Deletedealbutton`)
             falsedealbutton.setText("Report False Deal")
             falsedealbutton.setOnClickListener() {
-                val intent = Intent(this, DealfeedbacktActivity::class.java)
-                intent.putExtra("dealtitletext", Title)
-                intent.putExtra("Businessnametext", RestaurantName)
-                intent.putExtra("Avatartext", MealImageUrl)
-                intent.putExtra("dealpricetext", Price)
-                intent.putExtra("resid", resid)
-                intent.putExtra("uid", uid)
-                intent.putExtra("reportkey", "reportkey")
 
-                startActivity(intent)
+                if (usernotsignedin == false)
+                {
+                    val intent = Intent(this, DealfeedbacktActivity::class.java)
+                    intent.putExtra("dealtitletext", Title)
+                    intent.putExtra("Businessnametext", RestaurantName)
+                    intent.putExtra("Avatartext", MealImageUrl)
+                    intent.putExtra("dealpricetext", Price)
+                    intent.putExtra("resid", resid)
+                    intent.putExtra("uid", uid)
+                    intent.putExtra("reportkey", "reportkey")
+
+                    startActivity(intent)
+                }
+                if (usernotsignedin == true) {
+                    popup()
+                }
+
             }
 
 
@@ -587,14 +767,16 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page", "Deal Reveal")
+            intent.putExtra(
+                "desc",
+                "* Here you can see all information we have on this deal. \n\n * You can see the image that represents this deal, the time its live, the day its live, the description, the price, and how it is from you. \n\n * You can also use the buttons to save this deal, set a reminder, see their yelp, insta,FB, or website, Rate the deal or submit a false posting report."
+            )
             startActivity(intent)
         }
         title.setText("")
     }
     fun savedeal() {
-
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
 
         val docRef = db.collection("SavedDeals").document(currentuser).collection("Deals").document(uid)
         docRef.get()
@@ -610,8 +792,29 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
                     val hour = c.get(Calendar.HOUR_OF_DAY)
                     val monthyear = (month.toString() + "-" + year.toString())
 
-                    db.collection("Dealanalytics1").document(resid).collection(monthyear).document(uid).update("Save_Count", FieldValue.increment(1))
 
+                    db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
+                        .update("Save_Count", FieldValue.increment(1))
+                        .addOnSuccessListener { documentReference ->
+                            Log.d("TAG", "DocumentSnapshot written ")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("TAG", "Error adding document", e)
+
+                            if (e != null) {
+                                print("we should make a document")
+
+                                val dictfix = hashMapOf(
+                                    "UID" to uid,
+                                    "Avatar" to MealImageUrl,
+                                    "Title" to Title,
+                                )
+                                db.collection("Dealanalytics").document(resid).collection(monthyear)
+                                    .document(uid).set(dictfix)
+                                db.collection("Dealanalytics").document(resid).collection(monthyear)
+                                    .document(uid).update("Save_Count", FieldValue.increment(1))
+                            }
+                        }
                     val currentDate: String =
                         SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(Date())
 
@@ -622,6 +825,7 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
                         "EndTime" to Dealendtimetext,
                         "EndTimeNumber" to EndTimeNumber,
                         "Facebook" to Facebook,
+                        "Insta" to Instagram,
                         "MealImageUrl" to MealImageUrl,
                         "PhoneNumber" to Phonenumber,
                         "RestaurantName" to RestaurantName,
@@ -679,7 +883,7 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
 
         val distanceInMeters = loc1.distanceTo(loc2)
         val distanceInMiles = distanceInMeters / 1609.34
-        val rounded = String.format("%.3f", distanceInMiles)
+        val rounded = String.format("%.2f", distanceInMiles)
 
         Log.d("Distance", rounded)
 
@@ -689,8 +893,7 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         val day = c.get(Calendar.DAY_OF_MONTH)
         val hour = c.get(Calendar.HOUR_OF_DAY)
         val monthyear = (month.toString() + "-" + year.toString())
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
+
 
         var analyticsid = currentuser + "-" + day + "-" + month + "-" + year + "-" + hour
 
@@ -701,7 +904,7 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
             "User" to currentuser,
         )
 
-        db.collection("Dealanalytics1").document(resid).collection(monthyear).document(uid)
+        db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
             .collection("Usersviewed").document(analyticsid).get()
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists() == true) {
@@ -724,9 +927,9 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
 
         val distanceInMeters = loc1.distanceTo(loc2)
         val distanceInMiles = distanceInMeters / 1609.34
-        val rounded = String.format("%.3f", distanceInMiles)
+        val rounded = String.format("%.2f", distanceInMiles).toDouble()
 
-        Log.d("Distance", rounded)
+        Log.d("Distance", rounded.toString())
 
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -734,8 +937,6 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         val day = c.get(Calendar.DAY_OF_MONTH)
         val hour = c.get(Calendar.HOUR_OF_DAY)
         val monthyear = (month.toString() + "-" + year.toString())
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
 
         var analyticsid = currentuser + "-" + day + "-" + month + "-" + year + "-" + hour
 
@@ -747,13 +948,77 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         )
 
         if (rounded.toDouble()<=3){
-            db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid).update("View_Count_Less_Than_3_Miles", FieldValue.increment(1))
+            db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
+                .update("View_Count_Less_Than_3_Miles", FieldValue.increment(1))
+                .addOnSuccessListener { documentReference ->
+                    Log.d("TAG", "DocumentSnapshot written ")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("TAG", "Error adding document", e)
+
+                    if (e != null) {
+                        print("we should make a document")
+
+                        val dictfix = hashMapOf(
+                            "UID" to uid,
+                            "Avatar" to MealImageUrl,
+                            "Title" to Title,
+                        )
+                        db.collection("Dealanalytics").document(resid).collection(monthyear)
+                            .document(uid).set(dictfix)
+                        db.collection("Dealanalytics").document(resid).collection(monthyear)
+                            .document(uid).update("View_Count_3_To_20_Miles", FieldValue.increment(1))
+                    }
+                }
         }
         if (rounded.toDouble()> 3&& rounded.toInt()<=20){
-            db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid).update("View_Count_3_To_20_Miles", FieldValue.increment(1))
+
+            db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
+                .update("View_Count_3_To_20_Miles", FieldValue.increment(1))
+                .addOnSuccessListener { documentReference ->
+                    Log.d("TAG", "DocumentSnapshot written ")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("TAG", "Error adding document", e)
+
+                    if (e != null) {
+                        print("we should make a document")
+
+                        val dictfix = hashMapOf(
+                            "UID" to uid,
+                            "Avatar" to MealImageUrl,
+                            "Title" to Title,
+                        )
+                        db.collection("Dealanalytics").document(resid).collection(monthyear)
+                            .document(uid).set(dictfix)
+                        db.collection("Dealanalytics").document(resid).collection(monthyear)
+                            .document(uid).update("View_Count_3_To_20_Miles", FieldValue.increment(1))
+                    }
+                }
         }
         if (rounded.toDouble()>20){
-            db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid).update("View_Count_More_Than_20_Miles", FieldValue.increment(1))
+            db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
+                .update("View_Count_More_Than_20_Miles", FieldValue.increment(1))
+                .addOnSuccessListener { documentReference ->
+                    Log.d("TAG", "DocumentSnapshot written ")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("TAG", "Error adding document", e)
+
+                    if (e != null) {
+                        print("we should make a document")
+
+                        val dictfix = hashMapOf(
+                            "UID" to uid,
+                            "Avatar" to MealImageUrl,
+                            "Title" to Title,
+                        )
+                        db.collection("Dealanalytics").document(resid).collection(monthyear)
+                            .document(uid).set(dictfix)
+                        db.collection("Dealanalytics").document(resid).collection(monthyear)
+                            .document(uid).update("View_Count_More_Than_20_Miles", FieldValue.increment(1))
+                    }
+                }
         }
 
 
@@ -787,8 +1052,29 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         val day = c.get(Calendar.DAY_OF_MONTH)
         val hour = c.get(Calendar.HOUR_OF_DAY)
         val monthyear = (month.toString() + "-" + year.toString())
-        db.collection("Dealanalytics1").document(resid).collection(monthyear).document(uid).update("Screenshot", FieldValue.increment(1))
 
+        db.collection("Dealanalytics").document(resid).collection(monthyear).document(uid)
+            .update("Screenshot", FieldValue.increment(1))
+            .addOnSuccessListener { documentReference ->
+                Log.d("TAG", "DocumentSnapshot written ")
+            }
+            .addOnFailureListener { e ->
+                Log.w("TAG", "Error adding document", e)
+
+                if (e != null) {
+                    print("we should make a document")
+
+                    val dictfix = hashMapOf(
+                        "UID" to uid,
+                        "Avatar" to MealImageUrl,
+                        "Title" to Title,
+                    )
+                    db.collection("Dealanalytics").document(resid).collection(monthyear)
+                        .document(uid).set(dictfix)
+                    db.collection("Dealanalytics").document(resid).collection(monthyear)
+                        .document(uid).update("Screenshot", FieldValue.increment(1))
+                }
+            }
     }
 
     override fun onScreenCapturedWithDeniedPermission() {
@@ -799,7 +1085,6 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
         val day = c.get(Calendar.DAY_OF_MONTH)
         val hour = c.get(Calendar.HOUR_OF_DAY)
         val monthyear = (month.toString() + "-" + year.toString())
-        db.collection("Dealanalytics1").document(resid).collection(monthyear).document(uid).update("Screenshot", FieldValue.increment(1))
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {

@@ -38,7 +38,7 @@ class SplashActivity : AppCompatActivity() {
     fun loggedinusercheck() {
 
 
-        val docRef = db.collection("users1").document(currentuser)
+        val docRef = db.collection("users").document(currentuser)
         docRef.get()
             .addOnSuccessListener { documentSnapshot ->
                 Log.d("nullcheck fart", documentSnapshot.data.toString())

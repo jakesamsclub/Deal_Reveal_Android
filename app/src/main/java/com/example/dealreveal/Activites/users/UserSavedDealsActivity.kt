@@ -4,17 +4,20 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -43,6 +46,7 @@ class SavedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
 }
 
+var usernotsignedin = false
 
 
 class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
@@ -51,16 +55,112 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
     lateinit var newRecyclerView: RecyclerView
     private lateinit var locationManager: LocationManager
     private val locationPermissionCode = 2
-    val currentuser = FirebaseAuth.getInstance().currentUser!!
-        .uid
+    var currentuser = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_saved_deals)
         headerandbottom()
         overridePendingTransition(R.anim.abc_fade_in,R.anim.abc_fade_out)
-        getLocationsafetycheck()
 
+        window.decorView.post {
+            usercheck()
+        }
+
+
+    }
+
+    private fun usercheck(){
+
+        if (usernotsignedin == false)
+        {
+            currentuser = FirebaseAuth.getInstance().currentUser!!
+                .uid
+
+            getLocationsafetycheck()
+        }
+        if (usernotsignedin == true) {
+            Log.d("ff", "YEs")
+            popup()
+        }
+    }
+
+
+   private fun popup(){
+        val inflater: LayoutInflater =
+            getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        // Inflate a custom view using layout inflater
+        val view = inflater.inflate(R.layout.changerangepopup, null)
+
+        // Initialize a new instance of popup window
+        val popupWindow = PopupWindow(
+            view, // Custom view to show in popup window
+            LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+            LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+        )
+
+        // Set an elevation for the popup window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.elevation = 10.0F
+        }
+
+
+        // If API level 23 or higher then execute the code
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Create a new slide animation for popup window enter transition
+            val slideIn = Slide()
+            slideIn.slideEdge = Gravity.TOP
+            popupWindow.enterTransition = slideIn
+
+            // Slide animation for popup window exit transition
+            val slideOut = Slide()
+            slideOut.slideEdge = Gravity.RIGHT
+            popupWindow.exitTransition = slideOut
+
+        }
+
+        // Get the widgets reference from custom view
+        val tv = view.findViewById<TextView>(R.id.textView58)
+        val buttonPopup = view.findViewById<Button>(R.id.button_popup)
+        val seek = view.findViewById<SeekBar>(R.id.seekBar)
+       val close = view.findViewById<TextView>(R.id.text_view)
+
+
+        tv.text = "This function can only be used if you create a account."
+       close.text = ""
+        seek.isVisible = false
+
+
+        // Set click listener for popup window's text view
+        tv.setOnClickListener {
+            // Change the text color of popup window's text view
+            tv.setTextColor(Color.BLACK)
+        }
+
+        // Set a click listener for popup's button widget
+        buttonPopup.setOnClickListener {
+            // Dismiss the popup window
+            popupWindow.dismiss()
+            val tv = view.findViewById<TextView>(R.id.textView58)
+            tv.text = "This function can only be used if you create a account."
+
+        }
+
+        // Set a dismiss listener for popup window
+        popupWindow.setOnDismissListener {
+
+        }
+
+
+        // Finally, show the popup window on app
+        TransitionManager.beginDelayedTransition(view as ViewGroup?)
+        popupWindow.showAtLocation(
+            view as ViewGroup?, // Location to display popup window
+            Gravity.CENTER, // Exact position of layout to display popup
+            0, // X offset
+            0 // Y offset
+        )
 
     }
     fun getLocationsafetycheck(){
@@ -163,7 +263,7 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
 
                 val distanceInMeters = loc1.distanceTo(loc2)
                 val distanceInMiles = distanceInMeters/1609.34
-                val rounded = String.format("%.3f", distanceInMiles)
+                val rounded = String.format("%.2f", distanceInMiles)
                 distance.text = rounded + " Mi Away"
 
                 //holder setup
@@ -192,6 +292,7 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
                     var price = model.price
                     var resid = model.resid
                     var uid = model.uid
+                    var insta = model.Insta
 
 
                     val intent = Intent(this@UserSavedDealsActivity, DealRevealUserActivity::class.java)
@@ -201,6 +302,7 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
                     intent.putExtra("EndTime",EndTime)
                     intent.putExtra("EndTimeNumber",EndTimeNumber)
                     intent.putExtra("Facebook",Facebook)
+                    intent.putExtra("Insta",insta)
                     intent.putExtra("MealImageUrl",MealImageUrl)
                     intent.putExtra("PhoneNumber",PhoneNumber)
                     intent.putExtra("RestaurantName",RestaurantName)
@@ -270,7 +372,10 @@ class UserSavedDealsActivity : AppCompatActivity(), LocationListener {
 //        leftIcon.setVisibility(View.INVISIBLE)
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Saved Deals")
+            intent.putExtra("desc","*In the saved deals tab, you can find all of your saved deals.  \n\n *If you open a saved deal you can tap the save icon to unsave a deal as well. \n\n *You can tap the alarm button on each saved deal if you want a alert sent to your phone when a deal is live \n\n *Press the arrow if you would like to open a saved deal.")
             startActivity(intent)
+
         }
         title.setText("Saved Deals")
         title.textAlignment = View.TEXT_ALIGNMENT_CENTER

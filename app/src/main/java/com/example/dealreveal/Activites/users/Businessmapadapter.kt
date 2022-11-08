@@ -53,7 +53,7 @@ class Businessmapadapter(private val mList: List<Client>, private val lat: Strin
 
         val distanceInMeters = loc1.distanceTo(loc2)
         val distanceInMiles = distanceInMeters/1609.34
-        val rounded = String.format("%.3f", distanceInMiles)
+        val rounded = String.format("%.2f", distanceInMiles)
         holder.distance.text = rounded + " Mi away"
 
 

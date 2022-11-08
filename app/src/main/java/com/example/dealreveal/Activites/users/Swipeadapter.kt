@@ -52,7 +52,7 @@ class Swipeadapter(context: Context, resourceId: Int, deals: List<Pendingapprova
 
         val distanceInMeters = loc1.distanceTo(loc2)
         val distanceInMiles = distanceInMeters/1609.34
-        val rounded = String.format("%.3f", distanceInMiles)
+        val rounded = String.format("%.2f", distanceInMiles)
         distance.text = rounded + " Mi away"
 
         convertView.setOnClickListener {
@@ -63,6 +63,7 @@ class Swipeadapter(context: Context, resourceId: Int, deals: List<Pendingapprova
             var EndTime = deal.EndTime
             var EndTimeNumber = deal.EndTimeNumber
             var Facebook = deal.Facebook
+            var Insta = deal.Insta
             var MealImageUrl = deal.MealImageUrl
             var PhoneNumber = deal.PhoneNumber
             var RestaurantName = deal.RestaurantName
@@ -87,6 +88,7 @@ class Swipeadapter(context: Context, resourceId: Int, deals: List<Pendingapprova
             intent.putExtra("EndTime", EndTime)
             intent.putExtra("EndTimeNumber", EndTimeNumber)
             intent.putExtra("Facebook", Facebook)
+            intent.putExtra("Insta", Insta)
             intent.putExtra("MealImageUrl", MealImageUrl)
             intent.putExtra("PhoneNumber", PhoneNumber)
             intent.putExtra("RestaurantName", RestaurantName)

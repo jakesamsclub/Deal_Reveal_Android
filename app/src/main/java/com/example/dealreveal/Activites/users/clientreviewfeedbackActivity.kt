@@ -23,7 +23,6 @@ import com.firebase.ui.firestore.paging.LoadingState
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_admin_approve_clients.*
 
 class clientreviewfeedbackActivityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
@@ -47,11 +46,24 @@ class clientreviewfeedbackActivity : AppCompatActivity() {
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
 
+        rightIcon.setOnClickListener {
+            val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Your Deals")
+            intent.putExtra("desc","*The Business page shows all review submitted by users on your deals.")
+            startActivity(intent)
+
+        }
+
         leftIcon.setOnClickListener {
             finish()
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page", "Feedback Review")
+            intent.putExtra(
+                "desc",
+                "* Here you can see the review that the normal user left. \n\n * Hopefully they were nice, this feedback may help you think of what new deals you want to post next. "
+            )
             startActivity(intent)
         }
         title.setText("Deal Feedback")

@@ -208,9 +208,12 @@ class FinalBusinessSignupActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Business Sign Up")
+            intent.putExtra("desc","*You must pick a time that is best for Deal Reveal to call the number provided. Deal Reveal just wants to verify that the actual comapny is creating this account.")
             startActivity(intent)
         }
-        title.setText("New Clients")
+        title.setText("")
     }
+
 
     }

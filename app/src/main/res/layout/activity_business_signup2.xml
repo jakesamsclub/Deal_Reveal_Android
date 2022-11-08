@@ -17,10 +17,10 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
-        android:fontFamily="@font/asapsemibold"
         android:gravity="center"
         android:text="Business Sign Up"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-medium"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -32,14 +32,14 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="100dp"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Business Phone Number?"
         android:inputType="phone"
-        android:paddingLeft="10dp"
         android:maxLength="14"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,22 +80,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress9"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="100dp"
-        android:background="@drawable/edit_text_border"
-        android:ems="10"
-        android:hint="Business Yelp URL"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress7"
@@ -114,22 +98,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress3" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress10"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="100dp"
-        android:background="@drawable/edit_text_border"
-        android:ems="10"
-        android:hint="Business Facebook URL"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress3" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress6"
@@ -150,10 +118,12 @@
     <Button
         android:id="@+id/button12"
         android:layout_width="60dp"
+        android:textSize="10sp"
         android:layout_height="60dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="105dp"
         android:text="Test"
+        app:backgroundTint="#050505"
         app:layout_constraintStart_toEndOf="@+id/editTextTextEmailAddress2"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -164,6 +134,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:text="Test"
+        android:textSize="10sp"
+        app:backgroundTint="#050505"
         app:layout_constraintStart_toEndOf="@+id/editTextTextEmailAddress3"
         app:layout_constraintTop_toBottomOf="@+id/button12" />
 
@@ -173,7 +145,9 @@
         android:layout_height="60dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
+        android:textSize="10sp"
         android:text="Test"
+        app:backgroundTint="#050505"
         app:layout_constraintStart_toEndOf="@+id/editTextTextEmailAddress7"
         app:layout_constraintTop_toBottomOf="@+id/button17" />
 
@@ -184,6 +158,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:text="Test"
+        android:textSize="10sp"
+        app:backgroundTint="#050505"
         app:layout_constraintStart_toEndOf="@+id/editTextTextEmailAddress6"
         app:layout_constraintTop_toBottomOf="@+id/button38" />
 

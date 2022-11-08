@@ -36,29 +36,51 @@ class BusinessSigninActivity : AppCompatActivity() {
         val businesssigninbutton = findViewById<Button>(R.id.button28)
         businesssigninbutton.setOnClickListener{
 
+            if (email.text.isEmpty()) {
+                Toast.makeText(applicationContext, "email field is empty.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
+            if (password.text.isEmpty()) {
+                Toast.makeText(applicationContext, "password field is empty.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
 
-            auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        var auth1=FirebaseAuth.getInstance()
-
-                        var currentUser = auth1.currentUser
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("tes", "signInWithEmail:success")
-                        val docRef = db.collection("ClientsAccounts").document(currentUser.toString())
-                        docRef.get()
-                            .addOnSuccessListener { documentSnapshot ->
-                                val intent = Intent(this, InitalpostnewdealActivity::class.java)
-                                startActivity(intent)
-                            }
-
-
+            val docRef = db.collection("ClientsAccounts").whereEqualTo("Clientemail",email.text.toString()).get()
+                .addOnSuccessListener { documents ->
+                    if (documents.documents.size == 0) {
+                        Log.d("TA3G", email.text.toString())
+                        Toast.makeText(
+                            applicationContext,
+                            "No account is associate with this email, please create a new account.",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
                     } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w("test", "no account found ", task.exception)
-                        Toast.makeText(applicationContext, "No account found with these credentials", Toast.LENGTH_LONG).show()
+                        auth.signInWithEmailAndPassword(
+                            email.text.toString(),
+                            password.text.toString()
+                        )
+                            .addOnCompleteListener(this) { task ->
+                                if (task.isSuccessful) {
+
+                                    val intent = Intent(this, InitalpostnewdealActivity::class.java)
+                                    startActivity(intent)
+
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(
+                                        "test",
+                                        "account credentials are not right, reset your password if forgotten. ",
+                                        task.exception
+                                    )
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "No account found with these credentials",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
                     }
                 }
+
 
         }
         val businesssignup = findViewById<Button>(R.id.button29)
@@ -83,7 +105,10 @@ class BusinessSigninActivity : AppCompatActivity() {
         }
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","New Business Sign Up")
+            intent.putExtra("desc","* Here a existing Business can sign into their account. \n\n * If you dont have a account you can tap Sign Up. \n\n * If you forgot your password, you can tap forgot password.")
             startActivity(intent)
+
         }
         title.setText("")
     }

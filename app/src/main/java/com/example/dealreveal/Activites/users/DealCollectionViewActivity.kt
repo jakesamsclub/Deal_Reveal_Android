@@ -1,18 +1,27 @@
 package com.example.dealreveal.Activites
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dealreveal.Activites.client.Client
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
+import com.example.dealreveal.Activites.shared.userlat
+import com.example.dealreveal.Activites.shared.userlong
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
@@ -37,6 +46,8 @@ class DealCollectionViewActivity : AppCompatActivity() {
     var address = ""
     var yelp = ""
     var phone = ""
+    var lat = ""
+    var long = ""
     var website = ""
     var resid = ""
     var Name = ""
@@ -392,13 +403,33 @@ class DealCollectionViewActivity : AppCompatActivity() {
     private fun getUserdata() {
 
         val db = FirebaseFirestore.getInstance()
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
+
+
+         db.collection("ClientsAccounts").document(resid).get().addOnSuccessListener { documentSnapshot ->
+
+             val ClientInfo = documentSnapshot.toObject(Client::class.java)
+
+
+             companyname = ClientInfo?.Clientname.toString()
+             address = ClientInfo?.Clientaddy.toString()
+             yelp = ClientInfo?.Yelp.toString()
+             phone = ClientInfo?.ClientPhone.toString()
+             website = ClientInfo?.Clienturl.toString()
+             lat = ClientInfo?.Restlat.toString()
+             long = ClientInfo?.Restlong.toString()
+         }
 
         val docRef = db.collection("Deals").whereEqualTo("resid",resid)
         docRef.get()
             .addOnSuccessListener { documents ->
 
+                if (documents.documents.size == 0){
+                    Toast.makeText(
+                        applicationContext,
+                        "This company is lame, at the moment they have no deals posted :(",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
                 for (document in documents.documents) {
                     val myObject =
                         document.toObject(Pendingapproval::class.java)
@@ -413,6 +444,8 @@ class DealCollectionViewActivity : AppCompatActivity() {
                     yelp = myObject.Yelp
                     phone = myObject.PhoneNumber
                     website = myObject.CompanyURL
+                    lat = myObject.latitude
+                    long = myObject.longitude
 
 
                     val adapter = collectionviewadapter(data)
@@ -470,19 +503,80 @@ class DealCollectionViewActivity : AppCompatActivity() {
         companytitle.setText(companyname)
 
         val Companyphone = findViewById<ImageView>(R.id.phone)
+        Companyphone.setOnClickListener {
+            val intent = Intent(Intent.ACTION_CALL);
+            intent.data = Uri.parse("tel:$"+phone)
+//            startActivity(intent)
 
+            if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.CALL_PHONE
+                ) == PackageManager.PERMISSION_GRANTED) {
+                startActivity(intent)} else {
+                Toast.makeText(
+                    applicationContext,
+                    "Enable call permissons first. Go into your phones setting select Deal Reveal and enable call permissons and reload the app.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
 
         val Companymap = findViewById<ImageView>(R.id.map)
 
+        Companymap.setOnClickListener {
+            intent = Intent(
+                android.content.Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?saddr=" + userlat + "," + userlong + "&daddr=" + lat + "," + long)
+            );
+            startActivity(intent)
+
+        }
 
         val Companyyelp = findViewById<ImageView>(R.id.Yelp)
 
+        Companyyelp.setOnClickListener {
+            var result = yelp.contains(".")
+            if (result){
+                intent = Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse(yelp))
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "We do not have a Yelp link on file for this company.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
+        }
 
         val Companywebsite = findViewById<ImageView>(R.id.website)
+
+        Companywebsite.setOnClickListener {
+
+            var result = website.contains(".")
+            if (result){
+
+                intent = Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse(website))
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(
+                    applicationContext,
+                    "We do not have a website link on file for this company.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
 
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
+        title.isVisible = false
 
         leftIcon.setOnClickListener {
             finish()
@@ -490,9 +584,10 @@ class DealCollectionViewActivity : AppCompatActivity() {
 
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Your Deals")
+            intent.putExtra("desc","*The business page shows all deals a business has posted on DealReveal. \n\n *You can filter a companies deals by day and category.  \n\n *You can click the buttons below the company name to see their number, website, map, facebook and yelp page. ")
             startActivity(intent)
         }
-        title.setText(Name)
 
     }
 }

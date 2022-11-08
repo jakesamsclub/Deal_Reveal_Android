@@ -29,7 +29,6 @@ import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
 import com.firebase.geofire.GeoQueryEventListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -51,14 +50,15 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
     var time = ""
     var specifictime = "1200"
     var specifictimecheck = "no"
-    var currenttime = ""
     var currenttimecheck= "no"
+    var pagnationsafety = false
     lateinit var mTimePicker: TimePickerDialog
     val mcurrentTime = Calendar.getInstance()
     val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
     val minute = mcurrentTime.get(Calendar.MINUTE)
     var i = 0
-    var breakarray = arrayOf(5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180,185,190,195,200,205,210,215,220,225,230,235,240,245,250,255,260,265,270,275,280,285,290,295,300,305,310,315,320,325,330,335,340,345,350,355,360,365,370,375,380,385,390,395,400,405,410,415,420,425,430,435,440,445,450,455,460,465,470,475,480,485,490,495,500,505,510,515,520,525,530,535,540,545,550,555,560,565,570,575,580,585,590,595,600,605,610,615,620,625,630,635,640,645,650,655,660,665,670,675,680,685,690,695,700,705,710,715,720,725,730,735,740,745,750,755,760,765,770,775,780,785,790,795,800,805,810,815,820,825,830,835,840,845,850,855,860,865,870,875,880,885,890,895,900,905,910,915,920,925,930,935,940,945,950,955,960,965,970,975,980,985,990,995,1000)
+    var isFirstTimeCall = true
+    var endscroll = true
 
 
 
@@ -72,14 +72,6 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         newRecyclerView = findViewById(R.id.recyclerviewfilter)
         newRecyclerView.setHasFixedSize(true)
         newRecyclerView.layoutManager = LinearLayoutManager(this)
-//        newRecyclerView.setLayoutManager(
-//            StaggeredGridLayoutManager(
-//                1,
-//                StaggeredGridLayoutManager.VERTICAL
-//            )
-//        )
-
-
 
     }
 
@@ -251,8 +243,8 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                     if (minute.toInt() >= 10)  {
                         fixedminute = minute.toString()
                     }
-                    currenttime = (hour.toString()+fixedminute)
-                    Log.d("currenttime", currenttime)
+                    specifictime = (hour.toString()+fixedminute)
+                    Log.d("currenttime", specifictime)
                 }
             }
 
@@ -261,14 +253,13 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         val filter = findViewById<Button>(R.id.filterbutton)
         filter.setOnClickListener {
             data.clear()
+            endscroll = false
+            val adapter = CustomAdapter(data, userlat, userlong)
+            newRecyclerView.adapter = adapter
             keys.clear()
             daytype.clear()
             i = 0
-//           newRecyclerView = findViewById(R.id.recyclerviewfilter)
-//            newRecyclerView.layoutManager = LinearLayoutManager(this)
-//            newRecyclerView.setHasFixedSize(true)
-//            val adapter = CustomAdapter(data, userlat, userlong)
-//            newRecyclerView.adapter = adapter
+
             setfiltervariables()
         }
     }
@@ -371,10 +362,12 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             daytype.add("MON")
             daytype.add("TUE")
             daytype.add("WED")
-            daytype.add("THU")
             daytype.add("FRI")
+            daytype.add("THU")
             daytype.add("SAT")
             daytype.add("SUN")
+            daytype.add("MON,TUE,WED,THU,FRI")
+            daytype.add("MON,TUE,WED,THU,FRI,SAT,SUN")
         }
         if (daysspinner.selectedItem.toString() == "Today") {
             daytype.clear()
@@ -382,6 +375,8 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
             var dayLongName =
                 sCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
             Log.d("tagday", dayLongName)
+
+
             if (dayLongName == "Monday") {
                 daytype.clear()
                 daytype.add("MON")
@@ -452,12 +447,19 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
 
             override fun onGeoQueryReady() {
                 Log.i("TAG", "onGeoQueryReady")
+                Log.i("TAG", keys.size.toString())
                 if (keys.size != 0) {
                     keysort()
+
                 }
                 else {
                     val adapter = CustomAdapter(data, userlat, userlong)
                     newRecyclerView.adapter = adapter
+                    Toast.makeText(
+                        applicationContext,
+                        "Star child go wild, no deals were found with the applied filters :( ",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             }
@@ -473,21 +475,21 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
 
         Log.i("specifictimecheckcehck", specifictimecheck)
         Log.i("currenttimecheck", currenttimecheck)
-//        if (specifictimecheck =="no"&& currenttimecheck =="no"){
 
             if (keys.size-1 >= i) {
                 var string = keys[i]
                 Log.e("stringG", "string " + string)
                 getdeals(string)
             }
+        else {
+                Log.d("TAG", "outofdeals at key" + i.toString())
+                Toast.makeText(
+                    applicationContext,
+                    "All possible deals with these filters have been searched. Update your filters or browse what you currently see.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
-//        }
-//        if (specifictimecheck =="yes"&& currenttimecheck =="no"){
-////            getdealswithpickabletime()
-//        }
-//        if (specifictimecheck =="no"&& currenttimecheck =="yes"){
-////            getdealswithcurrenttime()
-//        }
 
 
     }
@@ -504,11 +506,10 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
 
 
         val db = FirebaseFirestore.getInstance()
-        val currentuser = FirebaseAuth.getInstance().currentUser!!
-            .uid
+
         Log.e("index:", "Index: " + i.toString() + " Key: " + keys.size.toString())
 
-            Log.e("Loopcheck", i.toString())
+            Log.e("Loopcheck1", i.toString())
 
 
 
@@ -525,11 +526,27 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                                 document.toObject(Pendingapproval::class.java)
 
                             Log.e("Object", myObject?.Title.toString())
-                            data.add(myObject!!)
+
+                            if  (currenttimecheck == "yes" ||   specifictimecheck == "yes") {
+
+                                if (specifictime.toInt() >= myObject?.StartTimeNumber!! && specifictime.toInt() <= myObject?.EndTimeNumber!!) {
+                                    data.add(myObject!!)
+                                }
+                            }
+                            else{
+                                data.add(myObject!!)
+                            }
+
 
                             if (i==0){
                                 val adapter = CustomAdapter(data, userlat, userlong)
                                 newRecyclerView.adapter = adapter
+                                Log.d("TAG", "outofdeals at key" + i.toString())
+                                Toast.makeText(
+                                    applicationContext,
+                                    "All possible deals with these filters have been searched. Update your filters or browse what you currently see.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             else {
                                 val adapter = CustomAdapter(data, userlat, userlong)
@@ -541,14 +558,25 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                     }
                     .addOnFailureListener { exception ->
                         Log.d("test", "get failed with ", exception)
+                        Toast.makeText(
+                            applicationContext,
+                            "All possible deals with these filters have been searched. Update your filters or browse what you currently see.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             }
 
-            if (breakarray.contains(i)) {
+            if (i % 5 == 0 && i != 0){
 
-                Log.e("Loopcheck", i.toString() + " is page")
+                if (pagnationsafety == true){
+                    i++
+                    keysort()
+                }else{
+
+                Log.e("Loopcheck1", i.toString() + " is page")
                 val adapter = CustomAdapter(data, userlat, userlong)
                 newRecyclerView.adapter!!.notifyDataSetChanged()
+
 
                 newRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(
@@ -556,23 +584,68 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                         newState: Int
                     ) {
                         super.onScrollStateChanged(recyclerView, newState)
+
+
+                        if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                            isFirstTimeCall = true;
+                        }
+
                         if (!recyclerView.canScrollVertically(1)) {
-                            Log.e("TAG", "Bingbong")
+                            Log.e("TAG", "nowBingbong")
+
+                            if  (currenttimecheck == "yes" ||   specifictimecheck == "yes") {
+
+                               var left = keys.count()-i
+                                if (left >0) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        left.toString() + "All possible deals with these filters have been searched. Update your filters or browse what you currently see.",
+                                        Toast.LENGTH_SHORT
+                                    ).cancel()
+
+                                    Toast.makeText(
+                                        applicationContext,
+                                        left.toString() + " Possible deals are left to search, searching at specific times will require you to keep scrolling.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }else{
+                                    Toast.makeText(
+                                        applicationContext,
+                                        left.toString() + "All possible deals with these filters have been searched. Update your filters or browse what you currently see.",
+                                        Toast.LENGTH_SHORT
+                                    ).cancel()
+                                }
+                            }
+
+                            if (isFirstTimeCall) {
+                                isFirstTimeCall = false;
+
 
                             if (i < keys.size) {
                                 i++
                                 keysort()
                             } else {
-                                Log.d("TAG", "outofdeals at key" + i.toString())
+                                if (endscroll) {
+                                    endscroll = false;
+
+                                    Log.d("TAG", "outofdeals at key" + i.toString())
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "All possible deals with these filters have been searched. Update your filters or browse what you currently see.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
 
                         }
                     }
+                    }
                 })
-
                 Log.e("TAG", "Breakkkkk")
             }
+            }
 
+// if break not triggered
             else {
 
                 newRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -582,7 +655,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                     ) {
                         super.onScrollStateChanged(recyclerView, newState)
                         if (!recyclerView.canScrollVertically(1)) {
-                            Log.e("TAG", "Bingbong1")
+                            Log.e("TAG", "pagnation criteria not met")
 
                             } else {
 
@@ -590,21 +663,35 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                         }
                 })
 
-                                            Log.d("TAG", "grab more keys")
+                                            Log.d("TAG", daytype.toString())
                 val docRef =
                     db.collection("Deals").whereEqualTo("uid", string).whereIn("DayofDeal", daytype)
                 docRef.get()
                     .addOnSuccessListener { documents ->
 
+                        Log.d("TA3G", documents.size().toString())
+
                         for (document in documents.documents) {
+                            pagnationsafety = false
                             val myObject =
                                 document.toObject(Pendingapproval::class.java)
+                            Log.d("TA3G", "grab more keys daddy")
 //
-                            Log.e("Object", myObject?.Title.toString())
-                            data.add(myObject!!)
+                            Log.e("Object", "Deal"+ (i+1).toString())
+                            if  (currenttimecheck == "yes" ||   specifictimecheck == "yes") {
+
+                                if (specifictime.toInt() >= myObject?.StartTimeNumber!! && specifictime.toInt() <= myObject?.EndTimeNumber!!) {
+                                    data.add(myObject!!)
+                                }
+                            }
+                            else{
+                                data.add(myObject!!)
+                                Log.d("TA3G", "added")
+                            }
                             if (i==0){
                                 val adapter = CustomAdapter(data, userlat, userlong)
                                 newRecyclerView.adapter = adapter
+                                Log.d("Tag","Gghghg")
                             }
                             else {
                                 val adapter = CustomAdapter(data, userlat, userlong)
@@ -613,9 +700,17 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                             i++
                             keysort()
                         }
+                        if (documents.size() == 0){
+                            i++
+                            keysort()
+                            pagnationsafety = true
+                            val adapter = CustomAdapter(data, userlat, userlong)
+                            newRecyclerView.adapter = adapter
+                        }
                     }
 
                     .addOnFailureListener { exception ->
+                        Log.d("TA1G", "grab more keys daddy")
                         Log.d("test", "get failed with ", exception)
                         i++
                         keysort()
@@ -627,109 +722,6 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
 
 
 
-//    private fun getdealswithpickabletime() {
-//
-//        Log.i("TAG","specific ran")
-//        Log.d("time", specifictime)
-//
-//        newRecyclerView = findViewById(R.id.recyclerviewfilter)
-//        newRecyclerView.layoutManager = LinearLayoutManager(this)
-//        newRecyclerView.setHasFixedSize(true)
-//
-//        val db = FirebaseFirestore.getInstance()
-//        val currentuser = FirebaseAuth.getInstance().currentUser!!
-//            .uid
-//
-//        var i = 0
-//        for (string in keys) {
-//            Log.i("TAG9", string)// or your logic to catch the "B"
-//
-//            Log.i("TAG", daytype.toString())
-//            val docRef = db.collection("Deals").whereEqualTo("uid",string).whereIn("DayofDeal",daytype)
-//            docRef.get()
-//                .addOnSuccessListener { documents ->
-//
-//                    for (document in documents.documents) {
-//                        val myObject =
-//                            document.toObject(Pendingapproval::class.java)
-//
-//                        Log.d("time", myObject?.StartTimeNumber.toString())
-//
-//                        if (myObject?.StartTimeNumber!! <= specifictime.toInt()&&myObject?.EndTimeNumber!! >= specifictime.toInt()) {
-//
-//                        data.add(myObject!!)
-//                        Log.d("TAG", data.size.toString())
-//
-//                    }
-//                }
-//                }
-//
-//
-//                .addOnFailureListener { exception ->
-//                    Log.d("test", "get failed with ", exception)
-//                }
-//
-////            //check loop completion and update adapter screen
-////            if(i == (keys.size)){
-////                val adapter = CustomAdapter(data,userlat,userlong)
-////                newRecyclerView.adapter = adapter
-////            }
-//
-//        }
-//
-//    }
-//
-//    private fun getdealswithcurrenttime() {
-//
-//        Log.d("currenttime", currenttime + "fcuk")
-//        newRecyclerView = findViewById(R.id.recyclerviewfilter)
-//        newRecyclerView.layoutManager = LinearLayoutManager(this)
-//        newRecyclerView.setHasFixedSize(true)
-//
-//        val db = FirebaseFirestore.getInstance()
-//        val currentuser = FirebaseAuth.getInstance().currentUser!!
-//            .uid
-//
-//        var i = 0
-//        for (string in keys) {
-//            Log.i("TAG9", string)// or your logic to catch the "B"
-//
-//            Log.i("TAG", daytype.toString())
-//            val docRef = db.collection("Deals").whereEqualTo("uid",string).whereIn("DayofDeal",daytype)
-//            docRef.get()
-//                .addOnSuccessListener { documents ->
-//
-//                    for (document in documents.documents) {
-//                        val myObject =
-//                            document.toObject(Pendingapproval::class.java)
-//
-//                        Log.d("time", myObject?.StartTimeNumber.toString())
-//
-//                        if (myObject?.StartTimeNumber!! < currenttime.toInt()&&myObject?.EndTimeNumber!! > currenttime.toInt()) {
-//
-//                            data.add(myObject!!)
-//                            Log.d("TAG", data.size.toString())
-////                            val adapter = CustomAdapter(data, userlat, userlong)
-////                            newRecyclerView.adapter = adapter
-//                        }
-//                    }
-//                }
-//
-//
-//                .addOnFailureListener { exception ->
-//                    Log.d("test", "get failed with ", exception)
-//                }
-//
-//            //check loop completion and update adapter screen
-//            i++
-//            if(i == (keys.size)){
-////                val adapter = CustomAdapter(data,userlat,userlong)
-////                newRecyclerView.adapter = adapter
-//            }
-//
-//        }
-//
-//    }
 
     private fun headerandbottom() {
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
@@ -739,6 +731,8 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
 //        leftIcon.setVisibility(View.INVISIBLE)
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Swipe Deals")
+            intent.putExtra("desc","*This is the best page in Deal Reveal. <3 \n\n * Here you can find specific deals by using the amazing filters. \n\n * You can filter Deals by Distance, Day, Category, and Time. \n\n * To apply your filters, press the black reveal button. \n\n * Press the deal image to see all the information about a returned deal.")
             startActivity(intent)
         }
         title.setText("Deal Reveal")

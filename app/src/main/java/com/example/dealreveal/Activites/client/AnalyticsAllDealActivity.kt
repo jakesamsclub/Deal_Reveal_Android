@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.PendingapprovalActivity
 import com.example.dealreveal.Activites.SavedViewHolder
-import com.example.dealreveal.Activites.shared.*
+import com.example.dealreveal.Activites.shared.DealAnalyticFormat
+import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.R
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -23,7 +24,6 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_admin_approve_clients.*
-import kotlinx.android.synthetic.main.analyticsalldealfilters.*
 import java.util.*
 
 class AnalyticsAllDealActivity : AppCompatActivity() {
@@ -162,10 +162,13 @@ class AnalyticsAllDealActivity : AppCompatActivity() {
         val title = findViewById<TextView>(R.id.info)
             leftIcon.isVisible = false
 
-        rightIcon.setOnClickListener {
-            val intent = Intent(this, HelpOverviewActivity::class.java)
-            startActivity(intent)
-        }
+            rightIcon.setOnClickListener {
+                val intent = Intent(this, HelpOverviewActivity::class.java)
+                intent.putExtra("page","Deal Analytics")
+                intent.putExtra("desc","* Here you can see all your deals analytics. Click a photo of the deal to see the break down of the deals analytics. \n\n * Analytics are broken down by month, you can update the month to see analytics on past deals. \n\n * You can use this to see which deals drive the most views to your deals/business. ")
+                startActivity(intent)
+            }
+
         title.setText("Deal Analytics")
 
         val bottomNavigationView: BottomNavigationView
@@ -234,7 +237,7 @@ class AnalyticsAllDealActivity : AppCompatActivity() {
 
                 tvheading.text = ""
                 title.text = model.Title
-                date.text = "Anayltics for " + filterdatesearch
+                date.text = "Deal analytics for " + filterdatesearch
 
                 Glide.with(this@AnalyticsAllDealActivity)
                     .load(model.Avatar)

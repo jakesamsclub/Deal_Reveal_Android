@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.dealreveal.Activites.admins.AdminhomeActivity
-import com.example.dealreveal.Activites.client.clientreviewfeedbackActivity
+import com.example.dealreveal.Activites.client.ClientCollectionDealActivity
 import com.example.dealreveal.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -112,8 +112,17 @@ class DealfeedbacktActivity : AppCompatActivity() {
         val submitfeedbackbutton = findViewById<Button>(R.id.submitfeedbackbutton)
         submitfeedbackbutton.setText("Submit Report")
         submitfeedbackbutton.setOnClickListener(){
+
             submitliarreport()
             }
+        val rightIcon = findViewById<ImageView>(R.id.right_icon)
+
+        rightIcon.setOnClickListener {
+            val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Deal Liar")
+            intent.putExtra("desc","* Here you can tell a deal reveal admin on why this deal is inaccurate. \n\n * A deal reveal admin will then look into this deal to see if it has to be removed. ")
+            startActivity(intent)
+        }
 
     }
 
@@ -167,6 +176,14 @@ class DealfeedbacktActivity : AppCompatActivity() {
                 finish()
             }
                 .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
+        }
+        val rightIcon = findViewById<ImageView>(R.id.right_icon)
+
+        rightIcon.setOnClickListener {
+            val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page","Business Recommendation")
+            intent.putExtra("desc","* Here you can tell a deal reveal admin on what business we should reach out to next to get signed up. \n\n * A deal reveal admin will then look into this business to see if we can get them on the application. ")
+            startActivity(intent)
         }
 
     }
@@ -233,15 +250,27 @@ class DealfeedbacktActivity : AppCompatActivity() {
         Dealtitle.setText(dealtitletext)
 
         val dealprice = findViewById<TextView>(R.id.dealprice)
-        dealprice.setText("Price: $"+dealpricetext)
+        dealprice.setText("Price: $" + dealpricetext)
 
         val dealfeedback = findViewById<TextView>(R.id.dealfeedback)
         dealfeedback.setHint("Please let the company know what you think of this deal :)")
 
         val submitfeedbackbutton = findViewById<Button>(R.id.submitfeedbackbutton)
         submitfeedbackbutton.setText("Submit Deal Review")
-        submitfeedbackbutton.setOnClickListener(){
+        submitfeedbackbutton.setOnClickListener() {
             submitdealfeedback()
+
+        }
+        val rightIcon = findViewById<ImageView>(R.id.right_icon)
+
+        rightIcon.setOnClickListener {
+            val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page", "Deal Review")
+            intent.putExtra(
+                "desc",
+                "* Here you can tell the business of what you think of this deal. \n\n * They will be able to see this feedback and apply the feedback to this deal or future deals. "
+            )
+            startActivity(intent)
         }
     }
 
@@ -278,6 +307,16 @@ class DealfeedbacktActivity : AppCompatActivity() {
         submitfeedbackbutton.setText("Delete Feedback")
         submitfeedbackbutton.setOnClickListener(){
             deletedealfeedback()
+        }
+        val rightIcon = findViewById<ImageView>(R.id.right_icon)
+        rightIcon.setOnClickListener {
+            val intent = Intent(this, HelpOverviewActivity::class.java)
+            intent.putExtra("page", "Feedback Review")
+            intent.putExtra(
+                "desc",
+                "* Here you can see the review that the normal user left. \n\n * Hopefully they were nice, this feedback may help you think of what new deals you want to post next. "
+            )
+            startActivity(intent)
         }
     }
 
@@ -363,6 +402,11 @@ class DealfeedbacktActivity : AppCompatActivity() {
                     "NumberGenerated",
                     "DocumentSnapshot successfully written!"
                 )
+                Toast.makeText(
+                    applicationContext,
+                    "Thank you for the Feedback!",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
 //        startActivity(Intent(applicationContext, Startscreen::class.java))
@@ -402,7 +446,7 @@ class DealfeedbacktActivity : AppCompatActivity() {
             }
 //            .addOnFailureListener { e -> Log.w("NumberGenerated", "Error writing document", e) }
 
-        startActivity(Intent(applicationContext, clientreviewfeedbackActivity::class.java))
+        startActivity(Intent(applicationContext, ClientCollectionDealActivity::class.java))
 
     }
 
