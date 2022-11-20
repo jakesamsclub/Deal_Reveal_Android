@@ -29,7 +29,7 @@
                 android:text="All"
                 app:backgroundTint="#FFFFFF"
                 android:textColor="@color/black"
-                android:textSize="11sp"
+                android:textSize="11dp"
                 />
 
             <Button
@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Foods"
-                android:textSize="10sp"
+                android:textSize="10dp"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"/>
 
@@ -50,7 +50,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Beverages"
-                android:textSize="10sp"
+                android:textSize="10dp"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"/>
 
@@ -61,7 +61,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Activitys"
-                android:textSize="10sp"
+                android:textSize="10dp"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white" />
 

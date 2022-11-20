@@ -19,7 +19,7 @@
         android:text="Business name"
         android:fontFamily="sans-serif-medium"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doubletap" />
 
@@ -32,7 +32,7 @@
         android:text="Business Point of Contact"
         android:fontFamily="sans-serif-medium"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editBusinessname" />
 
@@ -45,7 +45,7 @@
         android:text="Address"
         android:textColor="#000000"
         android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPOC" />
 
@@ -58,7 +58,7 @@
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatar" />

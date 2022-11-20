@@ -70,7 +70,7 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="Business Sign Up"
-        android:textSize="30sp"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Activites.shared.HelpReminderActivity">
 
-
     <include
         android:id="@+id/include"
         layout="@layout/toolbar" />
@@ -41,7 +40,7 @@
         android:layout_marginBottom="50dp"
         android:text="Continue Signing Up"
         android:background="@drawable/rounded_edge"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:backgroundTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +55,7 @@
         android:text="Help Reminder"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:textSize="100sp"
+        android:textSize="100dp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

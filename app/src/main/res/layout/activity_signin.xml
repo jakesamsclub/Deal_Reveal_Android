@@ -53,7 +53,7 @@
         android:gravity="center"
         android:text="Enter Confirmation Code"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.758"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
         android:gravity="center"
         android:text="Login with your phone Number"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -154,7 +154,7 @@
         android:gravity="center"
         android:text="User Login"
         android:textColor="#000000"
-        android:textSize="30sp"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />

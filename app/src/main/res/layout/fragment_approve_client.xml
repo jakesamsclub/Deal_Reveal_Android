@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Geeks for Geeks"
         android:textColor="#43a047"
-        android:textSize="40sp"
+        android:textSize="40dp"
         android:textStyle="italic|bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -27,7 +27,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:textSize="35sp"
+            android:textSize="35dp"
             android:fontFamily="sans-serif-medium"
             android:layout_marginRight="146dp"
             android:layout_toStartOf="@+id/right_icon"

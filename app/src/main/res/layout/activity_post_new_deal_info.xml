@@ -35,7 +35,7 @@
         android:text="50 characters remaining"
         android:gravity="center"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />

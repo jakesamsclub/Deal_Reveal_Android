@@ -21,7 +21,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="#000"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:ellipsize="end"
             android:maxLines="10"
             android:textColor="#000"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
         <ImageButton
             android:id="@+id/infoWindowButton"
