@@ -8,18 +8,86 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:465300085438:android:aaf380538f5b56addd5cef",
+        "mobilesdk_app_id": "1:465300085438:android:cc1b1d5dff85fb18dd5cef",
         "android_client_info": {
           "package_name": "com.cacheconsulting.dealreveal"
         }
       },
       "oauth_client": [
         {
-          "client_id": "465300085438-rv4vg57c7kf7pr9kt4g8v0ims823ujq6.apps.googleusercontent.com",
+          "client_id": "465300085438-2gskk7qf4jo9q6sliotaag4p5pj3q8ca.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.cacheconsulting.dealreveal",
-            "certificate_hash": "1de3ed58efd9f6c8ac2c29189662ec684b9fe9b8"
+            "certificate_hash": "793dd0c088107f6de58895a3d26faf91f1c098a5"
+          }
+        },
+        {
+          "client_id": "465300085438-dfbu75vsfjc3f1nri9j59cl5bk0v2tuu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC-lmosTAYtOgnSHLaC5kI7qjjrqweL3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465300085438-dfbu75vsfjc3f1nri9j59cl5bk0v2tuu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "465300085438-6eb9nrf4p80p3oo6scbsu3snjobhj575.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Puppeteer.Food-Swipe"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465300085438:android:aaf380538f5b56addd5cef",
+        "android_client_info": {
+          "package_name": "com.example.dealreveal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465300085438-0nnru5mell8232ittpeckjeh0jmiqsdm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dealreveal",
+            "certificate_hash": "9de375bf23bfaf39e0cbc9f1fb5d833bd5f66591"
+          }
+        },
+        {
+          "client_id": "465300085438-3rvo3gfima5kl321ivb8te61ipd88al3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dealreveal",
+            "certificate_hash": "b2b463be28d8640d6840c6f62ea7a1ee9a434751"
+          }
+        },
+        {
+          "client_id": "465300085438-ogjc3nuq498338mp70ql8a10hq619men.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dealreveal",
+            "certificate_hash": "0fe8ae87248d671a38909a1fedae503b9eee62ad"
+          }
+        },
+        {
+          "client_id": "465300085438-opmitof1gejfmua4lce5593cd96707j1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dealreveal",
+            "certificate_hash": "793dd0c088107f6de58895a3d26faf91f1c098a5"
           }
         },
         {

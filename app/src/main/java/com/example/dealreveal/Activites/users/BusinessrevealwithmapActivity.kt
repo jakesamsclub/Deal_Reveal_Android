@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_deal_revealfilter.*
+import kotlinx.android.synthetic.main.activity_update_business_info.view.*
 
 
 class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
@@ -54,7 +55,6 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
             = HashMap<Double, String> ()
     val data = ArrayList<Client>()
     val filtereddata = ArrayList<Client>()
-    var dealtype = "Food"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,81 +67,80 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        filterbuttonsetup()
         headerandbottom()
 //        getLocation()
         getrange()
     }
-        fun buttoncolorset(){
-            val Allcategory = findViewById<Button>(R.id.ALLcat)
-            val food = findViewById<Button>(R.id.Food)
-            val bev = findViewById<Button>(R.id.Beverages)
-            val act = findViewById<Button>(R.id.Activitys)
-
-            Allcategory.setBackgroundColor(Color.BLACK)
-            Allcategory.setTextColor(Color.WHITE)
-            food.setBackgroundColor(Color.BLACK)
-            food.setTextColor(Color.WHITE)
-            bev.setBackgroundColor(Color.BLACK)
-            bev.setTextColor(Color.WHITE)
-            act.setBackgroundColor(Color.BLACK)
-            act.setTextColor(Color.WHITE)
-        }
-     fun filterbuttonsetup(){
-         val Allcategory = findViewById<Button>(R.id.ALLcat)
-         val food = findViewById<Button>(R.id.Food)
-         val bev = findViewById<Button>(R.id.Beverages)
-         val act = findViewById<Button>(R.id.Activitys)
-
-         Allcategory.setOnClickListener {
-             buttoncolorset()
-             Allcategory.setBackgroundColor(Color.WHITE)
-             Allcategory.setTextColor(Color.BLACK)
-             dealtype = ""
-             Allcategory.isSelected = !Allcategory.isSelected
-             food.isSelected = false
-             bev.isSelected = false
-             act.isSelected = false
-             filtersClients()
-
-         }
-         food.setOnClickListener {
-             buttoncolorset()
-             food.setBackgroundColor(Color.WHITE)
-             food.setTextColor(Color.BLACK)
-             dealtype = "Food"
-             food.isSelected = !food.isSelected
-             Allcategory.isSelected = false
-             bev.isSelected = false
-             act.isSelected = false
-             filtersClients()
-         }
-
-         bev.setOnClickListener {
-             buttoncolorset()
-             bev.setBackgroundColor(Color.WHITE)
-             bev.setTextColor(Color.BLACK)
-             dealtype = "Beverage"
-             bev.isSelected = !bev.isSelected
-             Allcategory.isSelected = false
-             food.isSelected = false
-             act.isSelected = false
-             filtersClients()
-         }
-         act.setOnClickListener {
-             buttoncolorset()
-             act.setBackgroundColor(Color.WHITE)
-             act.setTextColor(Color.BLACK)
-             dealtype = "Entertainment"
-             act.isSelected = !act.isSelected
-             Allcategory.isSelected = false
-             bev.isSelected = false
-             food.isSelected = false
-             filtersClients()
-         }
-         //set initial button
-         Allcategory.isSelected = !Allcategory.isSelected
-     }
+//        fun buttoncolorset(){
+//            val Allcategory = findViewById<Button>(R.id.ALLcat)
+//            val food = findViewById<Button>(R.id.Food)
+//            val bev = findViewById<Button>(R.id.Beverages)
+//            val act = findViewById<Button>(R.id.Activitys)
+//
+//            Allcategory.setBackgroundColor(Color.BLACK)
+//            Allcategory.setTextColor(Color.WHITE)
+//            food.setBackgroundColor(Color.BLACK)
+//            food.setTextColor(Color.WHITE)
+//            bev.setBackgroundColor(Color.BLACK)
+//            bev.setTextColor(Color.WHITE)
+//            act.setBackgroundColor(Color.BLACK)
+//            act.setTextColor(Color.WHITE)
+//        }
+//     fun filterbuttonsetup(){
+//         val Allcategory = findViewById<Button>(R.id.ALLcat)
+//         val food = findViewById<Button>(R.id.Food)
+//         val bev = findViewById<Button>(R.id.Beverages)
+//         val act = findViewById<Button>(R.id.Activitys)
+//
+//         Allcategory.setOnClickListener {
+//             buttoncolorset()
+//             Allcategory.setBackgroundColor(Color.WHITE)
+//             Allcategory.setTextColor(Color.BLACK)
+//             dealtype = ""
+//             Allcategory.isSelected = !Allcategory.isSelected
+//             food.isSelected = false
+//             bev.isSelected = false
+//             act.isSelected = false
+//             filtersClients()
+//
+//         }
+//         food.setOnClickListener {
+//             buttoncolorset()
+//             food.setBackgroundColor(Color.WHITE)
+//             food.setTextColor(Color.BLACK)
+//             dealtype = "Food"
+//             food.isSelected = !food.isSelected
+//             Allcategory.isSelected = false
+//             bev.isSelected = false
+//             act.isSelected = false
+//             filtersClients()
+//         }
+//
+//         bev.setOnClickListener {
+//             buttoncolorset()
+//             bev.setBackgroundColor(Color.WHITE)
+//             bev.setTextColor(Color.BLACK)
+//             dealtype = "Beverage"
+//             bev.isSelected = !bev.isSelected
+//             Allcategory.isSelected = false
+//             food.isSelected = false
+//             act.isSelected = false
+//             filtersClients()
+//         }
+//         act.setOnClickListener {
+//             buttoncolorset()
+//             act.setBackgroundColor(Color.WHITE)
+//             act.setTextColor(Color.BLACK)
+//             dealtype = "Entertainment"
+//             act.isSelected = !act.isSelected
+//             Allcategory.isSelected = false
+//             bev.isSelected = false
+//             food.isSelected = false
+//             filtersClients()
+//         }
+//         //set initial button
+//         Allcategory.isSelected = !Allcategory.isSelected
+//     }
 
 //    private fun getLocation() {
 //        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -200,7 +199,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
 
                 val intent = Intent(this, DealCollectionViewActivity ::class.java)
                 intent.putExtra("Name", Name)
-                intent.putExtra("resid", residtrimmed.trim())
+                intent.putExtra("residtrimmed", residtrimmed.trim())
 
                 startActivity(intent)
 
@@ -405,39 +404,39 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         val adapter = Businessmapadapter(data, userlat, userlong)
         newRecyclerView.adapter = adapter
     }
-    fun filtersClients(){
-
-        filtereddata.clear()
-
-        if (dealtype == "Food"){
-            for (deal in data){
-                if (deal.Food >0){
-                    filtereddata.add(deal)
-                }
-            }
-        }
-        if (dealtype == "Beverage"){
-            for (deal in data){
-                if (deal.Beverage >0){
-                    filtereddata.add(deal)
-                }
-            }
-        }
-        if (dealtype == "Entertainment"){
-            for (deal in data){
-                if (deal.Entertainment >0){
-                    filtereddata.add(deal)
-                }
-            }
-        }
-        if (dealtype == ""){
-            for (deal in data){
-                    filtereddata.add(deal)
-            }
-        }
-        val adapter = Businessmapadapter(filtereddata, userlat, userlong)
-        newRecyclerView.adapter = adapter
-    }
+//    fun filtersClients(){
+//
+//        filtereddata.clear()
+//
+//        if (dealtype == "Food"){
+//            for (deal in data){
+//                if (deal.Food >0){
+//                    filtereddata.add(deal)
+//                }
+//            }
+//        }
+//        if (dealtype == "Beverage"){
+//            for (deal in data){
+//                if (deal.Beverage >0){
+//                    filtereddata.add(deal)
+//                }
+//            }
+//        }
+//        if (dealtype == "Entertainment"){
+//            for (deal in data){
+//                if (deal.Entertainment >0){
+//                    filtereddata.add(deal)
+//                }
+//            }
+//        }
+//        if (dealtype == ""){
+//            for (deal in data){
+//                    filtereddata.add(deal)
+//            }
+//        }
+//        val adapter = Businessmapadapter(filtereddata, userlat, userlong)
+//        newRecyclerView.adapter = adapter
+//    }
     private fun headerandbottom() {
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
@@ -449,7 +448,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         rightIcon.setOnClickListener {
             val intent = Intent(this, HelpOverviewActivity::class.java)
             intent.putExtra("page","Swipe Deals")
-            intent.putExtra("desc","*The Business Reveal page allows you to see business within 10 miles of your location \n\n * You are able to move your icon around the map to search for businesses in specfic locations. \n\n * You can use the filter in the middle of the screen to find businesses with only certain deals types. \n\n * After the businesses near your location load, you can filter the results and search for a specific buisness by using the seachbar at the top of the screen. \n\n * If you click a business flag on the map you can then click the more info button to see all of that businesses deals.")
+            intent.putExtra("desc","*The Business Reveal page allows you to see businesses within 10 miles of your location \n\n * You are able to move your icon around the map to search for businesses in specfic locations. \n\n * You can use the filter in the middle of the screen to find businesses with only certain deals types. \n\n * After the businesses near your location load, you can filter the results and search for a specific buisness by using the seachbar at the top of the screen. \n\n * If you click a business flag on the map you can then click the more info button to see all of that business's deals.")
             startActivity(intent)
         }
         title.setText("Business Reveal")
@@ -457,6 +456,7 @@ class BusinessrevealwithmapActivity : AppCompatActivity(), OnMapReadyCallback
         val bottomNavigationView: BottomNavigationView
         bottomNavigationView = findViewById<View>(R.id.bottomNav) as BottomNavigationView
         bottomNavigationView.selectedItemId = R.id.BusinesssReveal
+
 
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {

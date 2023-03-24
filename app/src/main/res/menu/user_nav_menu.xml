@@ -13,7 +13,7 @@
         android:icon="@drawable/search"
         />
     <item android:id="@+id/BusinesssReveal"
-        android:title="Business's"
+        android:title="Business Reveal"
         android:icon="@drawable/businessmap"
         />
     <item android:id="@+id/Settings"

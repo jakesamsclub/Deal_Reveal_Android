@@ -20,6 +20,13 @@ class UserSignUpActivity : AppCompatActivity() {
 
     }
     fun textandbuttonsetup(){
+        val signinbutton = findViewById<TextView>(R.id.button6)
+
+        signinbutton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
         val editTextTextPersonName = findViewById<TextView>(R.id.editTextTextPersonName)
         val email = findViewById<TextView>(R.id.editTextTextEmailAddress)
         val datePicker = findViewById<DatePicker>(R.id.datePickersignup)

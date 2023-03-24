@@ -17,6 +17,9 @@
         app:itemIconSize="24dp"
         app:elevation="2dp"
         app:menu="@menu/business_nav_menu"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
+
         />
 
 

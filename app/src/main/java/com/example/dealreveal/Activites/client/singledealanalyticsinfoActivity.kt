@@ -89,23 +89,23 @@ class singledealanalyticsinfoActivity : AppCompatActivity() {
         Address.setText(Addresscount.toString())
         val Feedback = findViewById<TextView>(R.id.Feedback)
         Feedback.setText(Feedbackcount.toString())
-        val Dealcost = findViewById<TextView>(R.id.Dealcost)
-        var totalcost = 0.0
-        totalcost = ((Viewless3 * 0.03)+(View3to20 * 0.01))
-        if (totalcost > 25.0){
-            totalcost = 25.0
-        }
-        val rounded = String.format("%.2f", totalcost)
-        Dealcost.setText("Current cost of this deal is: $"+ rounded.toString())
-        val Costbreakdown = findViewById<TextView>(R.id.Costbreakdown)
-        Costbreakdown.setText("See how cost is calculated here...")
-        Costbreakdown.setOnClickListener(){
-            val intent = Intent(this, HelpOverviewActivity::class.java)
-            intent.putExtra("page","Deal Analytics")
-            intent.putExtra("desc","*Pricing is based on cost per clicks and the users locations. \n\n *If a user is under 3 miles and see your deal it costs 3 cents. If they are between 3-20 miles it cost 1 cent. If they are over 20 miles it is free. \n\n *A individual deal will never cost more than 25 dollars. The only reason we incorpate the cost per clicks is to make sure that you only pay when a deal posting is successful. \n\n * A users view is only counted once a hour. if a user view your deals 5 times in a row within the same hour it only is counted as one view. If they view your deal once every hour for 5 hours, then your deal will have 5 views counted.")
-            startActivity(intent)
-        }
-        Costbreakdown.setTextColor((Color.BLUE))
+//        val Dealcost = findViewById<TextView>(R.id.Dealcost)
+//        var totalcost = 0.0
+//        totalcost = ((Viewless3 * 0.03)+(View3to20 * 0.01))
+//        if (totalcost > 25.0){
+//            totalcost = 25.0
+//        }
+//        val rounded = String.format("%.2f", totalcost)
+//        Dealcost.setText("Current cost of this deal is: $"+ rounded.toString())
+//        val Costbreakdown = findViewById<TextView>(R.id.Costbreakdown)
+//        Costbreakdown.setText("See how cost is calculated here...")
+//        Costbreakdown.setOnClickListener(){
+//            val intent = Intent(this, HelpOverviewActivity::class.java)
+//            intent.putExtra("page","Deal Analytics")
+//            intent.putExtra("desc","*Pricing is based on cost per clicks and the users locations. \n\n *If a user is under 3 miles and see your deal it costs 3 cents. If they are between 3-20 miles it cost 1 cent. If they are over 20 miles it is free. \n\n *A individual deal will never cost more than 25 dollars. The only reason we incorpate the cost per clicks is to make sure that you only pay when a deal posting is successful. \n\n * A users view is only counted once a hour. if a user view your deals 5 times in a row within the same hour it only is counted as one view. If they view your deal once every hour for 5 hours, then your deal will have 5 views counted.")
+//            startActivity(intent)
+//        }
+//        Costbreakdown.setTextColor((Color.BLUE))
 
     }
 

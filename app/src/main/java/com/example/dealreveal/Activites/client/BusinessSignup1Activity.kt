@@ -33,15 +33,16 @@ class BusinessSignup1Activity : AppCompatActivity() {
 
         val Signin = findViewById<Button>(R.id.button15)
         Signin.setOnClickListener{
-            val helpid = "user"
-            val intent = Intent(this, HelpReminderActivity::class.java)
-            intent.putExtra("HELPID",helpid)
+
+            val intent = Intent(this, BusinessSigninActivity::class.java)
+
             startActivity(intent)
         }
 
         val BusinessName = findViewById<TextView>(R.id.editTextTextPersonName2)
         val Address = findViewById<TextView>(R.id.editTextTextPostalAddress)
         val Pointofcontact = findViewById<TextView>(R.id.editTextTextPersonName3)
+        val Phonenumber = findViewById<TextView>(R.id.editphonenumber)
 
         val nextbutton = findViewById<Button>(R.id.button14)
         nextbutton.setOnClickListener{
@@ -49,6 +50,7 @@ class BusinessSignup1Activity : AppCompatActivity() {
             var sendBusinessName = BusinessName.text.toString()
             var sendAddress = Address.text.toString()
             var sendPointofcontact = Pointofcontact.text.toString()
+            var sendPhonenumber = Phonenumber.text.toString()
 
             if (sendBusinessName.isEmpty()) {
                 println("Name is empty.")
@@ -64,11 +66,16 @@ class BusinessSignup1Activity : AppCompatActivity() {
                 println("Point of contact field is empty.")
                 Toast.makeText(applicationContext, "Email is empty.", Toast.LENGTH_LONG).show()
                 return@setOnClickListener}
+            if (sendPhonenumber.isEmpty()) {
+                println("Phone number field is empty.")
+                Toast.makeText(applicationContext, "Email is empty.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener}
 
-            val intent = Intent(this, BusinessSignup2Activity::class.java)
+            val intent = Intent(this, BusinessSignup3Activity::class.java)
             intent.putExtra("BusinessName",sendBusinessName)
             intent.putExtra("Address",sendAddress)
             intent.putExtra("Pointofcontact",sendPointofcontact)
+            intent.putExtra("Phonenumber",sendPhonenumber)
             startActivity(intent)
         }
     }

@@ -164,7 +164,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         ArrayAdapter.createFromResource(
             this,
             R.array.distances,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -178,7 +178,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         ArrayAdapter.createFromResource(
             this,
             R.array.days,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -192,7 +192,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         ArrayAdapter.createFromResource(
             this,
             R.array.Category,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -204,7 +204,7 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
         ArrayAdapter.createFromResource(
             this,
             R.array.Time,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -524,17 +524,31 @@ class DealRevealfilterActivity : AppCompatActivity(), LocationListener {
                         for (document in documents.documents) {
                             val myObject =
                                 document.toObject(Pendingapproval::class.java)
+                            var found = true
 
                             Log.e("Object", myObject?.Title.toString())
 
-                            if  (currenttimecheck == "yes" ||   specifictimecheck == "yes") {
-
-                                if (specifictime.toInt() >= myObject?.StartTimeNumber!! && specifictime.toInt() <= myObject?.EndTimeNumber!!) {
-                                    data.add(myObject!!)
+                            for (n in data) {
+                                if (n == myObject!!) {
+                                    found = true
+                                    break
                                 }
                             }
-                            else{
-                                data.add(myObject!!)
+
+                            if (found)
+                                println("$myObject is found.")
+                            else {
+                                println("$myObject is not found.")
+
+
+                                if (currenttimecheck == "yes" || specifictimecheck == "yes") {
+
+                                    if (specifictime.toInt() >= myObject?.StartTimeNumber!! && specifictime.toInt() <= myObject?.EndTimeNumber!!) {
+                                        data.add(myObject!!)
+                                    }
+                                } else {
+                                    data.add(myObject!!)
+                                }
                             }
 
 

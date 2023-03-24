@@ -185,7 +185,7 @@ class FinalBusinessSignupActivity : AppCompatActivity() {
 
             )
 
-        db.collection("Possibleclient").document(id)
+        db.collection("Possible-Clients").document(id)
             .set(possible)
             .addOnSuccessListener {
                 Log.d(

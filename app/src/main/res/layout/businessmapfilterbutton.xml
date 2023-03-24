@@ -13,12 +13,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true">
 
-        <TextView
-            android:id="@+id/textView59"
-            android:layout_width="0dp"
-            android:layout_height="11dp"
-            android:layout_weight="1"
-            android:text="TextView" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,22 +23,29 @@
                 android:id="@+id/ALLcat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight=".5"
                 android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
                 app:backgroundTint="#FFFFFF"
-                android:text="All Types"
+                android:text="          All                  "
+                android:maxLines="1"
                 android:textColor="@color/black"
-                android:textSize="10dp"
+
                 />
 
             <Button
                 android:id="@+id/Food"
-                android:text="Foods"
-                android:textSize="10dp"
+                android:text="       Food                 "
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight=".5"
                 android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"
                 />
@@ -52,23 +53,29 @@
 
             <Button
                 android:id="@+id/Beverages"
+                android:text="Beverage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight=".5"
                 android:gravity="center"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"
-                android:text="Beverages"
-                android:textSize="10dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 />
 
             <Button
                 android:id="@+id/Activitys"
-                android:text="Activitys"
-                android:textSize="10dp"
+                android:text="   Activity           "
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight=".5"
                 android:gravity="center"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"/>

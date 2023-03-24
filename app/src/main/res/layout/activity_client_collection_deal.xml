@@ -57,7 +57,7 @@
 
     <include
         android:id="@+id/cat"
-        layout="@layout/catfilters"
+        layout="@layout/businessmapfilterbutton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
@@ -87,7 +87,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/business_nav_menu" />
+        app:menu="@menu/business_nav_menu"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
+        />
 
 
 

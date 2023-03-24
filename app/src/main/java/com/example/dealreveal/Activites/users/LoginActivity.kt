@@ -51,8 +51,10 @@ class LoginActivity : AppCompatActivity() {
             val docRef = db.collection("users").whereEqualTo("Phone",cleanedupnumber).get()
                 .addOnSuccessListener { documents ->
                     if (documents.documents.size == 0){
-                        Toast.makeText(applicationContext, "No account is associate with this number, please create a new account.", Toast.LENGTH_LONG)
+                        Toast.makeText(applicationContext, "No account is associate with this number, please create a account.", Toast.LENGTH_LONG)
                             .show()
+                        val intent = Intent(this, UserSignUpActivity::class.java)
+                        startActivity(intent)
                     }else{
                         login()
                     }
@@ -100,8 +102,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
-                Log.i("NumberGenerated", "failed")
+                Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()
+                Log.i("NumberGenerated", e.toString())
             }
 
             override fun onCodeSent(
@@ -139,7 +141,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
+            .addOnCompleteListener(this@LoginActivity) { task ->
                 if (task.isSuccessful) {
 
                     startActivity(Intent(applicationContext, DealRevealfilterActivity::class.java))
@@ -172,7 +174,7 @@ class LoginActivity : AppCompatActivity() {
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(number as String) // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-            .setActivity(this) // Activity (for callback binding)
+            .setActivity(this@LoginActivity) // Activity (for callback binding)
             .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)

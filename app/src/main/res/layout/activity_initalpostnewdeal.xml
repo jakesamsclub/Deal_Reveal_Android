@@ -23,9 +23,9 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="sans-serif-medium"
-        android:text="1. Add a photo that best represents your deal.\n\n2. Add the proper information of your deal. \n\n3. Review your deal and make sure all the information is correct. \n\n 4. Your deal will be sent to a Deal Reveal admin, it will be approved or rejected within 24 hours."
+        android:text="1. Add a photo that best represents your deal (Double tap logo below).\n\n2. Add the proper information of your deal. \n\n3. Review your deal and make sure all the information is correct. \n\n 4. Your deal will be sent to a Deal Reveal admin, it will be approved or rejected within 24 hours."
         android:textColor="#000000"
-        android:textSize="17dp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
@@ -91,6 +91,8 @@
         app:elevation="2dp"
         app:itemBackground="@android:color/white"
         app:itemIconSize="24dp"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/business_nav_menu" />
 

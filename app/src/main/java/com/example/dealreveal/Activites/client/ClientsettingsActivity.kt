@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.dealreveal.Activites.PendingapprovalActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
@@ -144,6 +145,7 @@ class ClientsettingsActivity : AppCompatActivity() {
         val leftIcon = findViewById<ImageView>(R.id.left_icon)
         val rightIcon = findViewById<ImageView>(R.id.right_icon)
         val title = findViewById<TextView>(R.id.info)
+        leftIcon.isVisible = false
 
 //        leftIcon.setVisibility(View.INVISIBLE)
         rightIcon.setOnClickListener {

@@ -29,7 +29,10 @@
                 android:text="All"
                 app:backgroundTint="#FFFFFF"
                 android:textColor="@color/black"
-                android:textSize="8dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 />
 
             <Button
@@ -41,7 +44,10 @@
                 android:text="MON"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"
-                android:textSize="6dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:maxLines="1"
+                android:autoSizeMaxTextSize="10dp"
                 />
 
             <Button
@@ -53,7 +59,10 @@
                 android:text="TUE"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"
-                android:textSize="6dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 />
 
             <Button
@@ -65,7 +74,10 @@
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="WED"
-                android:textSize="6dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                />
 
             <Button
@@ -75,9 +87,12 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="THU"
-                android:textSize="6dp"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 />
 
             <Button
@@ -87,9 +102,13 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="FRI"
-                android:textSize="6dp"
                 app:backgroundTint="#050505"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
+                />
 
             <Button
                 android:id="@+id/SAT"
@@ -98,9 +117,12 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="SAT"
-                android:textSize="6dp"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 />
 
             <Button
@@ -110,9 +132,12 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="SUN"
-                android:textSize="6dp"
                 app:backgroundTint="#050505"
                 android:textColor="@color/white"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="3dp"
+                android:autoSizeMaxTextSize="10dp"
+                android:maxLines="1"
                 />
         </LinearLayout>
 

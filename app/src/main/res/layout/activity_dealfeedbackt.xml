@@ -98,14 +98,15 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:layout_toRightOf="@+id/ratedeal"
         android:numStars="5"
-        android:stepSize="1"
         android:progressTint="@color/black"
         android:secondaryProgressTint="@android:color/transparent"
+        android:stepSize="1"
         android:theme="@style/Widget.AppCompat.RatingBar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ratedeal"
         app:layout_constraintTop_toBottomOf="@+id/dealprice" />
 
@@ -113,17 +114,19 @@
         android:id="@+id/dealfeedback"
         android:layout_width="368dp"
         android:layout_height="125dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:gravity="start|top"
-        android:background="@drawable/edit_text_border"
-        android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rBar" />
+        app:layout_constraintTop_toBottomOf="@+id/rBar"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/submitfeedbackbutton"

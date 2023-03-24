@@ -33,7 +33,10 @@
         app:itemBackground="@android:color/white"
         app:itemIconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/user_nav_menu" />
+        app:menu="@menu/user_nav_menu"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
