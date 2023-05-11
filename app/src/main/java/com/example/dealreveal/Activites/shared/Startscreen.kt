@@ -145,7 +145,11 @@ class Startscreen : AppCompatActivity(), LocationListener {
 
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                val intent = Intent(this, LoginActivity::class.java)
+//                val intent = Intent(this, LoginActivity::class.java)
+//                startActivity(intent)
+                val helpid = "user"
+                val intent = Intent(this, HelpReminderActivity::class.java)
+                intent.putExtra("HELPID",helpid)
                 startActivity(intent)
             } else {
                 checklocation()

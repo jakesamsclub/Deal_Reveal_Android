@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.akexorcist.screenshotdetection.ScreenshotDetectionDelegate
 import com.bumptech.glide.Glide
+import com.example.dealreveal.Activites.DealCollectionViewActivity
 import com.example.dealreveal.Activites.shared.DealfeedbacktActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.service.AlarmService
@@ -693,7 +694,12 @@ class DealRevealUserActivity : AppCompatActivity(), ScreenshotDetectionDelegate.
             val Companybutton = findViewById<TextView>(R.id.`company`)
             Companybutton.setText(RestaurantName)
             val distancetitle = findViewById<TextView>(R.id.distance)
-
+        Companybutton.setOnClickListener() {
+            val intent = Intent(this, DealCollectionViewActivity::class.java)
+            intent.putExtra("Name", RestaurantName)
+            intent.putExtra("residtrimmed", resid)
+        }
+        startActivity(intent)
             //Extra Info
             val extraheadertitle = findViewById<TextView>(R.id.extratitle)
             extraheadertitle.setPaintFlags(extraheadertitle.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)

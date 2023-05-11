@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.dealreveal.Activites.client.DealRevealActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.users.DealRevealUserActivity
 import com.example.dealreveal.R
 import com.google.android.material.imageview.ShapeableImageView
 
-class collectionviewadapter(private val mList: List<Pendingapproval>) : RecyclerView.Adapter<collectionviewadapter.ViewHolder>() {
+class clientcollectionviewadapter(private val mList: List<Pendingapproval>) : RecyclerView.Adapter<clientcollectionviewadapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -74,7 +75,7 @@ class collectionviewadapter(private val mList: List<Pendingapproval>) : Recycler
             var Insta = ItemsViewModel.Insta
 
 
-            val intent = Intent(holder.itemView.context, DealRevealUserActivity::class.java)
+            val intent = Intent(holder.itemView.context, DealRevealActivity::class.java)
             intent.putExtra("Address", Address)
             intent.putExtra("CompanyURL", CompanyURL)
             intent.putExtra("DayofDeal", DayofDeal)

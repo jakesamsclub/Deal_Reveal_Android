@@ -33,7 +33,7 @@ class Swipeadapter(context: Context, resourceId: Int, deals: List<Pendingapprova
         Title.text = deal!!.Title
 
         //priceset
-        Price.text = "$"+deal.price
+        Price.text = deal.RestaurantName
 
         val titleImage: ShapeableImageView = convertView.findViewById(R.id.title_imageswipe)
         Glide.with(convertView.getContext())

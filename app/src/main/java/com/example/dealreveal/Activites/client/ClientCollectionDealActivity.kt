@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealreveal.Activites.PendingapprovalActivity
+import com.example.dealreveal.Activites.clientcollectionviewadapter
 import com.example.dealreveal.Activites.collectionviewadapter
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
@@ -424,7 +425,7 @@ class ClientCollectionDealActivity : AppCompatActivity() {
                     lat = myObject.latitude
                     long = myObject.longitude
 
-                    val adapter = collectionviewadapter(data)
+                    val adapter = clientcollectionviewadapter(data)
                     newRecyclerView.adapter = adapter
                 }
                 headerandbottom()
@@ -468,7 +469,7 @@ class ClientCollectionDealActivity : AppCompatActivity() {
             }
         }
 
-        val adapter = collectionviewadapter(filtereddata)
+        val adapter = clientcollectionviewadapter(filtereddata)
         newRecyclerView.adapter = adapter
     }
 

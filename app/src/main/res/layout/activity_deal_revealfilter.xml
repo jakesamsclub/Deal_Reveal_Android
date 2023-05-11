@@ -68,19 +68,19 @@
     <Button
         android:id="@+id/filterbutton"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_marginStart="75dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="75dp"
         android:background="@drawable/rounded_edge"
         android:fontFamily="@font/asapsemibold"
         android:gravity="center"
+        android:text="Reveal!"
         android:textColor="#FFFFFF"
         app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Reveal!"
         app:layout_constraintTop_toBottomOf="@+id/timefilterdealrevealfilter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

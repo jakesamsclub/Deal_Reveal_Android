@@ -58,7 +58,7 @@ class CustomAdapter(private val mList: List<Pendingapproval>, private val lat: S
 
 
         //priceset
-        holder.Price.text = "$"+ItemsViewModel.price
+        holder.Price.text = ItemsViewModel.RestaurantName
 
         holder.itemView.setOnClickListener {
             Log.i("test", "im a god")

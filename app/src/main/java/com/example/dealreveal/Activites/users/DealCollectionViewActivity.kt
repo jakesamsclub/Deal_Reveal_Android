@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dealreveal.Activites.client.Client
+import com.example.dealreveal.Activites.client.clientreviewfeedbackActivity
 import com.example.dealreveal.Activites.shared.HelpOverviewActivity
 import com.example.dealreveal.Activites.shared.Pendingapproval
 import com.example.dealreveal.Activites.shared.userlat
@@ -68,8 +69,14 @@ class DealCollectionViewActivity : AppCompatActivity() {
         headerandbottom()
         daybuttonsetup()
         Catsetup()
+        Feedbackondealsetup()
 
     }
+    private fun Feedbackondealsetup(){
+        val dealreviews = findViewById<Button>(R.id.ALL)
+        dealreviews.isVisible = false
+    }
+
     fun getpasseddata(){
         val intent = intent
         Name = intent.getStringExtra("Name").toString()
@@ -492,7 +499,7 @@ class DealCollectionViewActivity : AppCompatActivity() {
             }
         }
 
-        val adapter = collectionviewadapter(filtereddata)
+        val adapter = clientcollectionviewadapter(filtereddata)
         newRecyclerView.adapter = adapter
     }
 

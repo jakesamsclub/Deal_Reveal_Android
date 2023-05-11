@@ -9,68 +9,71 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent">
+        tools:layout_editor_absoluteX="-106dp"
+        tools:layout_editor_absoluteY="-16dp">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/toolbar" />
-
-        <TextView
-            android:id="@+id/pagetitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:fontFamily="@font/asapsemibold"
-            android:text="Page Title"
-            android:textColor="#000000"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
-
-
-    <EditText
-        android:id="@+id/helptext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/edit_text_border"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="none"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView47"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pagetitle"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
-        <TextView
-            android:id="@+id/textView47"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="#DCDCDC"
-            android:gravity="center"
-            android:text="Still Have Questions?\nContact Jakedealreveal@gmail.com"
-            android:textColor="#000000"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                android:id="@+id/include"
+                layout="@layout/toolbar" />
+
+            <TextView
+                android:id="@+id/pagetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/asapsemibold"
+                android:text="Page Title"
+                android:textColor="#000000"
+                android:textSize="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+            <EditText
+                android:id="@+id/helptext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/edit_text_border"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="none"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView47"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pagetitle"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="20dp"
+                android:background="#DCDCDC"
+                android:gravity="center"
+                android:text="Still Have Questions?\nContact Jake@dealreveal.org"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

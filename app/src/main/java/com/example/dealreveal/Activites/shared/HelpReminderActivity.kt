@@ -15,7 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dealreveal.Activites.client.BusinessSignup1Activity
-import com.example.dealreveal.Activites.users.UserSignUpActivity
+import com.example.dealreveal.Activites.users.UserjourneyActivity
 import com.example.dealreveal.R
 
 
@@ -74,7 +74,7 @@ class HelpReminderActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
             if (HelpID == "user"){
-                val intent = Intent(this, UserSignUpActivity::class.java)
+                val intent = Intent(this, UserjourneyActivity::class.java)
                 startActivity(intent)
             }
             if (HelpID == "Business"){
